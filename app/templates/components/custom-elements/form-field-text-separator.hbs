@@ -1,0 +1,11 @@
+{{#if (eq textElement 'h2')}}
+  <h2>{{text}}</h2>
+{{else if (eq textElement 'h3')}}
+  <h3>{{text}}</h3>
+{{else if (eq textElement 'h4')}}
+  <h4>{{text}}</h4>
+{{else if (eq textElement 'p')}}
+  <p>{{text}}</p>
+{{else}}
+  {{text}}
+{{/if}}

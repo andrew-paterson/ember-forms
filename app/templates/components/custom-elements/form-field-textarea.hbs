@@ -1,0 +1,21 @@
+<label class="{{unless showLabel 'placeholder'}}">{{label}}</label>
+<div class="input-container">
+  {{textarea
+    placeholder=label
+    value=value
+    focusOut=(action 'onFocusOut')
+    focusIn=(action 'onFocusIn')
+    keyUp=(action 'onKeyUp')
+    autofocus=autofocus
+    type=type
+    readonly=readonly
+    disabled=disabled
+    usePlaceholder=usePlaceholder
+    hideValidationSuccess=hideValidationSuccess
+  }}
+{{component inputIcon class='form-field-icon'}}
+</div>
+{{#if error}}
+  <div class='field-error'>{{svg/icon-curved-arrow-right}}{{error}}</div>
+{{/if}}
+{{yield}}

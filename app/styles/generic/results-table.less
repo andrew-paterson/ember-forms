@@ -1,0 +1,153 @@
+  div.results-table {
+    float: left;
+    background: @job-results-active-sample-background-color;
+
+    div.thead {
+      background: @app-colour-shade-one;
+      float: left;
+      width: 100%;
+      border: 1px solid @app-colour-shade-two;
+      box-sizing: border-box;
+    }
+
+    div.tbody {
+      border: 1px solid @sample-specific-tbody-border-color;
+      border-top-width: 0;
+      float: left;
+      background: @job-results-sample-list-background-color;
+    }
+
+    // Header cells
+    div.th {
+      float: left;
+      padding: 10px 10px;
+      text-transform: uppercase;
+      color: #fff;
+      height: 34px;
+    }
+
+    div.th.report {
+      .box-shadow-left;
+      border-left: 1px solid @app-colour-shade-two;
+    }
+
+    div.th b {
+      margin-top: 6px;
+      margin-left: 5px;
+      display: block;
+      float: left;
+    }
+
+    div.th.sample-id {
+      width: 225px;
+      span.sample-search-icon {
+        margin: 6px 2px 0 0;
+        width: 24px;
+        height: 24px;
+        display: block;
+        float: right;
+        border-radius: @input-border-radius;
+        -moz-border-radius: @input-border-radius;
+        -webkit-border-radius: @input-border-radius;
+        fill: #fff;
+      }
+
+      span.sample-search-icon div.svg.cross {
+        width: 20px;
+        height: 20px;
+        margin-top: 2px;
+      }
+
+      span.sample-search-icon:hover {
+        cursor: pointer;
+      }
+
+      input.sample-search-box {
+        margin-bottom: 0;
+        width: 185px;
+        height: 34px;
+      }
+    }
+
+    /*---Patient list---*/
+    div.tbody div.sample-ids-container {
+      float: left;
+      position: relative;
+    }
+
+    div.tbody div.sample-ids-inner {
+      width: 245px;
+      float: left;
+      overflow: visible;
+      height: 1115px;
+      border-right: 1px solid #ccc;
+    }
+
+    .sample-ids-container .ps-scrollbar-y-rail {
+      left: 2px !important;
+      right: inherit !important;
+      opacity: 0.6;
+      z-index: 2;
+    }
+
+    div.td.sample-id {
+      float: left;
+    }
+
+    div.td.sample-id a {
+      width: 210px;
+      display: block;
+      padding: 10px 15px 10px 20px;
+      border-bottom: 1px solid #bbb;
+      float: left;
+      color: #777;
+      white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        border-right: 0px solid @sample-specific-tbody-border-color;
+    }
+
+    div.td.sample-id a:hover {
+      cursor: pointer;
+      background: #ddd;
+      text-decoration: none;
+    }
+
+    div.td.sample-id a.active,
+    div.td.sample-id a.active:hover {
+      background: @job-results-active-sample-background-color;
+      font-weight: 600;
+      color: @app-colour-shade-three;
+      cursor: default;
+      width: 216px;
+      position: relative;
+      z-index: 1;
+      border-right-width: 0;
+      -webkit-box-shadow: -4px 4px 6px 0px rgba(0, 0, 0, 0.12);
+        -moz-box-shadow: -4px 4px 6px 0px rgba(0, 0, 0, 0.12);
+        box-shadow: -4px 4px 6px 0px rgba(0, 0, 0, 0.12);
+    }
+
+    div.sample-ids-container.ps-container>.ps-scrollbar-y-rail>.ps-scrollbar-y {
+      right: inherit;
+      left: 2px;
+    }
+
+    /*---Report block---*/
+    div.report-block {
+      padding: 15px;
+      width: 661px;
+      float: left;
+      .box-shadow-left;
+      position: relative;
+      background: @job-results-active-sample-background-color;
+    }
+
+    div.report-block-inner {
+      float: left;
+    }
+
+    div.resistance-report {
+      min-height: 1043px;
+    }
+  }

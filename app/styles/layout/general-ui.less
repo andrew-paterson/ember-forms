@@ -1,0 +1,155 @@
+html {
+	padding: 0;
+	margin: 0;
+}
+
+body {
+	background: @body-background-color @body-background-image @body-background-repeat @body-background-position;
+	background-size: 150px;
+	margin: 0;
+	padding: 0 0 @body-padding-bottom 0;
+	font-size: 62.5%;
+	color: @body-color;
+	line-height: inherit;
+	font-family: @main-font-family;
+
+}
+
+div.wrapper  {
+	margin-top: @header-height;
+	box-sizing: border-box;
+}
+
+header {
+	background-color: @header-background-color;
+	height: @header-height;
+	position: fixed;
+	top: 0;
+	z-index: @header-z-index;
+	.box-shadow-bottom;
+	box-sizing: border-box;
+	width: 100%;
+}
+
+/*-------------------
+MAIN SITE LOGO STYLES
+-------------------*/
+
+div.logo-container {
+	width: @sidebar-expanded-width;
+	box-sizing: border-box;
+	padding: 10px;
+	float: left;
+	background-color: #fafafa;
+	/*box-shadow: @right-box-shadow;*/
+
+}
+div.logo-container div.svg,
+div.logo-container svg  {
+	height: @header-height - 2*@header-padding-vertical;
+	width: auto;
+	float: left;
+}
+
+div.logo-container a {
+	display: block;
+}
+div.logo-container a:link,
+div.logo-container a:visited,
+div.logo-container a:hover {
+	text-decoration: none;
+}
+
+div.logo-container img {
+	width: 100%;
+	height: auto;
+}
+
+/*-----------------------------------------------------------------------
+MAIN CONTENT STRIP STYLE OVERRIDES
+-----------------------------------------------------------------------*/
+
+div#main-content-strip div.container-2 {
+	box-sizing: border-box;
+	max-width: @pc-content-container-max-width;
+	padding: @pc-main-content-box-outer-padding-top @pc-page-gutter-left-right @pc-main-content-box-outer-padding-bottom;
+}
+
+.body-content {
+	padding: @pc-body-content-padding-top @pc-body-content-padding-left-right @pc-body-content-padding-bottom;
+}
+
+/*---Fix footer to bottom of screen if content doesn't reach the bottom---*/
+
+html,
+body,
+body > div.ember-view {
+  height: 100%;
+}
+
+.wrapper  {
+  min-height: 100%;
+  margin-bottom: -1*@footer-height;
+}
+
+.wrapper:after {
+  content: "";
+  display: block;
+}
+
+footer, .wrapper:after {
+  height: 18px;
+  padding-top: (@footer-height - 18px)/2;
+  padding-bottom: (@footer-height - 18px)/2;
+}
+
+/*---Style the footer and contents---*/
+
+footer {
+	box-sizing: border-box;
+	background: @footer-background-colour;
+	padding: 12px 0;
+	width: 100% !important;
+	height: @footer-height;
+}
+
+footer .container-2 {
+	padding-top: 0;
+	padding-bottom: 0;
+}
+
+footer ul {
+	font-size: 1em;
+	margin: 0;
+	padding: 0px 0;
+}
+
+footer ul li {
+	list-style: none;
+	text-align: center;
+	color: @footer-info-color;
+	font-style: @footer-info-font-style;
+	font-weight: @footer-info-font-weight;
+	font-family: @footer-info-font-family;
+	text-transform: @footer-info-text-transform;
+	font-size: @footer-info-font-size;
+	float: left;
+	margin-right: 15px;
+}
+
+footer ul li a {
+	color: @footer-info-link-color;
+	text-decoration: @footer-info-link-text-decoration;
+	font-weight: 300;
+}
+
+footer ul li a:hover {
+	color: @footer-info-link-hover-color;
+	text-decoration: @footer-info-link-hover-text-decoration;
+}
+
+div.centred-logo-vertical {
+	max-width: 240px;
+	margin: 0 auto;
+	margin-top: 30px;
+}

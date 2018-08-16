@@ -1,0 +1,52 @@
+div.pop-up-box {
+	width: 100%;
+  // max-width: 340px;
+  padding: 15px;
+  background: #fff;
+  .box-shadow-bottom-right;
+  border: 1px solid #bbb;
+  border-radius: @button-border-radius;
+  -moz-border-radius: @button-border-radius;
+  -webkit-border-radius: @button-border-radius;
+  margin: 10px 0;
+}
+
+div.pop-up-box.closed {
+	display: none;
+}
+
+div.pop-up-box.open {
+	display: block;
+}
+
+div.red.pop-up-box {
+	border-color: @error-background-color;
+}
+
+div.green.pop-up-box {
+	border-color: @success-background-color;
+}
+
+div.close-button {
+	width: 24px;
+	height: 24px;
+	border-radius: 30px;
+}
+div.close-button svg {
+	max-height: 13px;
+	fill: #bbb;
+	margin-top: 6px;
+}
+
+div.close-button:hover {
+	cursor: pointer;
+	background: #bbb;
+}
+div.close-button:hover svg {
+	fill: #fff;
+}
+
+div.pop-up-box div.close-button {
+	float: right;
+	margin: -10px -10px  0 0;
+}

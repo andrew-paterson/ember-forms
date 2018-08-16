@@ -1,0 +1,10 @@
+{{#if title}}<h4>{{title}}</h4>{{/if}}
+{{#each optionsObject as | option | }}
+  {{custom-elements/checkbox-element
+    label=option.label
+    changedAction=changedAction
+    property=option.boundPropertyName
+    value=option.boundProperty
+  }}
+{{/each}}
+<div class="clr"></div>

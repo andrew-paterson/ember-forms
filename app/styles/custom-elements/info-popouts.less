@@ -1,0 +1,47 @@
+.info-popout {
+	.info-toggler {
+		height: 26px;
+		width: 26px;
+		.border-radius(5px);
+		background: #bbb;
+		display: block;
+		float: left;
+		margin-right: 10px;
+		margin-top: 2px;
+		position: relative;
+		z-index: @info-popouts-z-index;
+	}
+
+	.info-toggler:hover,
+	.info-toggler.open {
+		background-color: @app-colour-shade-three;
+		cursor: pointer;
+
+	}
+
+	.info-toggler.open {
+		margin-top: -11px;
+	}
+
+	.info-toggler svg {
+		margin-top: 3px;
+		height: 20px;
+		width: 100%;
+		display: block;
+		fill: #fff;
+	}
+
+	.pop-up-box-inner {
+		margin: 13px 0 10px 13px;
+		border: 2px solid @app-colour-shade-three;
+		background: @app-colour-shade-one;
+	}
+
+	.pop-up-box p {
+		text-align: left;
+	}
+
+	.pop-up-box p:last-of-type {
+		margin-bottom: 0;
+	}
+}

@@ -1,0 +1,34 @@
+<label class="{{unless showLabel 'placeholder'}}">{{label}}</label>
+<div class="input-container">
+  {{#if multiple}}
+    {{#power-select-multiple
+      options=options
+      selected=value
+      searchPlaceholder="Search"
+      placeholder=label
+      onchange=(action changedAction)
+      onclose=(action 'onFocusOut')
+      onkeydown=(action onkeydownAction)
+      as |option|
+      }}
+      {{option}}
+    {{/power-select-multiple}}
+  {{else}}
+    {{#power-select
+      options=options
+      selected=value
+      searchPlaceholder="Search"
+      allowClear=true
+      placeholder=label
+      onchange=(action changedAction)
+      onclose=(action 'onFocusOut')
+      as |option|
+      }}
+      {{option}}
+    {{/power-select}}
+  {{/if}}
+{{component inputIcon class='form-field-icon'}}
+</div>
+{{#if error}}
+  <div class='field-error'>{{svg/icon-curved-arrow-right}}{{error}}</div>
+{{/if}}

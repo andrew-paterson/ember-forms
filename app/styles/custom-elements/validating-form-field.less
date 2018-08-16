@@ -1,0 +1,121 @@
+div.form-field {
+	margin-bottom: @input-margin-bottom;
+}
+
+div.form-field div.svg.form-field-icon {
+	position: absolute;
+	width: 20px;
+	right: 10px;
+	top: 1px;
+}
+
+.form-field.readonly input,
+.form-field.disabled input  {
+	background-color: #e9e9e9;
+	cursor: not-allowed;
+}
+
+.validates input {
+	padding-right: 36px;
+}
+
+div.form-field.required {
+	div.svg.form-field-icon svg {
+		fill: @app-colour-shade-two;
+		margin-top: 9px;
+	}
+}
+
+div.form-field.valid {
+	input,
+	input:focus,
+	textarea,
+	textarea:focus,
+	.ember-power-select-trigger,
+	.single-checkbox-container,
+	.radio-button-group-container {
+		border-color: @input-valid-border-color;
+		background: @input-valid-background-color;
+	}
+	div.svg.form-field-icon svg {
+		fill: @input-valid-border-color;
+		margin-top: 13px;
+	}
+}
+
+div.form-field.valid.hide-success-validation {
+	input,
+	textarea,
+  .ember-power-select-trigger,
+	.single-checkbox-container,
+	.radio-button-group-container {
+		border-color: @input-border-color;
+		background: @input-background-color;
+	}
+	div.svg.form-field-icon svg {
+		display: none;
+	}
+}
+
+div.form-field.invalid {
+	margin-bottom: @input-margin-bottom - 23px;
+	input,
+  input:focus,
+  textarea,
+  textarea:focus,
+  .ember-power-select-trigger,
+	.single-checkbox-container,
+	.radio-button-group-container {
+		border-color: @input-invalid-border-color;
+		background: @input-invalid-background-color;
+	}
+	div.svg.form-field-icon svg {
+		fill: @input-invalid-border-color;
+		margin-top: 10px;
+	}
+	div.field-error {
+		color: @error-text-color;
+		font-weight: 700;
+		margin-left: 10px;
+		height: 23px;
+		div.svg {
+			height: 100%;
+			width: 20px;
+			float: left;
+			fill: @error-text-color;
+		}
+	}
+}
+
+div.form-field.power-select {
+	max-width: 300px;
+}
+
+div.form-field.power-select  div.input-container > div.svg {
+	right: -24px;
+}
+
+div.form-field div.input-container {
+	position: relative;
+}
+
+div.form-field .single-checkbox-container,
+div.form-field .radio-button-group-container {
+	margin: 15px 0;
+	position: relative;
+	padding: 5px 5px;
+	border: 2px solid @input-border-color;
+	background: #fff;
+	.border-radius;
+}
+
+div.form-field.radio-button-group .radio-button-group-label {
+	padding-right: 36px;
+	margin-bottom: 15px;
+}
+
+div.form-field.radio-button-group .checkbox-label-container {
+	margin-left: 20px;
+}
+
+

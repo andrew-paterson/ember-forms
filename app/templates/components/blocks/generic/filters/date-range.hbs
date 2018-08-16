@@ -1,0 +1,28 @@
+<h4>{{title}}</h4>
+<div class='date-filter-input-container'>
+  <label>Start</label>
+  {{bootstrap-datepicker
+    value=startDateParsed
+    endDate=endDateParsed
+    changeDate=(action "parseDateValue" startProperty "start")
+    format="dd-mm-yyyy"
+    placeholder="Start"
+    autoclose=true
+    orientation="bottom"
+    todayHighlight=true
+  }}
+</div>
+<div class='date-filter-input-container'>
+  <label>End</label>
+  {{bootstrap-datepicker
+    value=endDateParsed
+    startDate=startDateParsed
+    changeDate=(action "parseDateValue" endProperty "end")
+    format="dd-mm-yyyy"
+    placeholder="End"
+    autoclose=true
+    orientation="bottom"
+    todayHighlight=true
+  }}
+</div>
+<div class="clr"></div>
