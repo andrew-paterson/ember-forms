@@ -1,0 +1,14 @@
+<div class="single-checkbox-container">
+  {{custom-elements/checkbox-element
+    propertyName=formField.propertyName
+    value=value
+    error=error
+    label=label
+    labelComponent=labelComponent
+    changedAction=(action 'onRadioCheckboxClick')
+  }}
+  {{component inputIcon class='form-field-icon'}}
+</div>
+{{#if error}}
+  <div class='field-error'>{{svg/icon-curved-arrow-right}}{{error}}</div>
+{{/if}}

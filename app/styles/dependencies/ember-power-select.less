@@ -1,0 +1,123 @@
+// Variables
+
+// Backgrounds
+@ember-power-select-background-color: #ffffff;
+@ember-power-select-disabled-background-color: #eeeeee;
+@ember-power-select-multiple-selection-background-color: #e4e4e4;
+@ember-power-select-highlighted-background: #fff;
+@ember-power-select-selected-background: transparent;
+
+// Texts
+@ember-power-select-text-color: #666;
+@ember-power-select-placeholder-color: #111;
+@ember-power-select-highlighted-color:  @body-content-link-color;
+@ember-power-select-disabled-option-color: #999999;
+@ember-power-select-multiple-selection-color: #333333;
+
+// Borders
+@ember-power-select-border-color: @input-border-color;
+@ember-power-select-focus-border-color: @ember-power-select-border-color;
+@ember-power-select-default-border: @input-border-width solid @ember-power-select-border-color;
+@ember-power-select-default-focus-border: @input-border-width solid @input-focus-border-color;
+
+@ember-power-select-trigger-border: @ember-power-select-default-border;
+@ember-power-select-trigger-border-top: @ember-power-select-trigger-border;
+@ember-power-select-trigger-border-bottom: @ember-power-select-trigger-border;
+@ember-power-select-trigger-border-right: @ember-power-select-trigger-border;
+@ember-power-select-trigger-border-left: @ember-power-select-trigger-border;
+@ember-power-select-active-trigger-border: @ember-power-select-default-focus-border;
+@ember-power-select-active-trigger-border-top: @ember-power-select-active-trigger-border;
+@ember-power-select-active-trigger-border-bottom: @ember-power-select-active-trigger-border;
+@ember-power-select-active-trigger-border-right: @ember-power-select-active-trigger-border;
+@ember-power-select-active-trigger-border-left: @ember-power-select-active-trigger-border;
+@ember-power-select-dropdown-border: 1px solid #ccc;
+@ember-power-select-search-field-border: 2px solid #c9c9c9;
+@ember-power-select-search-field-focus-border: @ember-power-select-search-field-border;
+
+@ember-power-select-dropdown-top-border: @ember-power-select-dropdown-border;
+@ember-power-select-dropdown-right-border: @ember-power-select-dropdown-border;
+@ember-power-select-dropdown-bottom-border: @ember-power-select-dropdown-border;
+@ember-power-select-dropdown-left-border: @ember-power-select-dropdown-border;
+
+@ember-power-select-dropdown-contiguous-border: @ember-power-select-dropdown-border;
+
+@ember-power-select-multiple-option-border-color: gray;
+@ember-power-select-multiple-option-border: 1px solid @ember-power-select-multiple-option-border-color;
+
+// Borders radius
+@ember-power-select-default-border-radius: @input-border-radius; // General border radius
+@ember-power-select-trigger-default-border-radius: @ember-power-select-default-border-radius;
+@ember-power-select-dropdown-default-border-radius: @ember-power-select-default-border-radius;
+
+@ember-power-select-opened-border-radius: @input-border-radius; // Border radious of the side of the dropdown and the trigger where they touch
+
+@ember-power-select-search-input-border-radius: @input-border-radius;
+@ember-power-select-multiple-option-border-radius: @ember-power-select-default-border-radius;
+
+// Other
+@ember-power-select-focus-box-shadow: none;
+@ember-power-select-dropdown-margin: 6px; // Margin between the dropdown and the trigger
+@ember-power-select-dropdown-box-shadow: 3px 3px 6px rgba(0,0,0, 0.16);
+@ember-power-select-line-height: 1.75;
+@ember-power-select-trigger-icon-color: @ember-power-select-border-color;
+@ember-power-select-clear-btn-margin: 25px;
+@ember-power-select-option-padding: 8px;
+@ember-power-select-number-of-visible-options: 7;
+@ember-power-select-focus-outline: null;
+@ember-power-select-trigger-ltr-padding: 0 16px 0 0;
+@ember-power-select-trigger-rtl-padding: 0 0 0 16px;
+@ember-power-select-multiple-option-padding: 0 4px;
+@ember-power-select-multiple-option-line-height: 1.45;
+
+.ember-power-select-trigger {
+  display: inline-block;
+  height: @input-height;
+  box-sizing: border-box;
+  padding-top: 4px;
+  width: 300px;
+}
+
+.ember-power-select-trigger:hover {
+  border-color: @input-hover-border-color;
+  cursor: pointer;
+}
+
+.ember-power-select-trigger:focus:hover {
+  border: @ember-power-select-default-focus-border;
+}
+
+.ember-power-select-dropdown.ember-basic-dropdown-content {
+  background: #f9f9f9;
+  font-size: @input-font-size;
+}
+
+.body-content .ember-power-select-dropdown {
+  font-size: @input-font-size/@body-content-text-font-size;
+}
+
+.ember-power-select-search {
+  padding: 10px;
+}
+
+.ember-power-select-option {
+  font-weight: 700;
+  padding: 6px 15px;
+}
+
+.ember-power-select-option[aria-selected="true"] {
+  color: @body-content-link-color;
+}
+.ember-power-select-option[aria-current="true"] {
+  color: @body-content-link-color;
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.ember-power-select-clear-btn {
+  font-family: Arial, sans-serif;
+  font-size: 30px;
+  color: #bbb;
+  line-height: 100%;
+}

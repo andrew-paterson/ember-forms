@@ -1,0 +1,142 @@
+div.system-message {
+	font-size: 1.6em;
+	color: #fff;
+	font-weight: 400;
+	margin: 0;
+	text-align: left;
+	.box-shadow-left-inset;
+	height: @header-height;
+	box-sizing: border-box;
+}
+
+/*---Dismiss block on the left---*/
+
+div.system-message div.dismiss-message {
+	float: left;
+	height: @header-height;
+}
+
+div.system-message div.dismiss-message:hover {
+	cursor: pointer;
+}
+
+div.system-message div.dismiss-message div.svg {
+	padding: 25px;
+	width: 20px;
+	fill: #fff;
+}
+
+/*---Content of the message---*/
+
+div.system-message div.message-content {
+	padding: 22px 22px 0;
+	float: left;
+}
+
+div.system-message div.message-content div.svg {
+	display: inline-block;
+	margin-right: 10px;
+	width: 30px;
+	vertical-align: middle;
+	fill: #fff;
+	text-align: center;
+}
+
+/*---Errors---*/
+
+header.system-message-active.error {
+	background-color: @error-background-color;
+}
+
+div.system-message.error div.dismiss-message {
+ 	background: darken(@error-background-color, 20%);
+}
+
+div.system-message.error div.dismiss-message:hover {
+	background: darken(@error-background-color, 25%);
+}
+
+div.system-message.error div.message-content div.svg .background {
+	fill: darken(@error-background-color, 20%);
+}
+
+/*---Warnings---*/
+
+header.system-message-active.warning {
+	background-color: @warning-background-color;
+}
+
+div.system-message.warning div.dismiss-message {
+	background: darken(@warning-background-color, 20%);
+}
+
+div.system-message.warning div.dismiss-message:hover {
+	background: darken(@warning-background-color, 25%);
+}
+
+div.system-message.warning div.message-content div.svg .background {
+	fill: darken(@warning-background-color, 20%);
+}
+
+/*---Success---*/
+
+header.system-message-active.success {
+	background-color: @success-background-color;
+}
+
+div.system-message.success div.dismiss-message {
+	background: darken(@success-background-color, 20%);
+}
+
+div.system-message.success div.dismiss-message:hover {
+	background: darken(@success-background-color, 25%);
+}
+
+div.system-message.success div.message-content div.svg {
+	background: darken(@success-background-color, 20%);
+	height: 30px;
+	width: 30px;
+	border-radius: 50px;
+	-webkit-border-radius: 50px;
+	-moz-border-radius: 50px;
+}
+
+div.system-message.success div.message-content div.svg svg {
+	width: 17px;
+	margin-top: 9px;
+}
+
+/*---Info---*/
+
+header.system-message-active.info {
+	background-color: @info-background-color;
+}
+
+div.system-message.info div.dismiss-message {
+	background: darken(@info-background-color, 20%);
+}
+
+div.system-message.info div.dismiss-message:hover {
+	background: darken(@info-background-color, 25%);
+}
+
+// .hide-content header.system-message-active {
+// 	background: @header-background-color;
+// }
+
+// .hide-content header .system-message {
+// 	display: none;
+// }
+
+div.system-message.info div.message-content div.svg {
+	background: darken(@info-background-color, 20%);
+	height: 30px;
+	width: 30px;
+	border-radius: 50px;
+	-webkit-border-radius: 50px;
+	-moz-border-radius: 50px;
+}
+
+div.system-message.info div.message-content div.svg .background {
+	fill: transparent;
+}

@@ -1,0 +1,7 @@
+<p>The page <b class='blue-text'>{{baseUrl}}/{{routePath}}</b> does not exist on this site.</p>
+	{{#if authenticated}}
+		Please click on any of the links in the main menu, or {{#link-to 'dashboard'}}click here{{/link-to}} to go to the dashboard. 
+	{{else}}
+		Please {{#link-to 'index'}}click here{{/link-to}} go to the home page, where you can find links to all accessible pages.
+	{{/if}}
+	

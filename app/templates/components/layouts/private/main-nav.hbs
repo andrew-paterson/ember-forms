@@ -1,0 +1,11 @@
+<ul>
+	<li  {{action 'toggleFullNav'}} class='menu-toggle'>
+		<div class='hamburger'>
+			<span class='hamburger-stripe'></span>
+			<span class='hamburger-stripe'></span>
+			<span class='hamburger-stripe'></span>
+		</div>
+		{{svg/icon-collapse-menu class='nav-collapse'}}
+	</li>
+	<li>{{#link-to 'dashboard' class='dashboard'}}{{svg/icon-home class='dashboard'}}Dashboard{{/link-to}}</li>
+</ul>

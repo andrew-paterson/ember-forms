@@ -1,0 +1,19 @@
+<label class="{{unless showLabel 'placeholder'}}">{{label}}</label>
+<div class="input-container">
+  {{bootstrap-datepicker
+    value=value
+    startDate=startDate
+    endDate=endDate
+    format=format
+    hide=(action "onFocusOut")
+    changeDate=(action "onFocusOut")
+    placeholder=label
+    autoclose=autoclose
+    orientation=orientation
+    todayHighlight=true
+  }}
+{{component inputIcon class='form-field-icon'}}
+</div>
+{{#if error}}
+  <div class="field-error">{{svg/icon-curved-arrow-right}}{{error}}</div>
+{{/if}}

@@ -1,0 +1,72 @@
+div.wrapper.interface {
+	background: #f6f6f6;
+	box-shadow: inset @sidebar-expanded-width + 10px 0px 6px -6px rgba(0,0,0,0.2);
+}
+
+div.wrapper.interface.nav-collapsed {
+	box-shadow: inset @sidebar-collapsed-width + 10px 0px 6px -6px rgba(0,0,0,0.2);
+}
+
+div.wrapper.interface.nav-toggled,
+div.wrapper.interface.nav-toggled div#main-content-strip {
+	transition: @sidebar-toggle-transition;
+}
+
+div.wrapper.interface.text-column .body-content {
+	max-width: 660px;
+}
+
+div.wrapper.interface div.interface-top-bar {
+	height: @interface-top-bar-height;
+	position: fixed;
+	width: 100%;
+	top: @header-height;
+	z-index: @interface-top-bar-z-index;
+	.box-shadow-bottom;
+}
+
+div.wrapper.interface.top-bar-present div#main-content-strip {
+	padding-top: @interface-top-bar-height;
+}
+
+div.wrapper.interface div#main-content-strip {
+	padding-left: @sidebar-expanded-width;
+	width: auto;
+	min-height: 100%;
+	position: relative;
+}
+
+div.wrapper.interface.nav-collapsed div#main-content-strip {
+	padding-left: @sidebar-collapsed-width;
+}
+
+div.wrapper.interface div#main-content-strip div.container-2 {
+	min-width: 580px;
+}
+
+div.wrapper.interface .body-content {
+	max-width: 100%;
+	width: 100%;
+	float: left;
+}
+
+div.wrapper.interface + footer {
+	padding-left: @sidebar-expanded-width + 15px;
+	transition: @sidebar-toggle-transition;
+}
+
+div.wrapper.interface + footer.nav-collapsed {
+	padding-left: @sidebar-collapsed-width + 15px;
+	transition: @sidebar-toggle-transition;
+}
+
+div.wrapper.interface + footer li {
+	text-align: left;
+}
+
+div.wrapper.interface + footer.interface li.login {
+	display: none;
+}
+
+
+

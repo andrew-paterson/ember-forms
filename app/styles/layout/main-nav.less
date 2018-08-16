@@ -1,0 +1,165 @@
+@sidebar-nav-item-height: 50px;
+@sidebar-expanded-width: 200px;
+@sidebar-collapsed-width: 50px;
+@sidebar-toggle-transition: all 0.3s ease-in-out;
+@sidebar-toggle-menu-list-item-height: 54px;
+
+/*---Nav sidebar as a whole---*/
+
+div.nav-sidebar {
+	position: fixed;
+	left: 0;
+	top: @header-height;
+	z-index: @sidebar-z-index;
+	width: @sidebar-expanded-width;
+	overflow: hidden;
+	background: #333;
+	height: 100%;
+}
+
+div.nav-sidebar.nav-collapsed  {
+	width: @sidebar-collapsed-width;
+}
+
+div.nav-sidebar.nav-toggled {
+	transition: @sidebar-toggle-transition;
+}
+
+div.nav-sidebar ul {
+	float: left;
+	padding: 0;
+	margin: 0;
+	list-style: none;
+}
+
+/*---Nav sidebar items generic styles---*/
+
+div.nav-sidebar ul li {
+	margin: 0;
+	list-style: none;
+	height: @sidebar-nav-item-height;
+	width: 200px;
+
+	height: @sidebar-nav-item-height;
+}
+
+/*---Top nav sidebar item (Toggles collapse of the menu)---*/
+
+div.nav-sidebar ul li.menu-toggle {
+	background: @app-colour-shade-three;
+	display: block;
+	height: @sidebar-toggle-menu-list-item-height;
+	border-bottom: 1px solid #666;
+}
+
+div.nav-sidebar li.menu-toggle:hover {
+	cursor: pointer;
+}
+
+/*---Hamburger menu icon---*/
+
+div.nav-sidebar li.menu-toggle div.hamburger {
+	float: left;
+	margin: 20px 10px 0;
+}
+
+div.nav-sidebar li.menu-toggle span.hamburger-stripe {
+	height: 3px;
+	width: 30px;
+	border-radius: 2px;
+	-moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+	background: #fff;
+	margin: 0 0 4px 0;
+	display: block;
+}
+
+div.nav-sidebar li.menu-toggle div.nav-collapse {
+	float: right;
+	margin: 17px 15px 0 0;
+	height: 22px;
+	width: 30px;
+	fill: #fff;
+}
+
+/*---Main nav links---*/
+
+div.nav-sidebar a {
+	display: block;
+	text-decoration: none;
+	font-size: 1.6em;
+	font-weight: 400;
+	letter-spacing: 0.3px;
+	color: #fff;
+	float: left;
+	width: 100%;
+	line-height: @sidebar-nav-item-height;
+	border-bottom: 1px solid #2b2b2b;
+}
+
+div.nav-sidebar a:hover  {
+	background-color: #666;
+}
+
+div.nav-sidebar a.active {
+	background-color: #777;
+	color: #fff;
+	cursor: default;
+	border-top-color: #777;
+}
+
+/*---Main nav link icons---*/
+
+div.nav-sidebar a div.svg {
+	width: @sidebar-collapsed-width;
+	float: left;
+	height: @sidebar-nav-item-height;
+	text-align: center;
+	margin-right: 10px;
+}
+
+div.nav-sidebar a div.svg svg {
+	height: 30px;
+	width: auto;
+	fill: #fff;
+	margin-top: 10px;
+}
+
+div.nav-sidebar a div.svg.dashboard svg {
+	height: 26px;
+	margin-top: 11px;
+}
+
+div.nav-sidebar a div.svg.create-job svg circle {
+	fill: #999;
+}
+
+div.nav-sidebar a div.svg.view-jobs svg rect.middle {
+	fill: #e7e8e8;
+}
+
+div.nav-sidebar a div.svg.view-jobs svg rect.right {
+	fill: #cdcccc;
+}
+
+div.nav-sidebar a div.svg.view-jobs svg rect.right {
+	fill: #cdcccc;
+}
+
+div.nav-sidebar a div.svg.faq svg {
+	height: 36px;
+	margin-top: 6px;
+}
+
+/*---When navigation is frozen---*/
+
+.nav-frozen div.nav-sidebar {
+
+}
+
+.nav-frozen div.nav-sidebar a {
+	background: transparent !important;
+	opacity: 0.3;
+	cursor: not-allowed;
+}
+

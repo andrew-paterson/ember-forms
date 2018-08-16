@@ -1,0 +1,13 @@
+{{#power-select-multiple
+  options=options
+  searchField=searchField
+  selected=selected
+  searchPlaceholder=searchPlaceholder
+  placeholder=placeholder
+  onchange=(action onchange)
+  onkeydown=(action 'handleKeydown')
+  onPressEnter=onPressEnter
+  as |option|
+  }}
+  {{option.name}}
+{{/power-select-multiple}}

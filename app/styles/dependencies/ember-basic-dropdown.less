@@ -1,0 +1,60 @@
+.ember-basic-dropdown-content {
+  background: transparent;
+  z-index: @popout-box-z-index;
+}
+
+.ember-basic-dropdown-content.position-static {
+  position: static;
+}
+
+/*--------------------------Direction Up----------------------------*/
+
+.ember-basic-dropdown-content--below .box-arrow:before,
+.ember-basic-dropdown-content--below .box-arrow:after {
+  bottom: 100%;
+}
+
+.ember-basic-dropdown-content--below .box-arrow:after {
+  border-bottom-color: #fff;
+
+}
+.ember-basic-dropdown-content--below .box-arrow:before {
+  border-bottom-color: inherit;
+}
+
+/*-------------------------Direction Down---------------------------*/
+
+.ember-basic-dropdown-content--above .box-arrow:before,
+.ember-basic-dropdown-content--above .box-arrow:after  {
+  top: 100%;
+}
+
+.ember-basic-dropdown-content--above .box-arrow:after {
+  border-top-color: #fff;
+}
+
+.ember-basic-dropdown-content--above .box-arrow:before {
+  border-top-color: inherit;
+}
+
+/*-------------------------Position Left--------------------------*/
+
+.ember-basic-dropdown-content--left .box-arrow:before,
+.ember-basic-dropdown-content--left .box-arrow:after {
+   left: 20px;
+}
+
+.ember-basic-dropdown-content--left .box-arrow:before {
+  margin-left: -1px;
+}
+
+/*-------------------------Position Right--------------------------*/
+
+.ember-basic-dropdown-content--right .box-arrow:before,
+.ember-basic-dropdown-content--right .box-arrow:after {
+   right: 20px;
+}
+
+.ember-basic-dropdown-content--right .box-arrow:before {
+  margin-right: -1px;
+}
