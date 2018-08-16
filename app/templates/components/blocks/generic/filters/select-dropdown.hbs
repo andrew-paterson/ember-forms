@@ -1,0 +1,12 @@
+<h4>{{title}}</h4>
+{{#power-select
+  options=options
+  selected=value
+  searchPlaceholder="Search"
+  allowClear=true
+  placeholder=placeholder
+  onchange=(action changedAction propertyName)
+  as |option|
+  }}
+  {{option}}
+{{/power-select}}

@@ -1,0 +1,8 @@
+{{layouts/header-bar private=true systemMessage=systemMessage}}
+{{layouts/private/main-nav}}
+<div id= "main-content-strip" class="{{if navCollapsed 'nav-collapsed'}} {{if session.hideContent 'invisible'}} {{'container-3'}}">
+	{{yield}}
+</div>
+{{#if session.hideContent}}
+	{{layouts/private/loading-page}}
+{{/if}}

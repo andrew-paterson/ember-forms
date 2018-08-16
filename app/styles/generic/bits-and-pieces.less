@@ -1,0 +1,792 @@
+@import url(https://fonts.googleapis.com/css?family=Lato:300,400,700,900);
+
+:focus {
+  outline: none;
+}
+
+.container-3 {
+  max-width: 100%;
+  width: 100%;
+  clear: both;
+  border-width: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.container-2  {
+  padding: @pc-main-content-box-outer-padding-top @pc-page-gutter-left-right @pc-main-content-box-outer-padding-bottom;
+}
+
+.hidden {
+  display:none;
+}
+
+h1, h2, h3, h4 {
+  color: @page-header-color;
+  font-size: @page-header-font-size;
+  text-transform: @page-header-text-transform;
+  text-align: @page-header-text-align;
+  font-family: @page-header-font-family;
+  font-weight: @page-header-font-weight;
+  padding: @page-header-padding-top @pc-body-content-padding-left-right @page-header-padding-bottom;
+  line-height: @page-header-line-height;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+p {
+  margin-top: 0;
+}
+
+a,
+.fake-link,
+.body-content .fake-link {
+  color: @body-content-link-color;
+  text-decoration: @body-content-link-text-decoration;
+  font-weight: 700;
+  border:none;
+    outline:none
+}
+
+a:hover,
+.fake-link:hover,
+.body-content .fake-link:hover {
+  color: @body-content-link-hover-color;
+  text-decoration: @body-content-link-hover-text-decoration;
+  cursor: pointer;
+}
+
+.body-content h1,
+.body-content h2,
+.body-content h3,
+.body-content h4 {
+  /*body-content-headers*/
+  color: @body-content-header-color;
+  text-transform: @body-content-header-text-transform;
+  text-align: inherit;
+  font-family: @body-content-header-font-family;
+  font-weight: @body-content-header-font-weight;
+  margin-bottom: @body-content-header-margin-bottom;
+  font-style: @body-content-header-font-style;
+  line-height: 150%;
+  padding: 0;
+  background-color: transparent;
+
+}
+.body-content h1 {
+  font-size: @body-content-header-h1-font-size/@body-content-text-font-size;
+}
+.body-content h2 {
+  font-size: @body-content-header-h2-font-size/@body-content-text-font-size;
+}
+.body-content h3 {
+  font-size: @body-content-header-h3-font-size/@body-content-text-font-size;
+}
+.body-content h4 {
+  font-size: @body-content-header-h4-font-size/@body-content-text-font-size;
+}
+
+/*------------------------BODY CONTENT PARAGRAPH------------------------*/
+
+.body-content {
+  line-height: @body-content-text-line-height;
+  color: @body-content-text-color;
+  font-family: @main-font-family;
+  font-style: @body-content-text-font-style;
+  font-size: @body-content-text-font-size;
+  font-weight: @body-content-text-font-weight;
+  text-align: left;
+}
+
+.body-content .body-content {
+  font-size: 1em;
+}
+
+.body-content p {
+  line-height: @body-content-paragraph-line-height;
+  margin-bottom: @body-content-paragraph-space-after;
+}
+
+.body-content.block-text p {
+  text-align: @body-content-paragraph-text-align;
+}
+
+
+label,
+.label {
+  font-style: @body-content-text-font-style;
+  color: @body-content-form-label-color;
+  float: @body-content-form-label-float;
+  font-weight: @body-content-form-label-font-weight;
+  line-height: 150%;
+  font-family: @main-font-family;
+  text-align: left;
+}
+
+.label {
+  display: inline;
+}
+
+input,
+.input,
+textarea {
+  background-color: @input-background-color;
+  color: @input-color;
+  border: @input-border-width @input-border-style @input-border-color;
+  border-radius: @input-border-radius;
+  -moz-border-radius: @input-border-radius;
+  -webkit-border-radius: @input-border-radius;
+  height: @input-height;
+  font-family: @input-font-family;
+  margin: 0;
+  width: @input-width;
+  padding: @input-top-bottom-padding @input-side-padding;
+  float: @input-float;
+  text-indent: 8px;
+  box-sizing: border-box;
+  font-size: @input-font-size;
+}
+
+.body-content input,
+.body-content .input,
+.body-content textarea {
+  font-size: @input-font-size/@body-content-text-font-size;
+}
+
+.input {
+  padding-top: 6px;
+}
+
+textarea {
+  min-height: 100px;
+}
+
+input:hover,
+textarea:hover {
+  border-color: @input-hover-border-color;
+}
+
+input:focus,
+textarea:focus {
+  border-color: @input-focus-border-color;
+}
+
+button,
+.button,
+.button input  {
+  background-color: @button-background-color;
+  height: @button-height;
+  border-width: 0;
+  .border-radius(@radiusSize:@button-border-radius);
+  text-align: center;
+  color: @button-color;
+  font-size: @button-font-size;
+  line-height: @button-line-height;
+  letter-spacing: @button-letter-spacing;
+  text-transform: @button-text-transform;
+  font-family: @button-font-family;
+  font-weight: @button-font-weight;
+  cursor: pointer;
+  padding: 0;
+  box-sizing: border-box;
+  padding: 0 @button-side-padding;
+  display: inline-block;
+}
+
+.button input  {
+  padding: 0;
+}
+
+a.button {
+
+}
+
+button:hover,
+.button:hover {
+  background-color: @button-hover-background-color;
+  text-decoration: none;
+  color: @button-color;
+  cursor: pointer;
+}
+
+.button input  {
+  background-color: transparent;
+}
+
+.submit-input-container.button {
+  padding: 0;
+}
+
+button.spin,
+.button.spin,
+.button.spin input  {
+  text-align: left;
+}
+
+button.large,
+.button.large,
+.button.large input {
+  height: 50px;
+  width: 100%;
+  line-height: 52px;
+}
+
+button.flashing,
+.button.flashing {
+  animation: colorchange 3s infinite 1s;
+  -webkit-animation: colorchange 3s infinite 1s;
+}
+
+@keyframes colorchange {
+  0% {background-color: @app-colour-shade-three;}
+  50% {background-color: @app-colour-shade-two;}
+  80% {background-color: @app-colour-shade-three;}
+}
+
+@-webkit-keyframes colorchange {
+    0% {background-color: @app-colour-shade-three;}
+    50% {background-color: @app-colour-shade-two;}
+    80% {background-color: @app-colour-shade-three;}
+}
+
+button.grey-button,
+.button.grey-button {
+  background-color: @grey-button-background-color;
+}
+
+button.grey-button:hover,
+.button.grey-button:hover {
+  background-color: @grey-button-hover-background-color;
+}
+
+button.red-button,
+.button.red-button {
+  background-color: @error-background-color;
+}
+
+button.red-button:hover,
+.button.red-button:hover {
+  background-color: darken(@error-background-color, 10%);
+}
+
+button.green-button,
+.button.green-button {
+  background-color: @success-background-color;
+}
+
+button.green-button:hover,
+.button.green-button:hover {
+  background-color: darken(@success-background-color, 10%);
+}
+
+button.disabled,
+.button.disabled,
+button.disabled:hover,
+.button.disabled:hover  {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+button.secondary,
+.button.secondary {
+  background: #fff;
+  border: 2px solid @button-background-color;
+  color: @button-background-color;
+  line-height: @button-line-height - 4px;
+}
+
+button.secondary:hover,
+.button.secondary:hover,
+button.secondary.active,
+.button.secondary.active, {
+  background-color: @button-hover-background-color;
+  border: 2px solid @button-hover-background-color;
+  color: @button-color;
+  line-height: @button-line-height - 4px;
+}
+
+button.secondary svg,
+.button.secondary svg {
+  fill: @button-background-color;
+}
+
+button.secondary:hover div.svg svg,
+.button.secondary:hover div.svg svg {
+  fill:  #fff;
+}
+
+button.secondary:hover svg,
+.button.secondary:hover svg {
+  fill: #fff;
+}
+
+button.secondary.grey-button,
+.button.secondary.grey-button {
+  border-color: @grey-button-background-color;
+  color: @grey-button-background-color;
+}
+
+button.secondary.grey-button:hover,
+.button.secondary.grey-button:hover,
+button.secondary.grey-button.active,
+.button.secondary.grey-button.active {
+  background-color: @grey-button-background-color;
+  color: @button-color;
+}
+
+button.secondary.red-button,
+.button.secondary.red-button {
+  border-color: @error-background-color;
+  color: @error-background-color;
+}
+
+button.secondary.red-button:hover,
+.button.secondary.red-button:hover,
+button.secondary.red-button.active,
+.button.secondary.red-button.active {
+  background-color: @error-background-color;
+  color: @button-color;
+}
+
+button.secondary.red-button svg,
+.button.secondary.red-button svg {
+  fill:  @error-background-color;
+}
+
+button.secondary.green-button,
+.button.secondary.green-button {
+  border-color: @success-background-color;
+  color: @success-background-color;
+}
+
+button.secondary.green-button:hover,
+.button.secondary.green-button:hover,
+button.secondary.green-button.active,
+.button.secondary.green-button.active {
+  background-color: @success-background-color;
+  color: @button-color;
+}
+
+button.secondary.green-button svg,
+.button.secondary.green-button svg {
+  fill:  @success-background-color;
+}
+
+div.input-file-wrapper {
+  padding-top: 12px;
+  position: relative;
+  line-height: 18px;
+}
+
+div.input-file-wrapper input {
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+div.input-file-wrapper input:hover {
+  cursor: pointer;
+}
+
+div.input-file-wrapper:hover  {
+  background-color: @app-colour-shade-four;
+}
+
+p.file-chosen,
+.body-content p.file-chosen {
+  margin-top: -3px;
+  float: left;
+}
+
+.body-content img {
+  max-width: 100%;
+  width: auto;
+  height: auto;
+}
+
+/*---General styling for radio buttons and checkboxes---*/
+
+div.checkbox-label-container {
+  margin-bottom: 15px;
+}
+
+.input-radio-checkbox {
+  float: left;
+  width: @radio-checkbox-width-height;
+  height: @radio-checkbox-width-height;
+  margin-right: 5px;
+  position: relative;
+}
+
+.input-radio-checkbox input[type=radio],
+.input-radio-checkbox input[type=checkbox] {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: @radio-checkbox-width-height;
+  height: @radio-checkbox-width-height;
+  opacity: 0;
+}
+
+.input-radio-checkbox input[type=radio]:hover,
+.input-radio-checkbox input[type=checkbox]:hover {
+  cursor: pointer;
+}
+
+.disabled .input-radio-checkbox input[type=radio]:hover,
+.disabled .input-radio-checkbox input[type=checkbox]:hover {
+  cursor: not-allowed;
+  border-color: @input-border-color;
+  background-color: transparent;
+}
+
+.input-radio-checkbox .radio-checkbox-dummy {
+  width: @radio-checkbox-width-height;
+  box-sizing: border-box;
+  height: @radio-checkbox-width-height;
+  border: @input-border-width @input-border-style @input-border-color;
+  background: @input-background-color;
+}
+
+.input-radio-checkbox:hover .radio-checkbox-dummy,
+.input-radio-checkbox:hover .radio-checkbox-dummy {
+  border-color: @input-hover-border-color;
+  background-color: @radio-checkbox-hover-background-color;
+  cursor: pointer;
+}
+
+.disabled .input-radio-checkbox:hover .radio-checkbox-dummy,
+.disabled .input-radio-checkbox:hover .radio-checkbox-dummy {
+  border-color: @input-border-color;
+  background-color: @input-background-color;
+}
+
+.some-selected .input-radio-checkbox .radio-checkbox-dummy,
+.all-selected .input-radio-checkbox .radio-checkbox-dummy,
+.input-radio-checkbox input[type=radio]:checked + .radio-checkbox-dummy,
+.input-radio-checkbox input[type=checkbox]:checked + .radio-checkbox-dummy {
+  border-color: @input-hover-border-color;
+  background-color: @radio-checkbox-selected-background-color;
+}
+
+input[type=radio] + .radio-checkbox-dummy{
+  -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+}
+
+.input-radio-checkbox div.svg,
+.input-radio-checkbox div.svg {
+  margin: 4px 2px;
+  width: 14px;
+}
+
+.input-radio-checkbox path,
+.input-radio-checkbox path {
+  display: none;
+  fill: #fff;
+}
+
+.all-selected .radio-checkbox-dummy div.svg path.tick,
+.input-radio-checkbox input:checked + .radio-checkbox-dummy div.svg path.tick {
+  display: block;
+}
+
+.some-selected .input-radio-checkbox .radio-checkbox-dummy div.svg path.line {
+  display: block;
+}
+
+/*---General styling for tables---*/
+
+table {
+  border-radius: 0px;
+  -moz-border-radius: 0px;
+  -webkit-border-radius: 0px;
+  margin-bottom: 20px;
+  border-collapse: collapse;
+
+}
+
+table th {
+  color: @table-header-cell-color;
+  background-color: @table-header-cell-background-color;
+  font-size: @table-header-cell-font-size/@body-content-text-font-size;
+  text-transform: @table-header-cell-text-transform;
+  text-align: @table-header-cell-text-align;
+  font-family: @table-header-cell-font-family;
+  font-weight: @table-header-cell-font-weight;
+  padding: @table-cell-padding-top @table-cell-padding-left-right @table-cell-padding-bottom;
+  border: 1px @table-border-style @table-header-cell-border-color;
+  border-radius: 0px;
+  -moz-border-radius: 0px;
+  -webkit-border-radius: 0px;
+  font-size: @table-header-cell-font-size/@body-content-text-font-size;
+  line-height: 100%;
+}
+
+table td {
+  color: inherit;
+  background-color: @table-cell-background-color;
+  font-family: @table-cell-font-family;
+  line-height: @table-cell-text-line-height;
+  padding: @table-cell-padding-top @table-cell-padding-left-right @table-cell-padding-bottom;
+  font-size: 1em;
+  border: 1px @table-border-style @table-border-color;
+}
+
+table.compact-table {
+  tr td {
+    background-color: #fff;
+    border-color: #d9d9d9;
+    padding: 5px 10px;
+  }
+  /*---Make every second row a different colour---*/
+
+  tr:nth-child(even) td {
+    background-color: #f4f4f4;
+  }
+
+  tr.table-header td {
+    border-bottom-width: 0;
+  }
+
+  tr th {
+    background-color: #aaa;
+    color: #f9f9f9;
+    font-weight: 700;
+    border: 1px solid #888;
+    padding: 3px 10px;
+    height: inherit;
+    line-height: inherit;
+  }
+}
+
+/*------------------------LINE-HEIGHT------------------------*/
+
+.body-content dd,
+.body-content dt,
+.body-content ul li,
+.body-content ol li  {
+  line-height: @body-content-text-line-height;
+}
+
+.body-content ul, .body-content ol {
+  margin-bottom: @body-content-paragraph-space-after;
+  padding: 0px;
+}
+
+.body-content ul ul,
+.body-content ul ol,
+.body-content ol ul,
+.body-content ol ol {
+  margin-bottom: 0;
+}
+
+.body-content ul li, .body-content ol li {
+  margin-left: 1em;
+  padding-left: 0.5em;
+  font-family: @main-font-family;
+}
+
+.body-content hr {
+  border-width: 0;
+  border-top: @body-content-hr-border-top-width solid @body-content-hr-border-top-color;
+  line-height: @body-content-text-line-height;
+  font-size: @body-content-text-font-size;
+}
+
+.clear,
+.clr {
+  clear: both;
+  line-height: 0;
+}
+
+.asterisk {
+  display: inline-block;
+  color: @general-asterisk-color;
+  font-size: @general-asterisk-font-size;
+  font-weight: @general-asterisk-font-weight;
+  line-height: @general-asterisk-line-height;
+  font-family: Arial, Helvetica, sans-serif;
+  position: relative;
+  bottom: @general-asterisk-baseline-shift;
+  margin-right: 3px;
+}
+
+.body-content label {
+  margin-bottom: 15px;
+}
+
+sup {
+  font-size: 40%;
+  vertical-align:text-top;
+  line-height: 1;
+}
+
+div.form-element-container {
+  float: left;
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+div.form-element-container.radio {
+  width: auto;
+}
+
+div.form-element-container.radio label {
+  margin-right: 15px;
+}
+
+.body-content ul ul,
+.body-content ol ol {
+  margin-bottom: 0;
+}
+div.svg,
+svg {
+  width: 100%;
+  height: auto;
+  line-height: 0;
+}
+
+button div.svg,
+.button div.svg {
+  margin-right: @button-side-padding - 2px;
+  margin-top: -5px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+button div.svg,
+button svg,
+.button div.svg,
+.button svg {
+  height: 20px;
+  width: auto;
+  fill: #fff;
+}
+
+button div.svg .tick {
+width: 22px;
+}
+
+button.large div.svg,
+button.large svg,
+.button.large div.svg,
+.button.large svg {
+  height: 30px;
+}
+
+div.svg.inline {
+  width: 20px;
+  display: inline-block;
+
+}
+
+div.wrapper.placeholders label.placeholder {
+  display: none;
+}
+
+div.form-container {
+  max-width: 500px;
+}
+
+div.plot-container.plotly div.modebar svg {
+  width: 1em;
+}
+
+img.border {
+  border: 1px solid #ccc;
+}
+
+.draggable-dropzone {
+  padding: 50px;
+  border: 5px dotted #aaa;
+  border-radius: 5px;
+  text-align: center;
+  margin-bottom: 15px;
+  background: #fff;
+  .box-shadow-bottom-right;
+}
+
+.draggable-dropzone span {
+  background-color: #aaa;
+  padding: 11px @button-side-padding;
+  color: @button-color;
+  font-size: @button-font-size;
+  line-height: @button-font-size;
+  letter-spacing: @button-letter-spacing;
+  text-transform: @button-text-transform;
+  font-family: @button-font-family;
+  font-weight: @button-font-weight;
+  border-radius: @button-border-radius;
+  -moz-border-radius: @button-border-radius;
+  -webkit-border-radius: @button-border-radius;
+}
+
+.draggable-dropzone.activated {
+  border-color: @app-colour-shade-one;
+  color: @app-colour-shade-one;
+  background-color: #f0f0f0;
+
+}
+
+.monospace {
+  font-family: "Lucida Console", Monaco, "Courier New", Courier, monospace;
+}
+
+.incrementing-arrow.left-right {
+  height: 30px;
+  width: 13px;
+}
+
+.incrementing-arrow.left-right svg {
+  height: 30px;
+}
+
+.incrementing-arrow.up-down {
+  width: 30px;
+  height: 13px;
+}
+
+.incrementing-arrow.up-down svg {
+  height: 13px;
+}
+
+div.in-page-alert {
+  button div.svg {
+    float: left;
+    width: auto;
+  }
+  div.ellipsis {
+    width: auto;
+    float: left;
+    svg {
+      width: auto;
+      float: left;
+      height: 10px;
+    }
+  }
+}
+
+div.block-notice {
+  margin-bottom: 25px;
+}
+
+ul.file-download-list {
+  list-style: none;
+}
+
+ul.file-download-list li {
+  margin-bottom: 0.5em;
+  padding-left: 0;
+  margin-left: 0;
+}
+
+ul.file-download-list li div.svg {
+  display: inline-block;
+  width: 20px;
+  margin: 0 10px 0 0;
+  vertical-align: middle;
+  fill: #999;
+}
