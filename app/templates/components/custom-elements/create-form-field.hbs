@@ -1,0 +1,63 @@
+<h3>Add a new field</h3>
+
+{{!-- {{custom-elements/form-field-input
+  data-test-id="fieldName"
+  fieldId='fieldName'
+  propertyName='fieldName'
+  value=fieldName
+  error=fieldNameError
+  label='Field Name'
+  fieldUpdatedAction=(action 'validateField')
+  keyUpAction=(action 'validateField')
+  type='text'
+  trim=true
+  required=true
+  validateField=(action 'validateField')
+  validateOnInsert=true
+}} --}}
+
+{{custom-elements/form-field-input
+  data-test-id="fieldLabel"
+  fieldId='fieldLabel'
+  propertyName='fieldLabel'
+  value=fieldLabel
+  error=fieldNameError
+  label='Field Label'
+  fieldUpdatedAction=(action 'validateField')
+  keyUpAction=(action 'validateField')
+  type='text'
+  trim=true
+  required=true
+  validateField=(action 'validateField')
+  validateOnInsert=true
+}}
+
+{{custom-elements/radio-button-group
+  fieldId=(concat 'field_' fieldName '.type')
+  propertyName='fieldType'
+  value=(readonly fieldType)
+  options=fieldTypes
+  fieldUpdatedAction=(action 'setType')
+}}
+
+{{#if showOptionsField}}
+  {{#each fieldOptions as | option |}}
+    {{custom-elements/form-field-input
+      data-test-id="optionLabel"
+      fieldId=option.id
+      propertyName='optionLabel'
+      value=option.label
+      error=optionLabelError
+      label='Label'
+      fieldUpdatedAction=(action 'updateOption')
+      keyUpAction=(action 'updateOption')
+      type='text'
+      trim=true
+      required=true
+      validateField=(action 'validateField')
+      validateOnInsert=true
+    }}
+  {{/each}}
+  <button onclick={{action 'addOption'}}>Add new</button>
+{{/if}}
+<button onclick={{action 'saveField'}}>Save</button>

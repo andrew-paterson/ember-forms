@@ -1,0 +1,100 @@
+div.svg .alert .i-character {
+	fill: #fff;
+}
+
+div.svg.alert.warning {
+	fill: @warning-background-color;
+}
+
+div.svg.alert.error {
+	fill: @error-background-color;
+}
+
+div.svg.text-wrap-icon {
+	width: 20px;
+	float: left;
+	margin: 4px 5px 0 0;
+}
+
+div.svg svg.support .fill-2 {
+	fill: #999;
+}
+
+@ellipsis-animation-duration: 2s;
+@ellipsis-animation-delay: 0s;
+
+div.svg.ellipsis.animate svg circle {
+  visibility: hidden;
+}
+
+div.svg.ellipsis.animate svg circle:nth-child(1) {
+	animation: one @ellipsis-animation-duration infinite @ellipsis-animation-delay;
+  -webkit-animation: one @ellipsis-animation-duration infinite @ellipsis-animation-delay;
+}
+
+div.svg.ellipsis.animate svg circle:nth-child(2) {
+	animation: two @ellipsis-animation-duration infinite @ellipsis-animation-delay;
+  -webkit-animation: two @ellipsis-animation-duration infinite @ellipsis-animation-delay;
+}
+
+div.svg.ellipsis.animate svg circle:nth-child(3) {
+	animation: three @ellipsis-animation-duration infinite @ellipsis-animation-delay;
+  -webkit-animation: three @ellipsis-animation-duration infinite @ellipsis-animation-delay;
+}
+
+@keyframes one {
+	0% {visibility: hidden;}
+	24% {visibility: hidden;}
+	25% {visibility: visible;}
+	99% {visibility: visible;}
+	100% {visibility: hidden;}
+}
+
+@-webkit-keyframes one {
+	0% {visibility: hidden;}
+	24% {visibility: hidden;}
+	25% {visibility: visible;}
+	99% {visibility: visible;}
+	100% {visibility: hidden;}
+}
+
+@keyframes two {
+	0% {visibility: hidden;}
+	49% {visibility: hidden;}
+	50% {visibility: visible;}
+	99% {visibility: visible;}
+	100% {visibility: hidden;}
+}
+
+@-webkit-keyframes two {
+	0% {visibility: hidden;}
+	49% {visibility: hidden;}
+	50% {visibility: visible;}
+	99% {visibility: visible;}
+	100% {visibility: hidden;}
+}
+
+@keyframes three {
+	0% {visibility: hidden;}
+	74% {visibility: hidden;}
+	75% {visibility: visible;}
+	99% {visibility: visible;}
+	100% {visibility: hidden;}
+}
+
+@-webkit-keyframes three {
+	0% {visibility: hidden;}
+	74% {visibility: hidden;}
+	75% {visibility: visible;}
+	99% {visibility: visible;}
+	100% {visibility: hidden;}
+}
+
+svg.google-g {
+	.section.red{fill:#E74133;}
+  .section.orange{fill:#F9BB00;}
+  .section.green{fill:#32A753;}
+  .section.blue{fill:#3E82F1;}
+}
+
+

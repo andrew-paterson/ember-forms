@@ -3,7 +3,7 @@ import Component from '@ember/component';
 import { computed } from '@ember/object';
 import { observer } from '@ember/object';
 import Object from '@ember/object';
-import generateEmberValidatingFormFields from 'frontend-version-two/utils/generate-ember-validating-form-fields';
+import generateEmberValidatingFormFields from 'ember-starter/utils/generate-ember-validating-form-fields';
 
 export default Component.extend({
   classNameBindings: ['class'],
@@ -51,6 +51,7 @@ export default Component.extend({
 
   actions: {
     setFormValue: function(fieldId, value) {
+      value = value || '';
       var fieldObject = this.get('formFields').findBy('fieldId', fieldId);
       fieldObject.set('value', value);
       if (this.customTransforms) {
@@ -69,7 +70,6 @@ export default Component.extend({
         var formFields = this.get('formFields');
         var formMetaData = this.get('formMetaData');
         var values = this.generateFormValues(formFields);
-
         this.set("requestInFlight", true);
         if (this.get('recordToUpdate')) {
           var record = this.get('recordToUpdate');
@@ -110,18 +110,14 @@ export default Component.extend({
     validateAllFields: function() {
       var self = this;
       this.get('formFields').forEach(function(fieldObject) {
-        if (fieldObject.validationRules) {
-          if (fieldObject.value === null || fieldObject.value === undefined) {
-            fieldObject.set('value', '');
-          }
-          self.send('validateField', fieldObject.fieldId);
-        }
+        self.send('setFormValue', fieldObject.fieldId, fieldObject.value);
       });
     },
 
     validateField: function(fieldId) {
       var self = this;
       var fieldObject = this.get('formFields').findBy('fieldId', fieldId);
+      console.log(fieldObject.value);
       if (fieldObject.value === null || fieldObject.value === undefined) {
         return;
       }
@@ -152,8 +148,8 @@ export default Component.extend({
             fieldObject.set("error", false);
           }
         } else if (validationMethod === "custom") {
-          if (self.customValidation)
-            self.customValidation(fieldObject, self.get('formFields'));
+          if (self.customValidations)
+            self.customValidations(fieldObject, self.get('formFields'));
           }
       });
     },

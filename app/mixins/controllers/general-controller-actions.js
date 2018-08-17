@@ -6,6 +6,7 @@ export default Mixin.create({
 
   actions: {
     setProperty: function(property, value) {
+      console.log(property);
       this.set(property, value);
     },
 
