@@ -35,6 +35,10 @@ export default Component.extend({
     this.fieldOptions = [];
   },
 
+  didInsertElement: function() {
+    this.send('addOption');
+  },
+
   showOptionsField: computed('fieldType', function() {
     var fieldType = this.get('fieldType');
     if (fieldType === 'select' || fieldType === 'radioButtonGroup') {
@@ -49,18 +53,16 @@ export default Component.extend({
     return fieldOptionsValuesArray;
   }),
 
-  fieldSchema: computed('fieldName', 'fieldLabel', 'fieldType', 'fieldOptions', 'fieldOptions.@each.label', function() {
+  fieldSchema: computed('fieldLabel', 'fieldType', 'fieldOptions', 'fieldOptions.@each.label', function() {fieldLabel
     var fieldJSON = EmberObject.create({
-      fieldId: this.get('fieldLabel').replace(' ', ''),
+      fieldId: this.get('currentField.fieldId'),
       label: this.get('fieldLabel'),
-      propertyName: this.get('fieldName'),
-      value: null,
       fieldType: this.get('fieldType'),
       options: this.get('fieldOptionsValuesArray'),
       radioButtons: this.get('fieldOptions'),
       validationRules: [{'validationMethod': 'required'}],
       inputType: 'text',
-      trim: true,
+
     });
     return fieldJSON;
   }),
@@ -71,6 +73,29 @@ export default Component.extend({
       this.updateDynamicForm(dynamicFormField);
     },
 
+    validateField: function(fieldId, value) {
+      if (value === null || value === undefined) {
+        return;
+      }
+
+      var stringValue = value.toString();
+      if (fieldId === 'fieldLabel') {
+        this.set('fieldLabel', value);
+        if (validator.isEmpty(value)) {
+          this.set('fieldLabelError', 'You must provide a field name in order to continue.');
+          return false;
+        } else if (!validator.isLength(value, {max: 100})) {
+          this.set('fieldLabelError', 'Your field name cannot be longer than 100 characters.');
+          return false;
+        } else {
+          this.set('fieldLabelError', false);
+          this.send('saveField');
+          return true;
+        }
+      };
+      // fieldValidationRules
+    },
+
     addOption: function() {
       var randomNumber = Math.floor(Math.random() * (3000000 - 0 + 1)) + 0;
       var newOption = EmberObject.create({
@@ -78,26 +103,6 @@ export default Component.extend({
         label: null
       });
       this.get('fieldOptions').pushObject(newOption);
-    },
-
-    validateField: function(fieldId, value) {
-      if (value === null || value === undefined) {
-        return;
-      }
-      var stringValue = value.toString();
-      if (fieldId === 'fieldName') {
-        this.set('fieldName', value);
-        if (validator.isEmpty(value)) {
-          this.set('fieldNameError', 'You must provide a field name in order to continue.');
-          return false;
-        } else if (!validator.isLength(value, {max: 100})) {
-          this.set('fieldNameError', 'Your field name cannot be longer than 100 characters.');
-          return false;
-        } else {
-          this.set('fieldNameError', false);
-          return true;
-        }
-      };
     },
 
     updateOption: function(fieldId, value) {

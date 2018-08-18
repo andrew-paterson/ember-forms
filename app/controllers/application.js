@@ -4,8 +4,7 @@ import { inject as service } from '@ember/service';
 export default Controller.extend({
   systemMessages: service(),
   actions: {
-    setProperty: function(property, value) {
-      console.log('test');
+    setProperty: function(property, value) {fieldLabel
       this.set(property, value);
     },
 

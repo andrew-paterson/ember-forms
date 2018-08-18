@@ -116,8 +116,7 @@ export default Component.extend({
 
     validateField: function(fieldId) {
       var self = this;
-      var fieldObject = this.get('formFields').findBy('fieldId', fieldId);
-      console.log(fieldObject.value);
+      var fieldObject = this.get('formFields').findBy('fieldId', fieldId);fieldLabel
       if (fieldObject.value === null || fieldObject.value === undefined) {
         return;
       }

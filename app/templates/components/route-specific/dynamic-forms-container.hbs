@@ -1,12 +1,16 @@
 {{#layouts/private/outer-wrapper systemMessage=systemMessage class="dashboard"}}
   {{#layouts/content-wrapper title='Dynamic Forms'}}
-
-      <div class="dynamic-form-container builder">
-      {{custom-elements/create-form-field
-        setProperty=(action setProperty)
-        updateDynamicForm=(action 'updateDynamicForm')
-      }}
-      </div>
+      <button {{action 'createNewField'}}>Add field</button>
+      {{#if showFieldCreator}}
+        <div class="clr"></div>
+        <div class="dynamic-form-container builder">
+        {{custom-elements/create-form-field
+          setProperty=(action setProperty)
+          currentField=currentField
+          updateDynamicForm=(action 'updateDynamicForm')
+        }}
+        </div>
+      {{/if}}
       <div class="dynamic-form-container preview">
         {{forms/dynamic-form
           submitAction=(action submitAction)

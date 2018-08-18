@@ -19,7 +19,7 @@ export default FormContainer.extend({
 
   formObject: computed('dynamicFormFields', 'dynamicFormFields.@each', 'dynamicFormFields.@each.options', 'dynamicFormFields.@each.fieldType','dynamicFormFields.@each.label', function() {
     var dynamicFormSchema = {
-      title: 'Dynamic Form',
+      title: 'Preview',
       formName: 'dynamicForm',
       submitSuccessMessage: 'You have successfully signed up.',
       submitButtonText: 'Request account',
