@@ -22,7 +22,7 @@ export default FormContainer.extend({
       title: 'Preview',
       formName: 'dynamicForm',
       submitSuccessMessage: 'You have successfully signed up.',
-      submitButtonText: 'Request account',
+      submitButtonText: 'Submit',
       modelName: 'user',
       resetAfterSubmit: true,
       fields: this.get('dynamicFormFields')

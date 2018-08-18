@@ -53,7 +53,7 @@ export default Component.extend({
     return fieldOptionsValuesArray;
   }),
 
-  fieldSchema: computed('fieldLabel', 'fieldType', 'fieldOptions', 'fieldOptions.@each.label', function() {fieldLabel
+  fieldSchema: computed('fieldLabel', 'fieldType', 'fieldOptions', 'fieldOptions.@each.label', function() {
     var fieldJSON = EmberObject.create({
       fieldId: this.get('currentField.fieldId'),
       label: this.get('fieldLabel'),

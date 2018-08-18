@@ -10,7 +10,7 @@ export default function httpErrorMessageGenerator(error, customFallbacks) {
     '500s': 'A network error occurred. Please try again.'
   }
   var errorDetail;
-  var errorStatus = error.status;fieldLabel
+  var errorStatus = error.status;
   var statusFirstChar = parseInt(errorStatus.split("")[0]);
     if (statusFirstChar === 4) {
       if (error.detail) {

@@ -5,7 +5,7 @@ export default Mixin.create({
   systemMessages: service(),
 
   actions: {
-    setProperty: function(property, value) {fieldLabel
+    setProperty: function(property, value) {
       this.set(property, value);
     },
 

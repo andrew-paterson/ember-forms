@@ -17,12 +17,12 @@ export default Component.extend({
         inputType: 'text',
       });
       this.get('dynamicFormFields').pushObject(field);
-      this.set('currentField', field);fieldLabel
+      this.set('currentField', field);
     },
 
-    updateDynamicForm: function(field) {fieldLabelfieldLabel
+    updateDynamicForm: function(field) {
       var existingField = this.get('dynamicFormFields').findBy('fieldId', field.fieldId);
-      if (existingField) {fieldLabel
+      if (existingField) {
         existingField.set('label', field.label);
         existingField.set('options', field.options);
         existingField.set('fieldType', field.fieldType);
@@ -30,9 +30,6 @@ export default Component.extend({
         existingField.set('options', field.fieldOptionsValuesArray);
         existingField.set('radioButtons', field.radioButtons);
         existingField.set('validationRules', field.fieldValidationRules);
-      } else {
-        //fieldLabel
-        // this.get('dynamicFormFields').pushObject(field);
       }
     }
   },

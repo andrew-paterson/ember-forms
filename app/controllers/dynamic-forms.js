@@ -6,7 +6,7 @@ export default Controller.extend(GeneralControllerActionsMixin, {
   systemMessage: alias('systemMessages.routes.dynamicForms'),
 
   actions: {
-    formSubmit: function() {fieldLabel
+    formSubmit: function() {
     }
   }
 });
