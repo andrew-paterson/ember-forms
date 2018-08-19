@@ -1,8 +1,10 @@
 import Component from '@ember/component';
 import EmberObject from '@ember/object';
+import { computed } from '@ember/object';
 
 export default Component.extend({
   tagName: '',
+
   actions: {
     createNewField: function() {
       this.set('showFieldCreator', true);
@@ -15,6 +17,9 @@ export default Component.extend({
         value: null,
         showLabel: true,
         inputType: 'text',
+        fieldOptions: [],
+        options: [],
+        radioButtons: [],
       });
       this.get('dynamicFormFields').pushObject(field);
       this.set('currentField', field);
@@ -24,11 +29,10 @@ export default Component.extend({
       var existingField = this.get('dynamicFormFields').findBy('fieldId', field.fieldId);
       if (existingField) {
         existingField.set('label', field.label);
-        existingField.set('options', field.options);
         existingField.set('fieldType', field.fieldType);
         existingField.set('propertyName', field.fieldLabel);
         existingField.set('options', field.fieldOptionsValuesArray);
-        existingField.set('radioButtons', field.radioButtons);
+        existingField.set('radioButtons', field.fieldOptions);
         existingField.set('validationRules', field.fieldValidationRules);
       }
     }

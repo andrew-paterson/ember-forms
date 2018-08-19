@@ -1,5 +1,6 @@
 import Component from '@ember/component';
 import { computed } from '@ember/object';
+import { observer } from '@ember/object';
 import EmberObject from '@ember/object';
 
 export default Component.extend({
@@ -39,38 +40,27 @@ export default Component.extend({
     this.send('addOption');
   },
 
-  showOptionsField: computed('fieldType', function() {
-    var fieldType = this.get('fieldType');
+  showOptionsField: computed('currentField.fieldType', function() {
+    var fieldType = this.get('currentField.fieldType');
     if (fieldType === 'select' || fieldType === 'radioButtonGroup') {
       return true;
     }
   }),
 
-  fieldOptionsValuesArray: computed('fieldOptions', 'fieldOptions.@each.label', function() {
-    var fieldOptionsValuesArray = this.get('fieldOptions').map(function(option) {
-      return option.label;
+  setFieldOptionsValuesArray: observer('currentField.fieldOptions', 'currentField.fieldOptions.@each.label', function() {
+    var fieldOptionsValuesArray = [];
+    this.get('currentField.fieldOptions').forEach(function(option) {
+      if (option.label) {
+        fieldOptionsValuesArray.push(option.label);
+      }
     });
-    return fieldOptionsValuesArray;
-  }),
-
-  fieldSchema: computed('fieldLabel', 'fieldType', 'fieldOptions', 'fieldOptions.@each.label', function() {
-    var fieldJSON = EmberObject.create({
-      fieldId: this.get('currentField.fieldId'),
-      label: this.get('fieldLabel'),
-      fieldType: this.get('fieldType'),
-      options: this.get('fieldOptionsValuesArray'),
-      radioButtons: this.get('fieldOptions'),
-      validationRules: [{'validationMethod': 'required'}],
-      inputType: 'text',
-
-    });
-    return fieldJSON;
+    this.set('currentField.fieldOptionsValuesArray', fieldOptionsValuesArray);
+    this.send('saveField');
   }),
 
   actions: {
     saveField: function() {
-      var dynamicFormField = this.get('fieldSchema');
-      this.updateDynamicForm(dynamicFormField);
+      this.updateDynamicForm(this.get('currentField'));
     },
 
     validateField: function(fieldId, value) {
@@ -78,18 +68,20 @@ export default Component.extend({
         return;
       }
 
+      this.set(`currentField.${fieldId}`, value);
+      this.send('saveField');
+
       var stringValue = value.toString();
-      if (fieldId === 'fieldLabel') {
-        this.set('fieldLabel', value);
+      if (fieldId === 'label') {
+        this.set('label', value);
         if (validator.isEmpty(value)) {
-          this.set('fieldLabelError', 'You must provide a field name in order to continue.');
+          this.set('fieldLabelError', 'You must provide a field label in order to continue.');
           return false;
         } else if (!validator.isLength(value, {max: 100})) {
-          this.set('fieldLabelError', 'Your field name cannot be longer than 100 characters.');
+          this.set('fieldLabelError', 'Your field label cannot be longer than 100 characters.');
           return false;
         } else {
           this.set('fieldLabelError', false);
-          this.send('saveField');
           return true;
         }
       };
@@ -102,17 +94,19 @@ export default Component.extend({
         id: randomNumber,
         label: null
       });
-      this.get('fieldOptions').pushObject(newOption);
+      this.get('currentField.fieldOptions').pushObject(newOption);
     },
 
-    updateOption: function(fieldId, value) {
-      var thisOption = this.get('fieldOptions').findBy('id', fieldId);
+    updateOption: function(optionId, value) {
+      var thisOption = this.get('currentField.fieldOptions').findBy('id', optionId);
       thisOption.set('label', value);
       thisOption.set('value', value.replace(' ', '_'));
+      this.send('saveField');
     },
 
     setType: function(groupValue, propertyName) {
-      this.set(propertyName, groupValue);
+      this.set(`currentField.${propertyName}`, groupValue);
+      this.send('saveField');
     }
   },
 });

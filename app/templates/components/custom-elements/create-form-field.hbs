@@ -1,8 +1,8 @@
 <h3>Add a new field</h3>
 {{custom-elements/form-field-input
   data-test-id="fieldLabel"
-  fieldId='fieldLabel'
-  propertyName='fieldLabel'
+  fieldId='label'
+  propertyName='label'
   value=fieldLabel
   error=fieldLabelError
   label='Field Label'
@@ -17,7 +17,7 @@
 }}
 
   {{custom-elements/radio-button-group
-    fieldId=(concat 'field_' fieldName '.type')
+    fieldId='fieldType'
     propertyName='fieldType'
     value=(readonly fieldType)
     options=fieldTypes
@@ -28,7 +28,7 @@
   {{#if showOptionsField}}
     <div class="options-container">
       <h4>Add some options</h4>
-      {{#each fieldOptions as | option index|}}
+      {{#each currentField.fieldOptions as | option index|}}
         {{custom-elements/form-field-input
           data-test-id="optionLabel"
           fieldId=option.id
