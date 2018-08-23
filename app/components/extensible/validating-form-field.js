@@ -141,11 +141,10 @@ export default Component.extend({
       // Todo error must be updated by sending updateForm action if it is supplied.
       once(this, function() {
         var formField = this.get('formField');
-        console.log(formField);
         formField.set("error", null); // To ensure the error message updates, if the field has been updated but now fails a different validation rule to the previous validation attempt.
         formField.set('error', validateField(formField));
-        if (this.get('formField.error')) { return; }
-        if (this.customValidations) {
+        if (formField.get('error')) { return; }
+        if (this.customValidations && formField.get('validationRules').findBy('validationMethod', 'custom')) {
           this.customValidations(formField, this.get('formFields'));
         }
       });

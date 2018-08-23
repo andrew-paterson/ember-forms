@@ -107,7 +107,7 @@ export default FormContainer.extend({
   actions: {
     customValidations: function(fieldObject, formFields) {
       var error;
-      if (fieldObject.fieldId === 'password' || 'password_confirmation') {
+      if (fieldObject.fieldId === 'password' || fieldObject.fieldId === 'password_confirmation') {
         var passwordFieldObject = formFields.findBy('fieldId', 'password');
         var passwordConfirmationFieldObject = formFields.findBy('fieldId', 'password_confirmation');
         var password = passwordFieldObject.value;

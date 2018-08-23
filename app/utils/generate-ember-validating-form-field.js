@@ -12,8 +12,8 @@ export default function generateEmberValidatingFormField(field, index, formSchem
   };
 
   var fieldObject = EmberObject.create({
-      fieldType: field.fieldType,
-      component: fieldElementComponents[field.fieldType],
+    fieldType: field.fieldType,
+    component: fieldElementComponents[field.fieldType],
   });
   if (field.fieldType === 'textSeparator') {
     fieldObject.text = field.text;

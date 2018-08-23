@@ -112,7 +112,8 @@ export default Component.extend({
 
     validateAllFields: function() {
       var self = this;
-      self.get('formFields').forEach(function(formField) {
+      var formFields = this.get('formFields');
+      formFields.forEach(function(formField) {
         formField.set('error', validateField(formField));
         if (formField.get('error')) {
           return;
