@@ -2,6 +2,7 @@ import Component from '@ember/component';
 import { computed } from '@ember/object';
 import { observer } from '@ember/object';
 import { once } from '@ember/runloop';
+import validateField from 'ember-starter/utils/validate-field';
 
 export default Component.extend({
   classNames: ["form-field"],
@@ -23,12 +24,19 @@ export default Component.extend({
   didInsertElement: function() {
     //Code below will maintain validation colours when component is re-rendered.
     once(this, function() {
+      var formField = this.get('formField');
+      var value = formField.value;
       this.send("setError");
-      if (this.get("autofocus") && !this.get("value")) {
+      if (this.get("autofocus") && !value) {
         this.$("input").focus();
       }
-      if (this.validateField && (this.get("validateOnInsert") || this.get('default'))) {
-        this.validateField(this.get("fieldId"), this.get("value"));
+      if (formField.validationEvents) {
+        if (formField.validationEvents.indexOf('insert') > 0) {
+          var validateOnInsert = true;
+        }
+      }
+      if (validateOnInsert && formField.default) {
+        this.send('validateField');
       }
     });
   },
@@ -37,35 +45,53 @@ export default Component.extend({
     this.send("setError");
   }),
 
+  observeValidationOnChange: observer('validationOn', function() {
+    this.send("validateField");
+  }),
+
   actions: {
-    onFocusOut: function() {
-      if (this.get("value") && this.get("trim")) {
-        this.set("value", this.get("value").trim());
+    onFocusOut: function(value) {
+      var formField = this.get('formField');
+      if (value && this.get("trim")) {
+        formField.set("value", value.trim());
+      }
+      if (!this.get('validationOn')) {
+        this.set('validationOn', true)
+      } else {
+        this.send('validateField');
       }
       if (this.fieldUpdatedAction) {
-        this.fieldUpdatedAction(this.get("fieldId"), this.get('value'));
+        this.fieldUpdatedAction(formField.get('fieldId'), value);
       }
     },
 
-    onFocusIn: function() {
-      this.set("error", null);
-      if (this.get("value") === null || this.get("value") === undefined) {
-        this.set('value', '');
-      }
+    onFocusIn: function(value) {
+      var formField = this.get('formField');
+      formField.set('error', null);
       if (this.focusInAction) {
-        this.focusInAction(this.get("fieldId"), this.get("value"));
+        this.focusInAction(formField.get('fieldId'), value);
       }
     },
 
-    onKeyUp: function() {
-      if (this.keyUpAction) {
-        this.keyUpAction(this.get("fieldId"), this.get("value"));
-      }
-    },
-
-    onRadioCheckboxClick: function(value, propertyName) {
+    onKeyUp: function(value) {
+      var formField = this.get('formField');
       if (this.fieldUpdatedAction) {
-        this.fieldUpdatedAction(value, propertyName, this.get("fieldId"));
+        this.fieldUpdatedAction(formField.get('fieldId'), value);
+      }
+      // if (this.keyUpAction) {
+      //   this.keyUpAction(formField.get('fieldId'), value);
+      // }
+      if (formField.validationEvents) {
+        if (formField.validationEvents.indexOf('keyUp') > 0) {
+          this.send('validateField');
+        }
+      }
+    },
+
+    onRadioCheckboxClick: function(value, fiedId) {
+      var formField = this.get('formField');
+      if (this.fieldUpdatedAction) {
+        this.fieldUpdatedAction(value, fieldId);
       }
     },
 
@@ -95,5 +121,29 @@ export default Component.extend({
         this.set("inputIcon", "svg/icon-asterisk");
       }
     },
-  }
+
+    validateField: function() {
+      // Todo error must be updated by sending updateForm action if it is supplied.
+      once(this, function() {
+        var formField = this.get('formField');
+        formField.set('error', validateField(formField,  this.get('formFields')));
+        if (this.get('formField.error')) {
+          return;
+        }
+        if (this.customValidations) {
+          this.customValidations(formField, this.get('formFields'));
+        }
+      });
+    }
+  },
+
+  generateValidationErrorMessage: function(validationRule) {
+    var readablevalidationRule = validationRule.substring(2).replace(/([A-Z])/g, function(match) {
+       return "" + match;
+    });
+    if (readablevalidationRule !== readablevalidationRule.toUpperCase()) {
+      readablevalidationRule = readablevalidationRule.toLowerCase();
+    }
+    return readablevalidationRule;
+  },
 });

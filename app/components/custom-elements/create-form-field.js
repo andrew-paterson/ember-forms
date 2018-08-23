@@ -75,7 +75,7 @@ export default Component.extend({
       if (fieldId === 'label') {
         this.set('label', value);
         if (validator.isEmpty(value)) {
-          this.set('fieldLabelError', 'You must provide a field label in order to continue.');
+          this.set('fieldLabelError', 'You must provide a field label.');
           return false;
         } else if (!validator.isLength(value, {max: 100})) {
           this.set('fieldLabelError', 'Your field label cannot be longer than 100 characters.');

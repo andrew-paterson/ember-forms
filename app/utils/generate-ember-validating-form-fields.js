@@ -109,6 +109,8 @@ export default function generateEmberValidatingFormFields(formSchema, existing) 
       fieldObject.text = field.text;
       fieldObject.class = field.class;
       fieldObject.disabled = field.disabled;
+
+      fieldObject.validationEvents = field.validationEvents;
       formFields.pushObject(fieldObject);
     });
     return formFields;

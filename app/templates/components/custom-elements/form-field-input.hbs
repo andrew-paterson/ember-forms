@@ -1,10 +1,10 @@
 <label class="{{unless showLabel 'placeholder'}}">{{label}}</label>
 <div class="input-container">
 	{{input
-	  value=value
-	  focusOut=(action 'onFocusOut')
-	  focusIn=(action 'onFocusIn')
-	  keyUp=(action 'onKeyUp')
+	  value=(readonly value)
+	  focusOut=(action 'onFocusOut' value='target.value')
+	  focusIn=(action 'onFocusIn' value='target.value')
+	  keyUp=(action 'onKeyUp' value='target.value')
 	  placeholder=label
 	  autofocus=autofocus
 		type=type

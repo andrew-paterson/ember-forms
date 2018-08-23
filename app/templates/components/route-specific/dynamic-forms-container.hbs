@@ -11,12 +11,14 @@
         }}
         </div>
       {{/if}}
-      <div class="dynamic-form-container preview">
-        {{forms/dynamic-form
-          submitAction=(action submitAction)
-          setProperty=(action setProperty)
-          dynamicFormFields=dynamicFormFields
-        }}
-      </div>
+      {{#if dynamicFormFields}}
+        <div class="dynamic-form-container preview">
+          {{forms/dynamic-form
+            submitAction=(action submitAction)
+            setProperty=(action setProperty)
+            dynamicFormFields=dynamicFormFields
+          }}
+        </div>
+      {{/if}}
   {{/layouts/content-wrapper}}
 {{/layouts/private/outer-wrapper}}

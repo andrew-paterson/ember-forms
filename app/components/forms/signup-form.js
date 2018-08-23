@@ -29,6 +29,7 @@ export default FormContainer.extend({
           fieldType: 'input',
           showLabel: false,
           validationRules: [{'validationMethod': 'required'}],
+          validationEvents: ['focusOut', 'keyUp', 'insert'],
           inputType: 'text',
           trim: true,
         },
@@ -52,7 +53,7 @@ export default FormContainer.extend({
           inputType: 'password',
         },
         {
-          fieldId: 'confirmPassword',
+          fieldId: 'password_confirmation',
           label: 'Confirm password',
           propertyName: 'password_confirmation',
           fieldType: 'input',
@@ -86,17 +87,18 @@ export default FormContainer.extend({
         },
       ]
     };
-    var formSchema = JSON.parse(localStorage.getItem('signUpForm'));
-    // var formSchema = this.get('signUpFormSchema');
+    // var formSchema = JSON.parse(localStorage.getItem('signUpForm'));
+    var formSchema = this.get('signUpFormSchema');
     this.formObject = generateEmberValidatingFormFields(formSchema);
-    localStorage.setItem(this.get('signUpFormSchema').formName, JSON.stringify(this.get('signUpFormSchema')));
+    // localStorage.setItem(this.get('signUpFormSchema').formName, JSON.stringify(this.get('signUpFormSchema')));
   },
 
   actions: {
     customValidations: function(fieldObject, formFields) {
-      if (fieldObject.propertyName === 'password' || 'password_confirmation') {
-        var passwordFieldObject = formFields.findBy('propertyName', 'password');
-        var passwordConfirmationFieldObject = formFields.findBy('propertyName', 'password_confirmation');
+      var error;
+      if (fieldObject.fieldId === 'password' || 'password_confirmation') {
+        var passwordFieldObject = formFields.findBy('fieldId', 'password');
+        var passwordConfirmationFieldObject = formFields.findBy('fieldId', 'password_confirmation');
         var password = passwordFieldObject.value;
         var passwordConfirmation = passwordConfirmationFieldObject.value;
         if (password && passwordConfirmation) {

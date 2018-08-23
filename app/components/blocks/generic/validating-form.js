@@ -50,6 +50,16 @@ export default Component.extend({
   },
 
   actions: {
+    test: function() {
+      console.log('test');
+    },
+
+    customValidations: function(formField) {
+      console.log(formField);
+      console.log(this.get('formFields'));
+      this.customValidations(formField, this.get('formFields'));
+    },
+
     setFormValue: function(fieldId, value) {
       value = value || '';
       var fieldObject = this.get('formFields').findBy('fieldId', fieldId);
@@ -110,47 +120,48 @@ export default Component.extend({
     validateAllFields: function() {
       var self = this;
       this.get('formFields').forEach(function(fieldObject) {
-        self.send('setFormValue', fieldObject.fieldId, fieldObject.value);
+        fieldObject.set('validationOn', true);
+        // self.send('setFormValue', fieldObject.fieldId, fieldObject.value);
       });
     },
 
     validateField: function(fieldId) {
-      var self = this;
-      var fieldObject = this.get('formFields').findBy('fieldId', fieldId);fieldLabel
-      if (fieldObject.value === null || fieldObject.value === undefined) {
-        return;
-      }
-      var stringValue = fieldObject.value.toString();
-      var validationRules = fieldObject.validationRules || [];
-      fieldObject.set("error", null);
-      validationRules.forEach(function(validationRule) {
-        var validationMethod = validationRule.validationMethod;
-        var validationArgs = validationRule.arguments;
-        var customErrorMessage = validationRule.errorMessage;
-        validationMethod = validationMethod === "isDate" ? "toDate" : validationMethod;
-        if (fieldObject.get("error")) {return;}
-        // Validate required fields.
-        var errorMessage;
-        if (validationMethod === "required") {
-          if (validator.isEmpty(stringValue)) {
-            errorMessage = customErrorMessage || "This field is required.";
-            fieldObject.set("error", errorMessage);
-          } else {
-            fieldObject.set("error", false);
-          }
-        // Validate all other types of fields
-        } else if (validator[validationMethod]) {
-          if (!validator[validationMethod](stringValue, validationArgs)) {
-            errorMessage = customErrorMessage || `This is not a valid ${self.generateValidationErrorMessage(validationMethod)} value. Please try again.`;
-            fieldObject.set("error", errorMessage);
-          } else {
-            fieldObject.set("error", false);
-          }
-        } else if (validationMethod === "custom") {
-          if (self.customValidations)
-            self.customValidations(fieldObject, self.get('formFields'));
-          }
-      });
+      // var self = this;
+      // var fieldObject = this.get('formFields').findBy('fieldId', fieldId);
+      // if (fieldObject.value === null || fieldObject.value === undefined) {
+      //   return;
+      // }
+      // var stringValue = fieldObject.value.toString();
+      // var validationRules = fieldObject.validationRules || [];
+      // fieldObject.set("error", null);
+      // validationRules.forEach(function(validationRule) {
+      //   var validationMethod = validationRule.validationMethod;
+      //   var validationArgs = validationRule.arguments;
+      //   var customErrorMessage = validationRule.errorMessage;
+      //   validationMethod = validationMethod === "isDate" ? "toDate" : validationMethod;
+      //   if (fieldObject.get("error")) {return;}
+      //   // Validate required fields.
+      //   var errorMessage;
+      //   if (validationMethod === "required") {
+      //     if (validator.isEmpty(stringValue)) {
+      //       errorMessage = customErrorMessage || "This field is required.";
+      //       fieldObject.set("error", errorMessage);
+      //     } else {
+      //       fieldObject.set("error", false);
+      //     }
+      //   // Validate all other types of fields
+      //   } else if (validator[validationMethod]) {
+      //     if (!validator[validationMethod](stringValue, validationArgs)) {
+      //       errorMessage = customErrorMessage || `This is not a valid ${self.generateValidationErrorMessage(validationMethod)} value. Please try again.`;
+      //       fieldObject.set("error", errorMessage);
+      //     } else {
+      //       fieldObject.set("error", false);
+      //     }
+      //   } else if (validationMethod === "custom") {
+      //     if (self.customValidations)
+      //       self.customValidations(fieldObject, self.get('formFields'));
+      //     }
+      // });
     },
   },
 
@@ -181,6 +192,7 @@ export default Component.extend({
   },
 
   generateValidationErrorMessage: function(validationRule) {
+    // Todo remove
     var readablevalidationRule = validationRule.substring(2).replace(/([A-Z])/g, function(match) {
        return "" + match;
     });

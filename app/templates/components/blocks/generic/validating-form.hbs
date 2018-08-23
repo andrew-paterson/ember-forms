@@ -3,6 +3,8 @@
   {{#each formFields as |formField index|}}
     {{#if (or (eq formField.fieldType "input") (eq formField.fieldType "textarea")) }}
       {{component formField.component
+        formField=formField
+        validationOn=formField.validationOn
         fieldId=formField.fieldId
         propertyName=formField.propertyName
         value=formField.value
@@ -21,10 +23,12 @@
         class=formField.class
         hideSuccessValidation=formField.hideSuccessValidation
         required=formField.required
+        customValidations=(action 'customValidations')
       }}
     {{/if}}
     {{#if (eq formField.fieldType "date") }}
       {{component formField.component
+        formField=formField
         fieldId=formField.fieldId
         propertyName=formField.propertyName
         value=formField.value
@@ -48,6 +52,7 @@
     {{/if}}
     {{#if (eq formField.fieldType "select") }}
       {{component formField.component
+        formField=formField
         fieldId=formField.fieldId
         propertyName=formField.propertyName
         value=formField.value
@@ -61,6 +66,7 @@
         searchPlaceholder="Search"
         allowClear=true
         fieldUpdatedAction=(action "setFormValue")
+        onclose=(action 'test')
         changedAction=(action "setFormValue")
         validateField=(action "validateField")
         default=formField.default
@@ -72,6 +78,7 @@
     {{/if}}
     {{#if (eq formField.fieldType "singleCheckbox") }}
       {{component formField.component
+        formField=formField
         customClasses='single-checkbox'
         fieldId=formField.fieldId
         propertyName=formField.propertyName
@@ -97,6 +104,7 @@
     {{/if}}
     {{#if (eq formField.fieldType "radioButtonGroup") }}
       {{component formField.component
+        formField=formField
         fieldId=formField.fieldId
         customClasses='radio-button-group'
         propertyName=formField.propertyName
@@ -123,11 +131,14 @@
     {{#if (eq formField.fieldType "textSeparator") }}
         {{component formField.component
           text=formField.text
+          formField=formField
           textElement=formField.textElement
         }}
     {{/if}}
     {{#if (eq formField.fieldType "customComponent") }}
-      {{component formField.component}}
+      {{component formField.component
+        formField=formField
+      }}
     {{/if}}
   {{/each}}
   {{custom-elements/form-submit-input value=submitButtonText requestInFlight=requestInFlight}}
