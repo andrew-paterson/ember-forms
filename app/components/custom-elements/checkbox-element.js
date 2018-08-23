@@ -8,7 +8,7 @@ export default Component.extend({
   actions: {
     sendChangedAction: function(value) {
       if (this.changedAction) {
-        this.changedAction(this.get("property"), value);
+        this.changedAction(value);
       }
     }
   }

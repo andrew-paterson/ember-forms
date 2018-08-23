@@ -6,4 +6,11 @@ export default ValidatingFormField.extend({
       this.set("format", "dd-mm-yyyy");
     }
   },
+  actions: {
+    focusOutAction: function(comp, event) {
+      this.send('onFocusOut', comp.value);
+    },
+
+  }
+
 });

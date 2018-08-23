@@ -1,12 +1,12 @@
-<label class="{{unless showLabel 'placeholder'}}">{{label}}</label>
+<label class="{{unless formField.showLabel 'placeholder'}}">{{formField.label}}</label>
 <div class="input-container">
   {{#power-select
-    options=options
-    selected=value
-    searchPlaceholder="Search"
+    options=formField.options
+    selected=(readonly formField.value)
+    searchPlaceholder=formField.searchPlaceholder
     allowClear=true
-    placeholder=label
-    onchange=(action 'onSelectClick' fieldId)
+    placeholder=formField.label
+    onchange=(action 'onSelectClick' formField.fieldId)
     onclose=onclose
     as |option|
     }}
@@ -14,6 +14,6 @@
   {{/power-select}}
 {{component inputIcon class='form-field-icon'}}
 </div>
-{{#if error}}
-  <div class='field-error'>{{svg/icon-curved-arrow-right}}{{error}}</div>
+{{#if formField.error}}
+  <div class='field-error'>{{svg/icon-curved-arrow-right}}{{formField.error}}</div>
 {{/if}}

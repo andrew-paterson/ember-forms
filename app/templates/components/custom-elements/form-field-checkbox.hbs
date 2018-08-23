@@ -1,14 +1,12 @@
 <div class="single-checkbox-container">
   {{custom-elements/checkbox-element
-    propertyName=formField.propertyName
-    value=value
-    error=error
-    label=label
-    labelComponent=labelComponent
-    changedAction=(action 'onRadioCheckboxClick')
+    value=(readonly formField.value)
+    label=formField.label
+    labelComponent=formField.labelComponent
+    changedAction=(action 'onCheckboxClick' formField.fieldId)
   }}
   {{component inputIcon class='form-field-icon'}}
 </div>
-{{#if error}}
-  <div class='field-error'>{{svg/icon-curved-arrow-right}}{{error}}</div>
+{{#if formField.error}}
+  <div class='field-error'>{{svg/icon-curved-arrow-right}}{{formField.error}}</div>
 {{/if}}

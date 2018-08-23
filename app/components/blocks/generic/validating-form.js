@@ -1,7 +1,6 @@
 // TODO arguments sent with submitAction change depending on whether the forms creates a new record or updates an existing one. This is differentiated by whether or not the "recordToUpdate" property is set, in which case it sends the updated model record.
 import Component from '@ember/component';
 import { computed } from '@ember/object';
-import { observer } from '@ember/object';
 import Object from '@ember/object';
 import generateEmberValidatingFormFields from 'ember-starter/utils/generate-ember-validating-form-fields';
 import validateField from 'ember-starter/utils/validate-field';
@@ -56,9 +55,6 @@ export default Component.extend({
     },
 
     setFormValue: function(fieldId, value) {
-      console.log(fieldId);
-      console.log(value);
-      console.log('setFormValue');
       value = value || '';
       var fieldObject = this.get('formFields').findBy('fieldId', fieldId);
       fieldObject.set('value', value);
@@ -117,18 +113,14 @@ export default Component.extend({
     validateAllFields: function() {
       var self = this;
       self.get('formFields').forEach(function(formField) {
-        self.send('validateField', formField);
+        formField.set('error', validateField(formField));
+        if (formField.get('error')) {
+          return;
+        }
+        if (self.customValidations) {
+          self.customValidations(formField, self.get('formFields'));
+        }
       });
-    },
-
-    validateField: function(formField) {
-      formField.set('error', validateField(formField));
-      if (formField.get('error')) {
-        return;
-      }
-      if (this.customValidations) {
-        this.customValidations(formField, this.get('formFields'));
-      }
     },
   },
 

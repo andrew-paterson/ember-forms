@@ -25,7 +25,6 @@ export default FormContainer.extend({
         {
           fieldId: 'name',
           label: 'Name',
-          propertyName: 'name',
           fieldType: 'input',
           showLabel: false,
           validationRules: [{'validationMethod': 'required'}],
@@ -36,7 +35,6 @@ export default FormContainer.extend({
         {
           fieldId: 'email',
           label: 'Email',
-          propertyName: 'email',
           fieldType: 'input',
           showLabel: false,
           validationRules: [{'validationMethod': 'required'}, {'validationMethod': 'isEmail'}],
@@ -46,7 +44,6 @@ export default FormContainer.extend({
         {
           fieldId: 'password',
           label: 'Password (Minimum 8 characters)',
-          propertyName: 'password',
           fieldType: 'input',
           showLabel: false,
           validationRules: [{'validationMethod': 'required'}, {'validationMethod': 'isLength', 'arguments': {min: 8, max: 72}}, {'validationMethod': 'custom'}],
@@ -55,7 +52,6 @@ export default FormContainer.extend({
         {
           fieldId: 'password_confirmation',
           label: 'Confirm password',
-          propertyName: 'password_confirmation',
           fieldType: 'input',
           showLabel: false,
           validationRules: [{'validationMethod': 'required'}, {'validationMethod': 'isLength', 'arguments': {min: 8, max: 72}}, {'validationMethod': 'custom'}],
@@ -65,7 +61,6 @@ export default FormContainer.extend({
         {
           fieldId: 'country',
           label: "Country",
-          propertyName: "info.country",
           fieldType: "select",
           showLabel: false,
           validationRules: [{'validationMethod': 'required'}],
@@ -74,7 +69,6 @@ export default FormContainer.extend({
         {
           fieldId: 'acceptTerms',
           fieldType: "radioButtonGroup",
-          propertyName: "acceptTerms",
           label: 'Do you agree to the terms?',
           validationRules: [{'validationMethod': 'required'}, {'validationMethod': 'equals', 'arguments': 'true', 'errorMessage': 'You must accept the terms to continue.'}],
           radioButtons: [{
@@ -85,12 +79,29 @@ export default FormContainer.extend({
             'value': 'false'
           }]
         },
+        {
+          label: "Activation date",
+          fieldId: "activation_date",
+          fieldType: "date",
+          default: moment().toDate(),
+          showLabel: false,
+          validationRules: [{'validationMethod': 'required'}, {'validationMethod': 'isDate'}],
+        },
+        {
+          fieldType: 'textSeparator',
+          text: "Hello world",
+          textElement: 'h3'
+        },
+        {
+          fieldId: 'test',
+          fieldType: "singleCheckbox",
+          validationRules: [{'validationMethod': 'required'}],
+          label: 'test'
+        }
       ]
     };
-    // var formSchema = JSON.parse(localStorage.getItem('signUpForm'));
     var formSchema = this.get('signUpFormSchema');
     this.formObject = generateEmberValidatingFormFields(formSchema);
-    // localStorage.setItem(this.get('signUpFormSchema').formName, JSON.stringify(this.get('signUpFormSchema')));
   },
 
   actions: {
