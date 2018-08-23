@@ -4,6 +4,7 @@ import { computed } from '@ember/object';
 import { observer } from '@ember/object';
 import Object from '@ember/object';
 import generateEmberValidatingFormFields from 'ember-starter/utils/generate-ember-validating-form-fields';
+import validateField from 'ember-starter/utils/validate-field';
 
 export default Component.extend({
   classNameBindings: ['class'],
@@ -50,17 +51,14 @@ export default Component.extend({
   },
 
   actions: {
-    test: function() {
-      console.log('test');
-    },
-
     customValidations: function(formField) {
-      console.log(formField);
-      console.log(this.get('formFields'));
       this.customValidations(formField, this.get('formFields'));
     },
 
     setFormValue: function(fieldId, value) {
+      console.log(fieldId);
+      console.log(value);
+      console.log('setFormValue');
       value = value || '';
       var fieldObject = this.get('formFields').findBy('fieldId', fieldId);
       fieldObject.set('value', value);
@@ -68,7 +66,6 @@ export default Component.extend({
         this.customTransforms(this.get('formFields'), fieldId, this.get('formMetaData'));
       }
       if (!fieldObject.validationRules) {return;}
-      this.send('validateField', fieldId);
     },
 
     submit: function() {
@@ -119,49 +116,19 @@ export default Component.extend({
 
     validateAllFields: function() {
       var self = this;
-      this.get('formFields').forEach(function(fieldObject) {
-        fieldObject.set('validationOn', true);
-        // self.send('setFormValue', fieldObject.fieldId, fieldObject.value);
+      self.get('formFields').forEach(function(formField) {
+        self.send('validateField', formField);
       });
     },
 
-    validateField: function(fieldId) {
-      // var self = this;
-      // var fieldObject = this.get('formFields').findBy('fieldId', fieldId);
-      // if (fieldObject.value === null || fieldObject.value === undefined) {
-      //   return;
-      // }
-      // var stringValue = fieldObject.value.toString();
-      // var validationRules = fieldObject.validationRules || [];
-      // fieldObject.set("error", null);
-      // validationRules.forEach(function(validationRule) {
-      //   var validationMethod = validationRule.validationMethod;
-      //   var validationArgs = validationRule.arguments;
-      //   var customErrorMessage = validationRule.errorMessage;
-      //   validationMethod = validationMethod === "isDate" ? "toDate" : validationMethod;
-      //   if (fieldObject.get("error")) {return;}
-      //   // Validate required fields.
-      //   var errorMessage;
-      //   if (validationMethod === "required") {
-      //     if (validator.isEmpty(stringValue)) {
-      //       errorMessage = customErrorMessage || "This field is required.";
-      //       fieldObject.set("error", errorMessage);
-      //     } else {
-      //       fieldObject.set("error", false);
-      //     }
-      //   // Validate all other types of fields
-      //   } else if (validator[validationMethod]) {
-      //     if (!validator[validationMethod](stringValue, validationArgs)) {
-      //       errorMessage = customErrorMessage || `This is not a valid ${self.generateValidationErrorMessage(validationMethod)} value. Please try again.`;
-      //       fieldObject.set("error", errorMessage);
-      //     } else {
-      //       fieldObject.set("error", false);
-      //     }
-      //   } else if (validationMethod === "custom") {
-      //     if (self.customValidations)
-      //       self.customValidations(fieldObject, self.get('formFields'));
-      //     }
-      // });
+    validateField: function(formField) {
+      formField.set('error', validateField(formField));
+      if (formField.get('error')) {
+        return;
+      }
+      if (this.customValidations) {
+        this.customValidations(formField, this.get('formFields'));
+      }
     },
   },
 

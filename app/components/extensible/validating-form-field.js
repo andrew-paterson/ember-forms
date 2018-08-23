@@ -78,9 +78,9 @@ export default Component.extend({
       if (this.fieldUpdatedAction) {
         this.fieldUpdatedAction(formField.get('fieldId'), value);
       }
-      // if (this.keyUpAction) {
-      //   this.keyUpAction(formField.get('fieldId'), value);
-      // }
+      if (this.keyUpAction) {
+        this.keyUpAction(formField.get('fieldId'), value);
+      }
       if (formField.validationEvents) {
         if (formField.validationEvents.indexOf('keyUp') > 0) {
           this.send('validateField');
@@ -88,11 +88,20 @@ export default Component.extend({
       }
     },
 
-    onRadioCheckboxClick: function(value, fiedId) {
+    onRadioCheckboxClick: function(value, fieldId) {
       var formField = this.get('formField');
       if (this.fieldUpdatedAction) {
         this.fieldUpdatedAction(value, fieldId);
       }
+      this.send('validateField');
+    },
+
+    onSelectClick: function(value, fieldId) {
+      var formField = this.get('formField');
+      if (this.fieldUpdatedAction) {
+        this.fieldUpdatedAction(value, fieldId);
+      }
+      this.send('validateField');
     },
 
     setError: function() {
@@ -126,7 +135,8 @@ export default Component.extend({
       // Todo error must be updated by sending updateForm action if it is supplied.
       once(this, function() {
         var formField = this.get('formField');
-        formField.set('error', validateField(formField,  this.get('formFields')));
+        formField.set("error", null); // To ensure the error message updates, if the field has been updated but now fails a different validation rule to the previous validation attempt.
+        formField.set('error', validateField(formField));
         if (this.get('formField.error')) {
           return;
         }
