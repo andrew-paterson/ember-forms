@@ -73,6 +73,12 @@ export default Component.extend({
       // if (!fieldObject.validationRules) {return;}
     },
 
+    setFormFieldError: function(fieldId, error) {
+      console.log('setFormFieldError');
+      var fieldObject = this.get('formFields').findBy('fieldId', fieldId);
+      fieldObject.set('error', error);
+    },
+
     submit: function() {
       var self = this;
       this.send('validateAllFields');
