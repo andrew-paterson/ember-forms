@@ -40,11 +40,11 @@ export default function generateEmberValidatingFormField(field, index, formSchem
     value = field.default;
   }
   var hideSuccessValidation;
-  if (field.hideSuccessValidation !== null && field.hideSuccessValidation !== undefined) {
-    hideSuccessValidation = field.hideSuccessValidation;
-  } else {
-    hideSuccessValidation = formSchema.hideSuccessValidation;
-  }
+  // if (field.hideSuccessValidation !== null && field.hideSuccessValidation !== undefined) {
+  //   hideSuccessValidation = field.hideSuccessValidation;
+  // } else {
+  //   hideSuccessValidation = formSchema.hideSuccessValidation;
+  // }
   var showLabel;
   if (field.showLabel !== null && field.showLabel !== undefined) {
     showLabel = field.showLabel;

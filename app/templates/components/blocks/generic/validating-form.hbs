@@ -1,50 +1,11 @@
 <h3>{{formMetaData.title}}</h3>
 <form {{action "submit" on="submit"}}>
   {{#each formFields as |formField index|}}
-    {{#if (or (eq formField.fieldType "input") (eq formField.fieldType "textarea")) }}
-      {{component formField.component
-        processedFieldSchema=formField
-        fieldUpdatedAction=(action "setFormValue")
-        customValidations=(action 'customValidations')
-      }}
-    {{/if}}
-    {{#if (eq formField.fieldType "date") }}
-      {{component formField.component
-        processedFieldSchema=formField
-        fieldUpdatedAction=(action "setFormValue")
-      }}
-    {{/if}}
-    {{#if (eq formField.fieldType "select") }}
-      {{component formField.component
-        processedFieldSchema=formField
-        searchPlaceholder="Search"
-        allowClear=true
-        fieldUpdatedAction=(action "setFormValue")
-      }}
-    {{/if}}
-    {{#if (eq formField.fieldType "singleCheckbox") }}
-      {{component formField.component
-        processedFieldSchema=formField
-        fieldUpdatedAction=(action "setFormValue" formField.fieldId)
-      }}
-    {{/if}}
-    {{#if (eq formField.fieldType "radioButtonGroup") }}
-      {{component formField.component
-        processedFieldSchema=formField
-        fieldUpdatedAction=(action "setFormValue")
-      }}
-    {{/if}}
-    {{#if (eq formField.fieldType "textSeparator") }}
-        {{component formField.component
-          processedFieldSchema=formField
-        }}
-    {{/if}}
-    {{#if (eq formField.fieldType "customComponent") }}
-      {{component formField.component
-        processedFieldSchema=formField
-        fieldUpdatedAction=(action "setFormValue")
-      }}
-    {{/if}}
+    {{blocks/generic/validating-field-wrapper
+      formField=formField
+      setFormFieldValue=(action 'setFormFieldValue')
+      customValidations=(action 'customValidations')
+    }}
   {{/each}}
   {{custom-elements/form-submit-input value=submitButtonText requestInFlight=requestInFlight}}
 </form>

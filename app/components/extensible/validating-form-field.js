@@ -28,13 +28,13 @@ export default Component.extend({
     });
   },
 
-  formField: computed('fieldSchema', 'processedFieldSchema', function() {
-    if (this.get('processedFieldSchema')) {
-      return this.get('processedFieldSchema');
-    } else {
-      return generateEmberValidatingFormField(this.get('fieldSchema'));
-    }
-  }),
+  // formField: computed('fieldSchema', 'processedFieldSchema', function() {
+  //   if (this.get('processedFieldSchema')) {
+  //     return this.get('processedFieldSchema');
+  //   } else {
+  //     return generateEmberValidatingFormField(this.get('fieldSchema'));
+  //   }
+  // }),
 
   valid: computed('formField.error', function() {
     if (this.get("formField.error")) {
@@ -106,7 +106,6 @@ export default Component.extend({
     },
 
     onFocusIn: function(value) {
-      console.log('onFocusIn');
       var formField = this.get('formField');
       formField.set('focussed', true);
       formField.set('error', null);
@@ -116,7 +115,6 @@ export default Component.extend({
     },
 
     onKeyUp: function(value) {
-      console.log('onKeyUp');
       // Don't ever trim on keyUp, as this makes including spaces impossible.
       var formField = this.get('formField');
       if (this.fieldUpdatedAction) {

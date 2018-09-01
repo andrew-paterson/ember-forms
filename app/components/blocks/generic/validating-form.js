@@ -62,7 +62,8 @@ export default Component.extend({
       this.customValidations(formField, this.get('formFields'));
     },
 
-    setFormValue: function(fieldId, value) {
+    setFormFieldValue: function(fieldId, value) {
+      console.log('setFormFieldValue');
       value = value || '';
       var fieldObject = this.get('formFields').findBy('fieldId', fieldId);
       fieldObject.set('value', value);
