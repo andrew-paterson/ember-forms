@@ -80,6 +80,14 @@ export default Component.extend({
     }
   }),
 
+  formField: computed('fieldSchema', 'processedFieldSchema', function() {
+    if (this.get('processedFieldSchema')) {
+      return this.get('processedFieldSchema');
+    } else {
+      return generateEmberValidatingFormField(this.get('fieldSchema'));
+    }
+  }),
+
   actions: {
     onDateChange: function(value) {
       var formField = this.get('formField');
@@ -148,15 +156,46 @@ export default Component.extend({
       var self = this;
       once(this, function() {
         var formField = this.get('formField');
-        self.setFieldError(null); // To ensure the error message updates, if the field has been updated but now fails a different validation rule to the previous validation attempt.
+        // self.setFieldError(null); // To ensure the error message updates, if the field has been updated but now fails a different validation rule to the previous validation attempt.
+        this.send('setFieldError', null);
         var error = validateField(formField);
-        this.setFieldError(error);
+        // this.setFieldError(error);
+        this.send('setFieldError', error);
         if (error) { return; }
         // if (this.customValidations && formField.get('validationRules').findBy('validationMethod', 'custom')) {
         //   this.customValidations(formField, this.get('formFields'));
         // }
       });
-    }
+    },
+
+    setFieldValue: function(fieldId, value) {
+      console.log('setFieldValue');
+      if (this.setFormFieldValue) {
+        this.setFormFieldValue(fieldId, value);
+      } else {
+        console.log('setFieldValue');
+        value = value || '';
+        var formField = this.get('formField');
+        formField.set('value', value);
+        if (this.customTransforms) {
+          this.customTransforms(this.get('formFields'), fieldId, this.get('formMetaData'));
+        }
+        // if (!formField.validationRules) {return;}
+      }
+    },
+
+    setFieldError: function(error) {
+      var formField = this.get('formField');
+      if (this.setFormFieldError) {
+        this.setFormFieldError(formField.fieldId, error);
+      } else {
+        formField.set('error', error);
+      }
+    },
+
+    customValidations: function() {
+
+    },
   },
   // TODO this must be used to generate more specific error messages.
   // generateValidationErrorMessage: function(validationRule) {

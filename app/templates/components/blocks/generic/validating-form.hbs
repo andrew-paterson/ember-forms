@@ -1,7 +1,7 @@
 <h3>{{formMetaData.title}}</h3>
 <form {{action "submit" on="submit"}}>
   {{#each formFields as |formField index|}}
-    {{blocks/generic/validating-field-wrapper
+    {{extensible/validating-form-field
       formField=formField
       setFormFieldValue=(action 'setFormFieldValue')
       setFormFieldError=(action 'setFormFieldError')

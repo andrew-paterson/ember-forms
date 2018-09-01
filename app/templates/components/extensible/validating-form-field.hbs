@@ -1,1 +1,44 @@
-{{yield}}
+{{#if (or (eq formField.fieldType "input") (eq formField.fieldType "textarea")) }}
+  {{component formField.component
+    formField=formField
+    fieldUpdatedAction=(action 'setFieldValue')
+    customValidations=(action 'customValidations')
+  }}
+{{/if}}
+{{#if (eq formField.fieldType "date") }}
+  {{component formField.component
+    formField=formField
+    fieldUpdatedAction=(action 'setFieldValue')
+  }}
+{{/if}}
+{{#if (eq formField.fieldType "select") }}
+  {{component formField.component
+    formField=formField
+    searchPlaceholder="Search"
+    allowClear=true
+    fieldUpdatedAction=(action 'setFieldValue')
+  }}
+{{/if}}
+{{#if (eq formField.fieldType "singleCheckbox") }}
+  {{component formField.component
+    formField=formField
+    fieldUpdatedAction=(action 'setFieldValue' formField.fieldId)
+  }}
+{{/if}}
+{{#if (eq formField.fieldType "radioButtonGroup") }}
+  {{component formField.component
+    formField=formField
+    fieldUpdatedAction=(action 'setFieldValue')
+  }}
+{{/if}}
+{{#if (eq formField.fieldType "textSeparator") }}
+    {{component formField.component
+      formField=formField
+    }}
+{{/if}}
+{{#if (eq formField.fieldType "customComponent") }}
+  {{component formField.component
+    formField=formField
+    fieldUpdatedAction=(action 'setFieldValue')
+  }}
+{{/if}}
