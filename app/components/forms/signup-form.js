@@ -2,6 +2,8 @@ import { inject as service } from '@ember/service';
 import FormContainer from 'ember-starter/components/extensible/form-container';
 import httpErrorMessageGenerator from 'ember-starter/utils/http-error-message-generator';
 import generateEmberValidatingFormFields from 'ember-starter/utils/generate-ember-validating-form-fields';
+import generateEmberValidatingFormField from 'ember-starter/utils/generate-ember-validating-form-field';
+
 import EmberObject from '@ember/object';
 
 export default FormContainer.extend({
@@ -114,6 +116,7 @@ export default FormContainer.extend({
       inputType: 'text',
       trim: true,
     }
+    this.processedStandaloneField = generateEmberValidatingFormField(this.get('standaloneField'));
   },
 
   actions: {

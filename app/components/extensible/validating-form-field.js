@@ -78,6 +78,10 @@ export default Component.extend({
   sendValidateOnValueUpdate: observer('formField.value', function() {
     var formField = this.get('formField');
     formField.validationEvents = formField.validationEvents || [];
+    if (formField.focussed && formField.value === '') {
+      formField.set("error", null);
+      return;
+    }
     if (!formField.focussed || formField.validationEvents.indexOf('keyUp') > -1) {
       this.send('validateField');
     }
