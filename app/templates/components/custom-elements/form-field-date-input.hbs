@@ -4,15 +4,14 @@
     value=(readonly formField.value)
     startDate=startDate
     endDate=formField.endDate
-    changeDate=(action "onFocusOut")
-    focus-out=(action "focusOutAction")
+    changeDate=(action "onDateChange")
     placeholder=formField.label
     autoclose=formField.autoclose
     orientation=formField.orientation
     todayHighlight=true
     format=format
-    allowClear=true
     clearBtn=true
+    readonly="readonly"
   }}
 {{component inputIcon class='form-field-icon'}}
 </div>

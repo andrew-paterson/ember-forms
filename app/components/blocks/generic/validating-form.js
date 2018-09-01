@@ -8,6 +8,14 @@ import validateField from 'ember-starter/utils/validate-field';
 export default Component.extend({
   classNameBindings: ['class'],
 
+  formObject: computed('formSchema', 'processedFormSchema', function() {
+    if (this.get('processedFormSchema')) {
+      return this.get('processedFormSchema');
+    } else {
+      return generateEmberValidatingFormFields(this.get('formSchema'));
+    }
+  }),
+
   formName: computed('formObject', function() {
     var formName = this.get('formObject.formMetaData.formName');
     if (!formName) {
@@ -136,8 +144,8 @@ export default Component.extend({
   generateFormValues: function(formFields) {
     var values = {};
     formFields.forEach(function(field) {
-      if (!field.propertyName) {return;}
-      var levels = field.propertyName.split(".");
+      if (!field.fieldId) {return;}
+      var levels = field.fieldId.split(".");
       var acc = values;
       levels.forEach(function(level, index) {
         if (index === levels.length-1) {

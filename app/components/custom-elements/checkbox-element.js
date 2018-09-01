@@ -6,7 +6,7 @@ export default Component.extend({
   classNameBindings: ["disabled:disabled"],
 
   actions: {
-    sendChangedAction: function(value) {
+    checkboxClicked: function(value) {
       if (this.changedAction) {
         this.changedAction(value);
       }

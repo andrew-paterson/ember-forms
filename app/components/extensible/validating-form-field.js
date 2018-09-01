@@ -3,6 +3,7 @@ import { computed } from '@ember/object';
 import { observer } from '@ember/object';
 import { once } from '@ember/runloop';
 import validateField from 'ember-starter/utils/validate-field';
+import generateEmberValidatingFormField from 'ember-starter/utils/generate-ember-validating-form-field';
 
 export default Component.extend({
   classNames: ["form-field"],
@@ -17,7 +18,7 @@ export default Component.extend({
         this.$("input").focus();
       }
       if (formField.validationEvents) {
-        if (formField.validationEvents.indexOf('insert') > 0) {
+        if (formField.validationEvents.indexOf('insert') > -1) {
           var validateOnInsert = true;
         }
       }
@@ -26,6 +27,14 @@ export default Component.extend({
       }
     });
   },
+
+  formField: computed('fieldSchema', 'processedFieldSchema', function() {
+    if (this.get('processedFieldSchema')) {
+      return this.get('processedFieldSchema');
+    } else {
+      return generateEmberValidatingFormField(this.get('fieldSchema'));
+    }
+  }),
 
   valid: computed('formField.error', function() {
     if (this.get("formField.error")) {
@@ -66,32 +75,40 @@ export default Component.extend({
     }
   }),
 
+  sendValidateOnValueUpdate: observer('formField.value', function() {
+    var formField = this.get('formField');
+    formField.validationEvents = formField.validationEvents || [];
+    if (!formField.focussed || formField.validationEvents.indexOf('keyUp') > -1) {
+      this.send('validateField');
+    }
+  }),
+
   actions: {
     onDateChange: function(value) {
       var formField = this.get('formField');
       if (value && this.get("trim")) {
-        formField.set("value", value.trim());
+        value = value.trim();
       }
       if (this.fieldUpdatedAction) {
         this.fieldUpdatedAction(formField.get('fieldId'), value);
       }
-      // QUE should this be default for all focusOut?.
-      this.send('validateField');
     },
     onFocusOut: function(value) {
       var formField = this.get('formField');
+      formField.set('focussed', false);
+      this.send('validateField');
       if (value && this.get("trim")) {
-        formField.set("value", value.trim());
+        value = value.trim();
       }
       if (this.fieldUpdatedAction) {
         this.fieldUpdatedAction(formField.get('fieldId'), value);
       }
-      // QUE should this be default for all focusOut?.
-      this.send('validateField');
     },
 
     onFocusIn: function(value) {
+      console.log('onFocusIn');
       var formField = this.get('formField');
+      formField.set('focussed', true);
       formField.set('error', null);
       if (this.focusInAction) {
         this.focusInAction(formField.get('fieldId'), value);
@@ -99,17 +116,14 @@ export default Component.extend({
     },
 
     onKeyUp: function(value) {
+      console.log('onKeyUp');
+      // Don't ever trim on keyUp, as this makes including spaces impossible.
       var formField = this.get('formField');
       if (this.fieldUpdatedAction) {
         this.fieldUpdatedAction(formField.get('fieldId'), value);
       }
       if (this.keyUpAction) {
         this.keyUpAction(formField.get('fieldId'), value);
-      }
-      if (formField.validationEvents) {
-        if (formField.validationEvents.indexOf('keyUp') > 0) {
-          this.send('validateField');
-        }
       }
     },
 
@@ -118,7 +132,6 @@ export default Component.extend({
       if (this.fieldUpdatedAction) {
         this.fieldUpdatedAction(value, fieldId);
       }
-      this.send('validateField');
     },
 
     onCheckboxClick: function(fieldId, value) {
@@ -126,7 +139,6 @@ export default Component.extend({
       if (this.fieldUpdatedAction) {
         this.fieldUpdatedAction(value, fieldId);
       }
-      this.send('validateField');
     },
 
     onSelectClick: function(value, fieldId) {
@@ -134,7 +146,6 @@ export default Component.extend({
       if (this.fieldUpdatedAction) {
         this.fieldUpdatedAction(value, fieldId);
       }
-      this.send('validateField');
     },
 
     validateField: function() {

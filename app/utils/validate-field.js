@@ -10,6 +10,7 @@ export default function validateField(formField) {
       var validationArgs = validationRule.arguments;
       var customErrorMessage = validationRule.errorMessage;
       validationMethod = validationMethod === "isDate" ? "toDate" : validationMethod;
+
       if (errorMessage) {return;} // Stop validation if any validation rule is not passed.
       // Validate required fields.
       if (validationMethod === "required") {
@@ -20,6 +21,7 @@ export default function validateField(formField) {
         }
       // Validate all other types of fields
       } else if (validator[validationMethod]) {
+
         if (!validator[validationMethod](stringValue, validationArgs)) {
           errorMessage = customErrorMessage || `This is not a valid  value. Please try again.`;
         } else {

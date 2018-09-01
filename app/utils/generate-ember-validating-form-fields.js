@@ -2,8 +2,6 @@ import EmberObject from '@ember/object';
 import generateEmberValidatingFormField from 'ember-starter/utils/generate-ember-validating-form-field';
 
 export default function generateEmberValidatingFormFields(formSchema, existing) {
-
-
   var generateFormMetaData = function(formSchema) {
     var formMetaData = EmberObject.create();
     for (var key in formSchema) {

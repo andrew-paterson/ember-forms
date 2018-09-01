@@ -10,10 +10,9 @@ export default FormContainer.extend({
 
   init: function() {
     this._super(...arguments);
-
-    this.model = EmberObject.create({
-      internal_settings: {}
-    });
+    // this.model = EmberObject.create({
+    //   internal_settings: {}
+    // });
     this.signUpFormSchema = {
       title: 'Sign Up',
       formName: 'signUpForm',
@@ -86,6 +85,8 @@ export default FormContainer.extend({
           default: moment().toDate(),
           showLabel: false,
           validationRules: [{'validationMethod': 'required'}, {'validationMethod': 'isDate'}],
+          validationEvents: ['insert'],
+          showLabel: true
         },
         {
           fieldType: 'textSeparator',
@@ -101,7 +102,18 @@ export default FormContainer.extend({
       ]
     };
     var formSchema = this.get('signUpFormSchema');
-    this.formObject = generateEmberValidatingFormFields(formSchema);
+    // this.processedFormSchema = generateEmberValidatingFormFields(formSchema);
+
+    this.standaloneField = {
+      fieldId: 'standalone',
+      label: 'Standalone',
+      fieldType: 'input',
+      showLabel: false,
+      validationRules: [{'validationMethod': 'required'}],
+      validationEvents: ['focusOut', 'keyUp', 'insert'],
+      inputType: 'text',
+      trim: true,
+    }
   },
 
   actions: {

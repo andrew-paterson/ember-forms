@@ -1,5 +1,5 @@
 <div class="input-radio-checkbox">
-<input type="checkbox" checked={{readonly value}} onclick={{action 'sendChangedAction' value="target.checked"}} disabled={{disabled}}>
+<input type="checkbox" checked={{readonly value}} onclick={{action 'checkboxClicked' value="target.checked"}} disabled={{disabled}}>
 {{!-- Alternative implementation {{input click=(action "sendChangedAction" value="target.checked") checked=(readonly value) type="checkbox"}} --}}
   <div class="radio-checkbox-dummy">
     {{svg/radio-button-checkbox-graphics}}

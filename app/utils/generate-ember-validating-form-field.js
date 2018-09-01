@@ -65,6 +65,7 @@ export default function generateEmberValidatingFormField(field, index, formSchem
   fieldObject.required = required;
 
   fieldObject.fieldId = field.fieldId;
+  fieldObject.validationEvents = field.validationEvents;
   fieldObject.radioButtons = field.radioButtons;
   fieldObject.propertyName = field.propertyName;
   fieldObject.label = field.label;

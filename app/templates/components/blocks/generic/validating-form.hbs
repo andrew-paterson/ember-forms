@@ -3,50 +3,46 @@
   {{#each formFields as |formField index|}}
     {{#if (or (eq formField.fieldType "input") (eq formField.fieldType "textarea")) }}
       {{component formField.component
-        formField=formField
-        labelComponent=formField.labelComponent
+        processedFieldSchema=formField
         fieldUpdatedAction=(action "setFormValue")
         customValidations=(action 'customValidations')
       }}
     {{/if}}
     {{#if (eq formField.fieldType "date") }}
       {{component formField.component
-        formField=formField
+        processedFieldSchema=formField
         fieldUpdatedAction=(action "setFormValue")
       }}
     {{/if}}
     {{#if (eq formField.fieldType "select") }}
       {{component formField.component
-        formField=formField
+        processedFieldSchema=formField
         searchPlaceholder="Search"
         allowClear=true
         fieldUpdatedAction=(action "setFormValue")
-        changedAction=(action "setFormValue")
       }}
     {{/if}}
     {{#if (eq formField.fieldType "singleCheckbox") }}
       {{component formField.component
-        formField=formField
+        processedFieldSchema=formField
         fieldUpdatedAction=(action "setFormValue" formField.fieldId)
-        changedAction=(action "setFormValue" formField.fieldId)
       }}
     {{/if}}
     {{#if (eq formField.fieldType "radioButtonGroup") }}
       {{component formField.component
-        formField=formField
+        processedFieldSchema=formField
         fieldUpdatedAction=(action "setFormValue")
-        changedAction=(action "setFormValue"  formField.fieldId)
-
       }}
     {{/if}}
     {{#if (eq formField.fieldType "textSeparator") }}
         {{component formField.component
-          formField=formField
+          processedFieldSchema=formField
         }}
     {{/if}}
     {{#if (eq formField.fieldType "customComponent") }}
       {{component formField.component
-        formField=formField
+        processedFieldSchema=formField
+        fieldUpdatedAction=(action "setFormValue")
       }}
     {{/if}}
   {{/each}}
