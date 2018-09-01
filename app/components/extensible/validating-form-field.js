@@ -28,14 +28,6 @@ export default Component.extend({
     });
   },
 
-  // formField: computed('fieldSchema', 'processedFieldSchema', function() {
-  //   if (this.get('processedFieldSchema')) {
-  //     return this.get('processedFieldSchema');
-  //   } else {
-  //     return generateEmberValidatingFormField(this.get('fieldSchema'));
-  //   }
-  // }),
-
   valid: computed('formField.error', function() {
     if (this.get("formField.error")) {
       return false;
@@ -78,7 +70,8 @@ export default Component.extend({
   sendValidateOnValueUpdate: observer('formField.value', function() {
     var formField = this.get('formField');
     formField.validationEvents = formField.validationEvents || [];
-    if (formField.focussed && formField.value === '') {
+    // If a field validates on keyUp, son't show a validation error if the backspace all chars in the field.
+    if (formField.validationEvents.indexOf('keyUp') > -1 && formField.focussed && formField.value === '') {
       formField.set("error", null);
       return;
     }
@@ -152,14 +145,16 @@ export default Component.extend({
 
     validateField: function() {
       // Todo error must be updated by sending updateForm action if it is supplied.
+      var self = this;
       once(this, function() {
         var formField = this.get('formField');
-        formField.set("error", null); // To ensure the error message updates, if the field has been updated but now fails a different validation rule to the previous validation attempt.
-        formField.set('error', validateField(formField));
-        if (formField.get('error')) { return; }
-        if (this.customValidations && formField.get('validationRules').findBy('validationMethod', 'custom')) {
-          this.customValidations(formField, this.get('formFields'));
-        }
+        self.setFieldError(null); // To ensure the error message updates, if the field has been updated but now fails a different validation rule to the previous validation attempt.
+        var error = validateField(formField);
+        this.setFieldError(error);
+        if (error) { return; }
+        // if (this.customValidations && formField.get('validationRules').findBy('validationMethod', 'custom')) {
+        //   this.customValidations(formField, this.get('formFields'));
+        // }
       });
     }
   },

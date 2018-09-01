@@ -70,7 +70,7 @@ export default Component.extend({
       if (this.customTransforms) {
         this.customTransforms(this.get('formFields'), fieldId, this.get('formMetaData'));
       }
-      if (!fieldObject.validationRules) {return;}
+      // if (!fieldObject.validationRules) {return;}
     },
 
     submit: function() {
