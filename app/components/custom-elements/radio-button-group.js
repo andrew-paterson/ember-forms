@@ -1,7 +1,7 @@
-import ValidatingFormField from 'ember-starter/components/extensible/validating-form-field'
+import Component from '@ember/component';
 import { computed } from '@ember/object';
 
-export default ValidatingFormField.extend({
+export default Component.extend({
   classNames: ['radio-button-group'],
   groupValue: computed('value', function() {
     return this.get('value');

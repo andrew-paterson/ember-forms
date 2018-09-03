@@ -1,5 +1,7 @@
-div.form-field {
+div.field-controls {
 	margin-bottom: @input-margin-bottom;
+	line-height: 0;
+	position: relative;
 }
 
 div.form-field div.svg.form-field-icon {
@@ -58,7 +60,6 @@ div.form-field.valid.hide-success-validation {
 }
 
 div.form-field.invalid {
-	margin-bottom: @input-margin-bottom - 23px;
 	input,
   input:focus,
   textarea,
@@ -73,11 +74,16 @@ div.form-field.invalid {
 		fill: @input-invalid-border-color;
 		margin-top: 10px;
 	}
+
+
+
 	div.field-error {
+		margin-top: -1*@input-margin-bottom;
+		min-height: @input-margin-bottom;
 		color: @error-text-color;
 		font-weight: 700;
 		margin-left: 10px;
-		height: 23px;
+		// height: 23px;
 		div.svg {
 			height: 100%;
 			width: 20px;
@@ -95,13 +101,11 @@ div.form-field.power-select  div.input-container > div.svg {
 	right: -24px;
 }
 
-div.form-field div.input-container {
-	position: relative;
-}
+
 
 div.form-field .single-checkbox-container,
 div.form-field .radio-button-group-container {
-	margin: 15px 0;
+	// margin: 15px 0;
 	position: relative;
 	padding: 5px 5px;
 	border: 2px solid @input-border-color;

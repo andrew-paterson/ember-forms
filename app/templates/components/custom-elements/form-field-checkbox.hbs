@@ -1,12 +1,6 @@
-<div class="single-checkbox-container">
-  {{custom-elements/checkbox-element
-    value=(readonly formField.value)
-    label=formField.label
-    labelComponent=formField.labelComponent
-    changedAction=(action 'onCheckboxClick' formField.fieldId)
-  }}
-  {{component inputIcon class='form-field-icon'}}
-</div>
-{{#if formField.error}}
-  <div class='field-error'>{{svg/icon-curved-arrow-right}}{{formField.error}}</div>
-{{/if}}
+{{custom-elements/checkbox-element
+  value=(readonly formField.value)
+  label=formField.label
+  labelComponent=formField.labelComponent
+  changedAction=(action onCheckboxClick)
+}}

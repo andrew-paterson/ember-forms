@@ -1,44 +1,61 @@
-{{#if (or (eq formField.fieldType "input") (eq formField.fieldType "textarea")) }}
-  {{component formField.component
-    formField=formField
-    fieldUpdatedAction=(action 'setFieldValue')
-    customValidations=(action 'customValidations')
-  }}
-{{/if}}
-{{#if (eq formField.fieldType "date") }}
-  {{component formField.component
-    formField=formField
-    fieldUpdatedAction=(action 'setFieldValue')
-  }}
-{{/if}}
-{{#if (eq formField.fieldType "select") }}
-  {{component formField.component
-    formField=formField
-    searchPlaceholder="Search"
-    allowClear=true
-    fieldUpdatedAction=(action 'setFieldValue')
-  }}
-{{/if}}
-{{#if (eq formField.fieldType "singleCheckbox") }}
-  {{component formField.component
-    formField=formField
-    fieldUpdatedAction=(action 'setFieldValue' formField.fieldId)
-  }}
-{{/if}}
-{{#if (eq formField.fieldType "radioButtonGroup") }}
-  {{component formField.component
-    formField=formField
-    fieldUpdatedAction=(action 'setFieldValue')
-  }}
-{{/if}}
-{{#if (eq formField.fieldType "textSeparator") }}
-    {{component formField.component
-      formField=formField
-    }}
-{{/if}}
-{{#if (eq formField.fieldType "customComponent") }}
-  {{component formField.component
-    formField=formField
-    fieldUpdatedAction=(action 'setFieldValue')
-  }}
-{{/if}}
+<div class="input-container">
+  {{#if formField.labelComponent}}<label>{{component labelComponent}}</label>{{else if formField.label}}<label class="{{unless formField.showLabel 'placeholder'}}">{{formField.label}}</label>{{/if}}
+  <div class="field-controls">
+    {{#if (or (eq formField.fieldType "input") (eq formField.fieldType "textarea")) }}
+      {{component formField.component
+        formField=formField
+        onFocusOut=(action 'onFocusOut')
+        onFocusIn=(action 'onFocusIn')
+        onKeyUp=(action 'onKeyUp')
+        tagName=''
+      }}
+    {{/if}}
+    {{#if (eq formField.fieldType "date") }}
+      {{component formField.component
+        formField=formField
+        onDateChange=(action 'onDateChange')
+        tagName=''
+      }}
+    {{/if}}
+    {{#if (eq formField.fieldType "select") }}
+      {{component formField.component
+        formField=formField
+        onSelectClick=(action 'onSelectClick')
+        searchPlaceholder="Search"
+        allowClear=true
+        tagName=''
+      }}
+    {{/if}}
+    {{#if (eq formField.fieldType "singleCheckbox") }}
+      {{component formField.component
+        formField=formField
+        onCheckboxClick=(action 'onCheckboxClick')
+        tagName=''
+      }}
+    {{/if}}
+    {{#if (eq formField.fieldType "radioButtonGroup") }}
+      {{component formField.component
+        formField=formField
+        onRadioCheckboxClick=(action 'onRadioCheckboxClick')
+        tagName=''
+      }}
+    {{/if}}
+    {{#if (eq formField.fieldType "textSeparator") }}
+        {{component formField.component
+          formField=formField
+          tagName=''
+        }}
+    {{/if}}
+    {{#if (eq formField.fieldType "customComponent") }}
+      {{component formField.component
+        formField=formField
+        tagName=''
+      }}
+    {{/if}}
+    {{component inputIcon class='form-field-icon'}}
+  </div>
+  {{#if formField.error}}
+    <div data-test-id='field-error' class='field-error'>{{svg/icon-curved-arrow-right}}{{formField.error}}</div>
+  {{/if}}
+
+</div>

@@ -89,15 +89,6 @@ export default Component.extend({
   }),
 
   actions: {
-    onDateChange: function(value) {
-      var formField = this.get('formField');
-      if (value && this.get("trim")) {
-        value = value.trim();
-      }
-      if (this.fieldUpdatedAction) {
-        this.fieldUpdatedAction(formField.get('fieldId'), value);
-      }
-    },
     onFocusOut: function(value) {
       var formField = this.get('formField');
       formField.set('focussed', false);
@@ -105,50 +96,42 @@ export default Component.extend({
       if (value && this.get("trim")) {
         value = value.trim();
       }
-      if (this.fieldUpdatedAction) {
-        this.fieldUpdatedAction(formField.get('fieldId'), value);
-      }
     },
 
     onFocusIn: function(value) {
       var formField = this.get('formField');
       formField.set('focussed', true);
-      formField.set('error', null);
+      var fieldValidationEvents = formField.get('validationEvents') || [];
+      if (fieldValidationEvents.indexOf('keyUp') < 0) {
+        formField.set('error', null);
+      }
       if (this.focusInAction) {
         this.focusInAction(formField.get('fieldId'), value);
       }
     },
 
     onKeyUp: function(value) {
-      // Don't ever trim on keyUp, as this makes including spaces impossible.
+      this.send('setFieldValue', value);
       var formField = this.get('formField');
-      if (this.fieldUpdatedAction) {
-        this.fieldUpdatedAction(formField.get('fieldId'), value);
-      }
       if (this.keyUpAction) {
         this.keyUpAction(formField.get('fieldId'), value);
       }
     },
 
-    onRadioCheckboxClick: function(value, fieldId) {
-      var formField = this.get('formField');
-      if (this.fieldUpdatedAction) {
-        this.fieldUpdatedAction(value, fieldId);
-      }
+    onDateChange: function(value) {
+      this.send('setFieldValue', value);
     },
 
-    onCheckboxClick: function(fieldId, value) {
-      var formField = this.get('formField');
-      if (this.fieldUpdatedAction) {
-        this.fieldUpdatedAction(value, fieldId);
-      }
+    onRadioCheckboxClick: function(value) {
+      this.send('setFieldValue', value);
     },
 
-    onSelectClick: function(value, fieldId) {
-      var formField = this.get('formField');
-      if (this.fieldUpdatedAction) {
-        this.fieldUpdatedAction(value, fieldId);
-      }
+    onCheckboxClick: function(value) {
+      this.send('setFieldValue', value);
+    },
+
+    onSelectClick: function(value) {
+      this.send('setFieldValue', value);
     },
 
     validateField: function() {
@@ -156,31 +139,28 @@ export default Component.extend({
       var self = this;
       once(this, function() {
         var formField = this.get('formField');
-        // self.setFieldError(null); // To ensure the error message updates, if the field has been updated but now fails a different validation rule to the previous validation attempt.
-        this.send('setFieldError', null);
+        this.send('setFieldError', null); // To ensure the error message updates, if the field has been updated but now fails a different validation rule to the previous validation attempt.
         var error = validateField(formField);
-        // this.setFieldError(error);
         this.send('setFieldError', error);
         if (error) { return; }
-        // if (this.customValidations && formField.get('validationRules').findBy('validationMethod', 'custom')) {
-        //   this.customValidations(formField, this.get('formFields'));
-        // }
+        // TODO throw error if custom is passed as a validation rule, but the 'customValidations' action is not passed in. Do this on didInsert.
+        if (this.customValidations && formField.get('validationRules').findBy('validationMethod', 'custom')) {
+          this.customValidations(formField, this.get('formFields'));
+        }
       });
     },
 
-    setFieldValue: function(fieldId, value) {
-      console.log('setFieldValue');
+    setFieldValue: function(value) {
+      var formField = this.get('formField');
       if (this.setFormFieldValue) {
-        this.setFormFieldValue(fieldId, value);
+        this.setFormFieldValue(formField.get('fieldId'), value);
       } else {
-        console.log('setFieldValue');
         value = value || '';
         var formField = this.get('formField');
         formField.set('value', value);
         if (this.customTransforms) {
           this.customTransforms(this.get('formFields'), fieldId, this.get('formMetaData'));
         }
-        // if (!formField.validationRules) {return;}
       }
     },
 

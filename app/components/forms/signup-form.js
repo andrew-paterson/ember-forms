@@ -43,6 +43,15 @@ export default FormContainer.extend({
           trim: true,
         },
         {
+          fieldId: 'bio',
+          label: 'Bio',
+          fieldType: 'textarea',
+          showLabel: false,
+          validationRules: [{'validationMethod': 'required'}, {'validationMethod': 'isEmail'}],
+          inputType: 'text',
+          trim: true,
+        },
+        {
           fieldId: 'password',
           label: 'Password (Minimum 8 characters)',
           fieldType: 'input',
@@ -71,6 +80,7 @@ export default FormContainer.extend({
           fieldId: 'acceptTerms',
           fieldType: "radioButtonGroup",
           label: 'Do you agree to the terms?',
+          showLabel: true,
           validationRules: [{'validationMethod': 'required'}, {'validationMethod': 'equals', 'arguments': 'true', 'errorMessage': 'You must accept the terms to continue.'}],
           radioButtons: [{
             'label': 'I agree',

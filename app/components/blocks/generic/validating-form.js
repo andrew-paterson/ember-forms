@@ -63,7 +63,6 @@ export default Component.extend({
     },
 
     setFormFieldValue: function(fieldId, value) {
-      console.log('setFormFieldValue');
       value = value || '';
       var fieldObject = this.get('formFields').findBy('fieldId', fieldId);
       fieldObject.set('value', value);
@@ -74,7 +73,6 @@ export default Component.extend({
     },
 
     setFormFieldError: function(fieldId, error) {
-      console.log('setFormFieldError');
       var fieldObject = this.get('formFields').findBy('fieldId', fieldId);
       fieldObject.set('error', error);
     },

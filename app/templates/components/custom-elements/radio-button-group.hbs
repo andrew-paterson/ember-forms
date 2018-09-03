@@ -1,21 +1,12 @@
-<div class="radio-button-group-container">
-  <div class="radio-button-group-label">
-    {{#if formField.labelComponent}}<label>{{component formField.labelComponent}}</label>{{else if formField.label}}<label>{{formField.label}}</label>{{/if}}
-  </div>
-  {{#each formField.radioButtons as |option|}}
-    {{custom-elements/radio-button-element
-      value=option.value
-      groupValue=groupValue
-      required=false
-      name=name
-      disabled=disabled
-      label=option.label
-      changedAction=(action 'onRadioCheckboxClick' formField.fieldId groupValue)
-      fieldName=option.fieldName
-    }}
-  {{/each}}
-  {{component inputIcon class='form-field-icon'}}
-</div>
-{{#if formField.error}}
-  <div class='field-error'>{{svg/icon-curved-arrow-right}}{{formField.error}}</div>
-{{/if}}
+{{#each formField.radioButtons as |option|}}
+  {{custom-elements/radio-button-element
+    value=option.value
+    groupValue=groupValue
+    required=false
+    name=name
+    disabled=disabled
+    label=option.label
+    changedAction=(action onRadioCheckboxClick groupValue)
+    fieldName=option.fieldName
+  }}
+{{/each}}

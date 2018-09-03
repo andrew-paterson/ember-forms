@@ -1,20 +1,13 @@
-<label class="{{unless formField.showLabel 'placeholder'}}">{{formField.label}}</label>
-<div class="input-container">
-  {{bootstrap-datepicker
-    value=(readonly formField.value)
-    startDate=startDate
-    endDate=formField.endDate
-    changeDate=(action "onDateChange")
-    placeholder=formField.label
-    autoclose=formField.autoclose
-    orientation=formField.orientation
-    todayHighlight=true
-    format=format
-    clearBtn=true
-    readonly="readonly"
-  }}
-{{component inputIcon class='form-field-icon'}}
-</div>
-{{#if formField.error}}
-  <div class="field-error">{{svg/icon-curved-arrow-right}}{{formField.error}}</div>
-{{/if}}
+{{bootstrap-datepicker
+  value=(readonly formField.value)
+  startDate=startDate
+  endDate=formField.endDate
+  changeDate=(action onDateChange)
+  placeholder=formField.label
+  autoclose=formField.autoclose
+  orientation=formField.orientation
+  todayHighlight=true
+  format=format
+  clearBtn=true
+  readonly="readonly"
+}}

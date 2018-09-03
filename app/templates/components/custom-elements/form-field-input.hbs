@@ -1,23 +1,12 @@
-{{#if formField.labelComponent}}
-  <label>{{component labelComponent}}</label>
-{{else if formField.label}}
-  <label class="{{unless formField.showLabel 'placeholder'}}">{{formField.label}}</label>
-{{/if}}
+{{input
+  value=(readonly formField.value)
+  focusOut=(action onFocusOut value='target.value')
+  focusIn=(action onFocusIn value='target.value')
+  keyUp=(action onKeyUp value='target.value')
+  placeholder=formField.label
+  autofocus=formField.autofocus
+	type=formField.inputType
+	readonly=formField.readonly
+	disabled=formField.disabled
+}}
 
-<div class="input-container">
-	{{input
-	  value=(readonly formField.value)
-	  focusOut=(action 'onFocusOut' value='target.value')
-	  focusIn=(action 'onFocusIn' value='target.value')
-	  keyUp=(action 'onKeyUp' value='target.value')
-	  placeholder=formField.label
-	  autofocus=formField.autofocus
-		type=formField.inputType
-		readonly=formField.readonly
-		disabled=formField.disabled
-	}}
-{{component inputIcon class='form-field-icon'}}
-</div>
-{{#if formField.error}}
-	<div data-test-id='field-error' class='field-error'>{{svg/icon-curved-arrow-right}}{{formField.error}}</div>
-{{/if}}
