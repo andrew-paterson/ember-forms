@@ -6,7 +6,21 @@ import generateEmberValidatingFormFields from 'ember-starter/utils/generate-embe
 import validateField from 'ember-starter/utils/validate-field';
 
 export default Component.extend({
-  classNameBindings: ['class'],
+  classNameBindings: ['class', 'validationFailed:validation-failed'],
+  attributeBindings: ["data-test-id"],
+
+  // keyDown(e) {
+  //   // Check if the enter key was pressed on input and select nodes only
+  //   if (e.keyCode === 13 && (nodeName === 'input' || nodeName === 'select')) {
+  //     // Stop propagation
+  //     e.stopPropagation();
+  //     // Prevent default submit otherwise submit gets called twice.
+  //     e.preventDefault();
+  //     console.log('keyDown');
+  //     // Trigger the submitForm action
+  //     this.send('submit');
+  //   }
+  // },
 
   formObject: computed('formSchema', 'processedFormSchema', function() {
     if (this.get('processedFormSchema')) {
@@ -47,6 +61,14 @@ export default Component.extend({
 
   submitButtonText: computed('formMetaData', function() {
     return this.get('formMetaData.submitButtonText') ? this.get('formMetaData.submitButtonText') : "Submit";
+  }),
+
+  resetButtonText: computed('formMetaData', function() {
+    return this.get('formMetaData.resetButtonText') ? this.get('formMetaData.resetButtonText') : "Reset";
+  }),
+
+  validationFailed: computed('formMetaData.formStatus', function() {
+    return this.get('formMetaData.formStatus') === 'validationFailed';
   }),
 
   willDestroyElement: function() {
@@ -119,7 +141,9 @@ export default Component.extend({
           });
         }
       } else {
-        this.formValidationFailed();
+        this.set('formMetaData.formStatus', 'validationFailed');
+        this.set('formMetaData.submitButtonFeedback', 'Some fields have errors which must be fixed before continuing.');
+        this.formValidationFailed(this.get('formFields'), this.get('formMetaData'));
       }
     },
 

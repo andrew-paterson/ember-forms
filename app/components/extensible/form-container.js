@@ -27,7 +27,7 @@ export default Component.extend({
       this.setProperty('systemMessage', errorMessage);
     },
 
-    formValidationFailed: function() {
+    formValidationFailed: function(formFields, formMetaData) {
       var errorMessage = {
         'name': 'errorMessage',
         'type': 'error',

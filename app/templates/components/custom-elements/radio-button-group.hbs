@@ -1,5 +1,6 @@
 {{#each formField.radioButtons as |option|}}
   {{custom-elements/radio-button-element
+    data-test-id=(concat 'radio-button-option-' option.value)
     value=option.value
     groupValue=groupValue
     required=false

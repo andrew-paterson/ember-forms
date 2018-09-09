@@ -7,7 +7,7 @@ import generateEmberValidatingFormField from 'ember-starter/utils/generate-ember
 
 export default Component.extend({
   classNames: ["form-field"],
-  classNameBindings: ["formField.error:invalid", "valid:valid", "formField.required:required", "disabled:disabled", "readonly:readonly", "customClasses", 'hideSuccessValidation:hide-success-validation', 'typeClass'],
+  classNameBindings: ["formField.error:invalid", "valid:valid", "formField.required:required", "disabled:disabled", "readonly:readonly", "customClasses", 'hideSuccessValidation:hide-success-validation', 'validates:validates', 'typeClass'],
   attributeBindings: ["data-test-id"],
   didInsertElement: function() {
     //Code below will maintain validation colours when component is re-rendered.
@@ -88,6 +88,13 @@ export default Component.extend({
     }
   }),
 
+  validates: computed('formField.validationRules', function() {
+    if (this.get('formField.validationRules')) {
+      return true;
+    }
+    return false;
+  }),
+
   actions: {
     onUserInteraction: function(value) {
       this.send('setFieldValue', value);
@@ -127,17 +134,16 @@ export default Component.extend({
     validateField: function() {
       // Todo error must be updated by sending updateForm action if it is supplied.
       var self = this;
-      // once(this, function() {
-        var formField = this.get('formField');
-        this.send('setFieldError', null); // To ensure the error message updates, if the field has been updated but now fails a different validation rule to the previous validation attempt.
-        var error = validateField(formField);
-        this.send('setFieldError', error);
-        if (error) { return; }
-        // TODO throw error if custom is passed as a validation rule, but the 'customValidations' action is not passed in. Do this on didInsert.
-        if (this.customValidations && formField.get('validationRules').findBy('validationMethod', 'custom')) {
-          this.customValidations(formField, this.get('formFields'));
-        }
-      // });
+      var formField = this.get('formField');
+      var validationRules = formField.get('validationRules') || [];
+      this.send('setFieldError', null); // To ensure the error message updates, if the field has been updated but now fails a different validation rule to the previous validation attempt.
+      var error = validateField(formField);
+      this.send('setFieldError', error);
+      if (error) { return; }
+      // TODO throw error if custom is passed as a validation rule, but the 'customValidations' action is not passed in. Do this on didInsert.
+      if (this.customValidations && validationRules.findBy('validationMethod', 'custom')) {
+        this.customValidations(formField, this.get('formFields'));
+      }
     },
 
     setFieldValue: function(value) {

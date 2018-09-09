@@ -22,6 +22,7 @@ export default FormContainer.extend({
       submitButtonText: 'Request account',
       modelName: 'user',
       resetAfterSubmit: true,
+      // submitButtonFeedback: 'Test',
       fields: [
         {
           fieldId: 'name',

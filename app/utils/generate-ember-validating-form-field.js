@@ -36,7 +36,7 @@ export default function generateEmberValidatingFormField(field, index, formSchem
     }
   }
 
-  if (value === undefined || value === null && field.default) {
+  if (field.default && (value === undefined || value === null)) {
     value = field.trim ? field.default.trim() : field.default;
   }
 
