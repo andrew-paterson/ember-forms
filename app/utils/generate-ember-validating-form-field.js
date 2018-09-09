@@ -37,19 +37,25 @@ export default function generateEmberValidatingFormField(field, index, formSchem
   }
 
   if (value === undefined || value === null && field.default) {
-    value = field.default;
+    value = field.trim ? field.default.trim() : field.default;
   }
-  var hideSuccessValidation;
-  // if (field.hideSuccessValidation !== null && field.hideSuccessValidation !== undefined) {
-  //   hideSuccessValidation = field.hideSuccessValidation;
-  // } else {
-  //   hideSuccessValidation = formSchema.hideSuccessValidation;
-  // }
-  var showLabel;
-  if (field.showLabel !== null && field.showLabel !== undefined) {
-    showLabel = field.showLabel;
-  } else {
-    showLabel = formSchema.showLabels;
+
+   var hideSuccessValidation = false;
+  if (field.hideSuccessValidation) {
+    hideSuccessValidation = field.hideSuccessValidation;
+  } else if (formSchema) {
+    if (formSchema.hideSuccessValidation) {
+      hideSuccessValidation = formSchema.hideSuccessValidation;
+    }
+  }
+
+  var hideLabel = false;
+  if (field.hideLabel) {
+    hideLabel = field.hideLabel;
+  } else if (formSchema) {
+    if (formSchema.hideLabels) {
+      hideLabel = formSchema.hideLabels;
+    }
   }
   var required;
   if (field.validationRules) {
@@ -61,7 +67,7 @@ export default function generateEmberValidatingFormField(field, index, formSchem
   fieldObject.error = null;
   fieldObject.value = value;
   fieldObject.hideSuccessValidation = hideSuccessValidation;
-  fieldObject.showLabel = showLabel;
+  fieldObject.hideLabel = hideLabel;
   fieldObject.required = required;
 
   fieldObject.fieldId = field.fieldId;

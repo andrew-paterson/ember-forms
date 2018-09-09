@@ -1,48 +1,52 @@
 @import url(https://fonts.googleapis.com/css?family=Lato:400,600,700,900);
+  @import "app-specific/variables";
+  @import "_mixins-and-variables/variables-bits-and-pieces";
+  @import "_mixins-and-variables/variables-layout";
+  @import "_mixins-and-variables/variables-colour-definitions";
+  @import "_mixins-and-variables/mixins";
+  @import "layout/body-and-footer-styles";
 
-@import "ember-power-select";
-@import "_mixins-and-variables/variables-bits-and-pieces";
-@import "_mixins-and-variables/variables-layout";
-@import "_mixins-and-variables/variables-colour-definitions";
-@import "_mixins-and-variables/mixins";
+.ember-application {
+  @import "ember-power-select";
 
-@import "dependencies/ember-power-select";
-@import "dependencies/ember-basic-dropdown";
 
-@import "layout/general-ui";
-@import "layout/private-ui";
-@import "layout/public-ui";
+  @import "dependencies/ember-power-select";
+  @import "dependencies/ember-basic-dropdown";
 
-@import "layout/main-nav";
-@import "layout/system-messages";
+  @import "layout/general-ui";
+  @import "layout/private-ui";
+  @import "layout/public-ui";
 
-@import "generic/bits-and-pieces";
-@import "generic/perfect-scrollbar-overrides";
-@import "generic/bootstrap-tooltips";
-@import "generic/data-table";
-@import "generic/data-table-filter-controls";
-@import "generic/data-table-pagination-controls";
-@import "generic/svg-specific";
-@import "generic/spinning-cog";
+  @import "layout/main-nav";
+  @import "layout/system-messages";
 
-@import "custom-elements/css-popout-box";
-@import "custom-elements/validating-form-field";
-@import "custom-elements/animated-accordion";
-@import "custom-elements/confirm-cancel-popout";
-@import "custom-elements/in-page-alert";
-@import "custom-elements/info-popouts";
-@import "custom-elements/bootstrap-datepicker-overrides";
+  @import "generic/bits-and-pieces";
+  @import "generic/perfect-scrollbar-overrides";
+  @import "generic/bootstrap-tooltips";
+  @import "generic/data-table";
+  @import "generic/data-table-filter-controls";
+  @import "generic/data-table-pagination-controls";
+  @import "generic/svg-specific";
+  @import "generic/spinning-cog";
 
-@import "app-specific/variables";
+  @import "custom-elements/css-popout-box";
+  @import "custom-elements/validating-form-field";
+  @import "custom-elements/animated-accordion";
+  @import "custom-elements/confirm-cancel-popout";
+  @import "custom-elements/in-page-alert";
+  @import "custom-elements/info-popouts";
+  @import "custom-elements/bootstrap-datepicker-overrides";
 
-.dynamic-form-container {
-  padding: 20px;
-  background: #eee;
-  border: 1px solid #ccc;
-  width: 300px;
-  float: left;
-  margin-right: 20px;
+  .dynamic-form-container {
+    padding: 20px;
+    background: #eee;
+    border: 1px solid #ccc;
+    width: 300px;
+    float: left;
+    margin-right: 20px;
+  }
 }
+
 
 //Table showing some numbers and values
 // Total component - computed properties

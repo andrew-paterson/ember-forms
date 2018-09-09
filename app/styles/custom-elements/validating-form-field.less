@@ -21,6 +21,10 @@ div.form-field div.svg.form-field-icon {
 	padding-right: 36px;
 }
 
+// .form-field {
+// 	display: inline-block;
+// }
+
 div.form-field.required {
 	div.svg.form-field-icon svg {
 		fill: @app-colour-shade-two;
@@ -45,19 +49,19 @@ div.form-field.valid {
 	}
 }
 
-div.form-field.valid.hide-success-validation {
-	input,
-	textarea,
-  .ember-power-select-trigger,
-	.single-checkbox-container,
-	.radio-button-group-container {
-		border-color: @input-border-color;
-		background: @input-background-color;
-	}
-	div.svg.form-field-icon svg {
-		display: none;
-	}
-}
+// div.form-field.valid.hide-success-validation {
+// 	input,
+// 	textarea,
+//   .ember-power-select-trigger,
+// 	.single-checkbox-container,
+// 	.radio-button-group-container {
+// 		border-color: @input-border-color;
+// 		background: @input-background-color;
+// 	}
+// 	div.svg.form-field-icon svg {
+// 		display: none;
+// 	}
+// }
 
 div.form-field.invalid {
 	input,
@@ -97,7 +101,7 @@ div.form-field.power-select {
 	max-width: 300px;
 }
 
-div.form-field.power-select  div.input-container > div.svg {
+div.form-field.power-select  div.field-container > div.svg {
 	right: -24px;
 }
 

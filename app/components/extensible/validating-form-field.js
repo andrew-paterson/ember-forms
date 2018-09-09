@@ -7,8 +7,8 @@ import generateEmberValidatingFormField from 'ember-starter/utils/generate-ember
 
 export default Component.extend({
   classNames: ["form-field"],
-  classNameBindings: ["formField.error:invalid", "valid:valid", "formField.required:required", "disabled:disabled", "readonly:readonly", "customClasses", 'hideSuccessValidation:hide-success-validation'],
-
+  classNameBindings: ["formField.error:invalid", "valid:valid", "formField.required:required", "disabled:disabled", "readonly:readonly", "customClasses", 'hideSuccessValidation:hide-success-validation', 'typeClass'],
+  attributeBindings: ["data-test-id"],
   didInsertElement: function() {
     //Code below will maintain validation colours when component is re-rendered.
     once(this, function() {
@@ -28,16 +28,16 @@ export default Component.extend({
     });
   },
 
+  typeClass: computed('formField.fieldType', function() {
+    var myStr = this.get('formField.fieldType');
+    myStr = myStr.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
+    return `field-type-${myStr}`;
+  }),
+
   valid: computed('formField.error', function() {
-    if (this.get("formField.error")) {
-      return false;
-    }
-    if (this.get("formField.error") === false) {
-      if (!this.get("hideValidationSuccess")) {
-        return true;
-      }
-    }
-    if (this.get("formField.error") === null || this.get("formField.error") === undefined) {
+    if (this.get("formField.error") === false && !this.get("formField.hideSuccessValidation")) {
+      return true;
+    } else {
       return false;
     }
   }),
@@ -49,7 +49,7 @@ export default Component.extend({
       return;
     }
     if (this.get("formField.error") === false) {
-      if (!this.get("hideValidationSuccess")) {
+      if (!this.get("formField.hideSuccessValidation")) {
         return "svg/icon-tick";
       return;
       }
@@ -70,7 +70,7 @@ export default Component.extend({
   sendValidateOnValueUpdate: observer('formField.value', function() {
     var formField = this.get('formField');
     formField.validationEvents = formField.validationEvents || [];
-    // If a field validates on keyUp, son't show a validation error if the backspace all chars in the field.
+    // If a field validates on keyUp, don't show a validation error if the backspace all chars in the field.
     if (formField.validationEvents.indexOf('keyUp') > -1 && formField.focussed && formField.value === '') {
       formField.set("error", null);
       return;
@@ -89,13 +89,19 @@ export default Component.extend({
   }),
 
   actions: {
+    onUserInteraction: function(value) {
+      this.send('setFieldValue', value);
+    },
+
     onFocusOut: function(value) {
       var formField = this.get('formField');
       formField.set('focussed', false);
-      this.send('validateField');
-      if (value && this.get("trim")) {
+      if (value && formField.get("trim")) {
         value = value.trim();
       }
+      this.send('setFieldValue', value);
+      this.send('validateField');
+
     },
 
     onFocusIn: function(value) {
@@ -118,26 +124,10 @@ export default Component.extend({
       }
     },
 
-    onDateChange: function(value) {
-      this.send('setFieldValue', value);
-    },
-
-    onRadioCheckboxClick: function(value) {
-      this.send('setFieldValue', value);
-    },
-
-    onCheckboxClick: function(value) {
-      this.send('setFieldValue', value);
-    },
-
-    onSelectClick: function(value) {
-      this.send('setFieldValue', value);
-    },
-
     validateField: function() {
       // Todo error must be updated by sending updateForm action if it is supplied.
       var self = this;
-      once(this, function() {
+      // once(this, function() {
         var formField = this.get('formField');
         this.send('setFieldError', null); // To ensure the error message updates, if the field has been updated but now fails a different validation rule to the previous validation attempt.
         var error = validateField(formField);
@@ -147,7 +137,7 @@ export default Component.extend({
         if (this.customValidations && formField.get('validationRules').findBy('validationMethod', 'custom')) {
           this.customValidations(formField, this.get('formFields'));
         }
-      });
+      // });
     },
 
     setFieldValue: function(value) {

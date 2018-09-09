@@ -1,0 +1,14 @@
+{{#unless formField.hideLabel}}
+  {{#if formField.labelComponent}}
+    <label>{{component labelComponent}}</label>
+  {{else if formField.label}}
+    <label>{{formField.label}}</label>
+  {{/if}}
+{{/unless}}
+<div class="field-controls">
+  {{yield}}
+  {{component inputIcon class='form-field-icon'}}
+</div>
+{{#if formField.error}}
+  <div data-test-id='field-error' class='field-error'>{{svg/icon-curved-arrow-right}}{{formField.error}}</div>
+{{/if}}

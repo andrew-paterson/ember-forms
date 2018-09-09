@@ -6,6 +6,7 @@
       setFormFieldValue=(action 'setFormFieldValue')
       setFormFieldError=(action 'setFormFieldError')
       customValidations=(action 'customValidations')
+      data-test-id=(concat 'validating-field-' formField.fieldId)
     }}
   {{/each}}
   {{custom-elements/form-submit-input value=submitButtonText requestInFlight=requestInFlight}}

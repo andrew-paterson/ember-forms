@@ -15,7 +15,7 @@ export default function validateField(formField) {
       // Validate required fields.
       if (validationMethod === "required") {
         if (validator.isEmpty(stringValue)) {
-          errorMessage = customErrorMessage || "This field is required. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sit eligendi, consectetur tenetur labore nostrum ut inventore odio maxime voluptatum ea ducimus, consequatur voluptatem, placeat numquam delectus perspiciatis. Distinctio voluptas, odit!";
+          errorMessage = customErrorMessage || "This field is required.";
         } else {
           errorMessage = false;
         }
