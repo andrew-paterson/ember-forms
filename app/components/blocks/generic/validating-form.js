@@ -9,19 +9,6 @@ export default Component.extend({
   classNameBindings: ['class', 'validationFailed:validation-failed'],
   attributeBindings: ["data-test-id"],
 
-  // keyDown(e) {
-  //   // Check if the enter key was pressed on input and select nodes only
-  //   if (e.keyCode === 13 && (nodeName === 'input' || nodeName === 'select')) {
-  //     // Stop propagation
-  //     e.stopPropagation();
-  //     // Prevent default submit otherwise submit gets called twice.
-  //     e.preventDefault();
-  //     console.log('keyDown');
-  //     // Trigger the submitForm action
-  //     this.send('submit');
-  //   }
-  // },
-
   formObject: computed('formSchema', 'processedFormSchema', function() {
     if (this.get('processedFormSchema')) {
       return this.get('processedFormSchema');
@@ -91,7 +78,6 @@ export default Component.extend({
       if (this.customTransforms) {
         this.customTransforms(this.get('formFields'), fieldId, this.get('formMetaData'));
       }
-      // if (!fieldObject.validationRules) {return;}
     },
 
     setFormFieldError: function(fieldId, error) {
@@ -130,10 +116,14 @@ export default Component.extend({
           });
         } else {
           this.submitAction(values, formMetaData.modelName).then((response) => {
+            console.log(response);
             self.saveSuccess(response, formFields, formMetaData);
             self.set("requestInFlight", false);
+
             if (formMetaData.resetAfterSubmit === true) {
-              self.resetForm(formSchema);
+              // self.set('formObject', generateEmberValidatingFormFields(this.get('formSchema')));
+              // self.resetForm(formSchema);
+              this.send('resetForm');
             }
           }).catch(error => {
             self.set("requestInFlight", false);
@@ -151,6 +141,7 @@ export default Component.extend({
       var self = this;
       var formFields = this.get('formFields');
       formFields.forEach(function(formField) {
+        if (!formField.get('validationRules')) { return; }
         formField.set('error', validateField(formField));
         if (formField.get('error')) {
           return;
@@ -160,6 +151,11 @@ export default Component.extend({
         }
       });
     },
+
+    resetForm() {
+      window.scrollTo(0, 0);
+      this.set('formObject', generateEmberValidatingFormFields(this.get('formSchema')));
+    }
   },
 
   formValidates: function() {

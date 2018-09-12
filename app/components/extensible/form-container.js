@@ -8,6 +8,7 @@ export default Component.extend({
 
   actions: {
     saveSuccess: function(response, formFields, formMetaData) {
+
       var successMessage = {
         'type': 'success',
         'content': formMetaData.submitSuccessMessage,
@@ -42,7 +43,9 @@ export default Component.extend({
     },
 
     resetForm: function(formSchema) {
-      this.set("formFields", generateEmberValidatingFormFields(formSchema));
+      // console.log('resetForm');
+      // this.set("formFields", generateEmberValidatingFormFields(formSchema));
+      // this.set('processedFormSchema', generateEmberValidatingFormFields(formSchema));
     }
   }
 });

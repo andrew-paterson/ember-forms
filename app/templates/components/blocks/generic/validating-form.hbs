@@ -11,5 +11,5 @@
   {{/each}}
   {{custom-elements/form-submit-input value=submitButtonText requestInFlight=requestInFlight data-test-id='evf-submit-form-button'}}
   {{blocks/form-submit-feedback formMetaData=formMetaData}}
-  <button data-test-id='evf-reset-form-button'>{{resetButtonText}}</button>
+  <button  type="button" data-test-id='evf-reset-form-button' onclick={{action 'resetForm'}}>{{resetButtonText}}</button>
 </form>

@@ -11,7 +11,7 @@ export default function generateEmberValidatingFormFields(formSchema, existing) 
         }
       }
     }
-    if (formMetaData.resetAfterSubmit === null) {
+    if (formMetaData.resetAfterSubmit === null || formMetaData.resetAfterSubmit === undefined) {
       formMetaData.resetAfterSubmit = true;
     }
     return formMetaData;

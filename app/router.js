@@ -18,6 +18,7 @@ Router.map(function() {
   this.route('error');//
   this.route('dynamic-forms');
   this.route('signup');
+  this.route('users');
 });
 
 Router.reopen({

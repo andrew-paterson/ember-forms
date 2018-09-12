@@ -21,7 +21,8 @@ export default FormContainer.extend({
       submitSuccessMessage: 'You have successfully signed up.',
       submitButtonText: 'Request account',
       modelName: 'user',
-      resetAfterSubmit: true,
+      // resetAfterSubmit: true,
+      showResetButton: true,
       // submitButtonFeedback: 'Test',
       fields: [
         {
@@ -29,7 +30,7 @@ export default FormContainer.extend({
           label: 'Name',
           fieldType: 'input',
           hideLabel: true,
-          validationRules: [{'validationMethod': 'required'}],
+          // validationRules: [{'validationMethod': 'required'}],
           validationEvents: ['focusOut', 'keyUp', 'insert'],
           inputType: 'text',
           trim: true,
@@ -39,8 +40,8 @@ export default FormContainer.extend({
           label: 'Email',
           fieldType: 'input',
           hideLabel: true,
-          validationRules: [{'validationMethod': 'required'}, {'validationMethod': 'isEmail'}],
-          inputType: 'text',
+          // validationRules: [{'validationMethod': 'required'}, {'validationMethod': 'isEmail'}],
+          inputType: 'email',
           trim: true,
         },
         {
@@ -48,7 +49,7 @@ export default FormContainer.extend({
           label: 'Bio',
           fieldType: 'textarea',
           hideLabel: true,
-          validationRules: [{'validationMethod': 'required'}, {'validationMethod': 'isEmail'}],
+          // validationRules: [{'validationMethod': 'required'}],
           inputType: 'text',
           trim: true,
         },
@@ -57,7 +58,7 @@ export default FormContainer.extend({
           label: 'Password (Minimum 8 characters)',
           fieldType: 'input',
           hideLabel: true,
-          validationRules: [{'validationMethod': 'required'}, {'validationMethod': 'isLength', 'arguments': {min: 8, max: 72}}, {'validationMethod': 'custom'}],
+          // validationRules: [{'validationMethod': 'required'}, {'validationMethod': 'isLength', 'arguments': {min: 8, max: 72}}, {'validationMethod': 'custom'}],
           inputType: 'password',
         },
         {
@@ -65,7 +66,7 @@ export default FormContainer.extend({
           label: 'Confirm password',
           fieldType: 'input',
           hideLabel: true,
-          validationRules: [{'validationMethod': 'required'}, {'validationMethod': 'isLength', 'arguments': {min: 8, max: 72}}, {'validationMethod': 'custom'}],
+          // validationRules: [{'validationMethod': 'required'}, {'validationMethod': 'isLength', 'arguments': {min: 8, max: 72}}, {'validationMethod': 'custom'}],
           inputType: 'password',
           trim: true,
         },
@@ -74,7 +75,7 @@ export default FormContainer.extend({
           label: "Country",
           fieldType: "select",
           hideLabel: true,
-          validationRules: [{'validationMethod': 'required'}],
+          // validationRules: [{'validationMethod': 'required'}],
           options: this.get('globalVariables.countries'),
         },
         {
@@ -82,7 +83,7 @@ export default FormContainer.extend({
           fieldType: "radioButtonGroup",
           label: 'Do you agree to the terms?',
           showLabel: true,
-          validationRules: [{'validationMethod': 'required'}, {'validationMethod': 'equals', 'arguments': 'true', 'errorMessage': 'You must accept the terms to continue.'}],
+          // validationRules: [{'validationMethod': 'required'}, {'validationMethod': 'equals', 'arguments': 'true', 'errorMessage': 'You must accept the terms to continue.'}],
           radioButtons: [{
             'label': 'I agree',
             'value': 'true'
@@ -97,11 +98,12 @@ export default FormContainer.extend({
           fieldType: "date",
           default: moment().toDate(),
           hideLabel: true,
-          validationRules: [{'validationMethod': 'required'}, {'validationMethod': 'isDate'}],
+          // validationRules: [{'validationMethod': 'required'}, {'validationMethod': 'isDate'}],
           validationEvents: ['insert'],
           showLabel: true
         },
         {
+          fieldId: 'hello',
           fieldType: 'textSeparator',
           text: "Hello world",
           textElement: 'h3'
@@ -109,7 +111,7 @@ export default FormContainer.extend({
         {
           fieldId: 'test',
           fieldType: "singleCheckbox",
-          validationRules: [{'validationMethod': 'required'}],
+          // validationRules: [{'validationMethod': 'required'}],
           label: 'test'
         }
       ]
@@ -155,11 +157,12 @@ export default FormContainer.extend({
 
     saveFail: function(errorResponse, formFields) {
       var error = errorResponse.errors[0];
+      console.log(errorResponse);
       var errorDetail = httpErrorMessageGenerator(error);
       //TODO test if this is happening.
       if (error.detail === 'Email has already been taken') {
         var fieldObject = formFields.findBy('propertyName', 'email');
-        fieldObject.set('error', );
+        fieldObject.set('error', 'Email has already been taken');
       }
       // Todo - if error code is 40* use error detail, if not use hard coded fallback.
       var errorMessage = {

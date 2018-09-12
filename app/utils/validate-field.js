@@ -1,7 +1,5 @@
 export default function validateField(formField) {
   var errorMessage;
-  // var self = this;
-  // var error;
   var value = formField.value || '';
   var stringValue = value.toString();
   var validationRules = formField.validationRules || [];

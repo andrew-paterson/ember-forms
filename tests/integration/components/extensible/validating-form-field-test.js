@@ -12,12 +12,19 @@ module('Integration | Component | extensible/validating-form-field', function(ho
       label: 'Test Input',
       fieldType: 'input',
     }
+    var formSchema = {
+      hideLabels: true,
+    }
     this.set('fieldSchema', fieldSchema);
     await render(hbs`{{extensible/validating-form-field fieldSchema=fieldSchema}}`);
     assert.ok(this.element.querySelector('label').textContent === 'Test Input', 'Label renders correctly.');
     assert.ok(this.element.querySelector('input').placeholder === 'Test Input', 'Placeholder renders as label by default.');
     assert.ok(this.element.querySelector('input'), 'Input is rendered');
     assert.ok(this.element.querySelector('input').type === 'text', 'Input renders as type text if inputType is not specified.');
+
+    this.set('fieldSchema.autoFocus', true);
+    await render(hbs`{{extensible/validating-form-field fieldSchema=fieldSchema}}`);
+    assert.ok(this.element.querySelector('input:focus'), '[Autofocus] Input is correctly auto focussed when the "autoFocus" property is true.');
 
     this.set('fieldSchema.inputType', 'number');
     await render(hbs`{{extensible/validating-form-field fieldSchema=fieldSchema}}`);
@@ -30,8 +37,10 @@ module('Integration | Component | extensible/validating-form-field', function(ho
     assert.ok(this.element.querySelector('input').value === ' Default text ', 'Default value renders in input, is not trimmed by default.');
 
     this.set('fieldSchema.trim', true);
+    this.set('fieldSchema.hideLabel', true);
     await render(hbs`{{extensible/validating-form-field fieldSchema=fieldSchema}}`);
     assert.ok(this.element.querySelector('input').value === 'Default text', 'When trim is true, default values are trimmed when field is inserted.');
+    assert.notOk(this.element.querySelector('label'), 'Label does not render if "hideLabel" is true.');
 
     await fillIn(this.element.querySelector('input'), ' Default text ');
     await triggerKeyEvent(this.element.querySelector('input'), "keyup", 1);
@@ -44,6 +53,7 @@ module('Integration | Component | extensible/validating-form-field', function(ho
     await render(hbs`{{extensible/validating-form-field fieldSchema=fieldSchema}}`);
     assert.ok(this.element.querySelector('[data-test-id="svg-icon-asterisk"]'), 'Required icon displays if required is passed as a validation rule.');
     assert.ok(this.element.querySelector('div').classList.contains('required'), 'Required class added to fields with "required" as a validationMenthod.');
+
 
     // Template block usage:
     // await render(hbs`
@@ -140,5 +150,6 @@ module('Integration | Component | extensible/validating-form-field', function(ho
     await fillIn(this.element.querySelector('input'), 'lil-s@pawnee-gov.com');
     await triggerKeyEvent(this.element.querySelector('input'), "keyup", 1);
     assert.ok(this.element.querySelector('div').classList.contains('valid'), "Success validation works on key up.");
+
   });
 });

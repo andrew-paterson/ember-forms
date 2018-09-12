@@ -1,13 +1,13 @@
-{{bootstrap-datepicker
+{{pikaday-input
   value=(readonly formField.value)
   startDate=startDate
   endDate=formField.endDate
-  changeDate=(action onUserInteraction)
+  onSelection=(action onUserInteraction)
   placeholder=formField.label
   autoclose=formField.autoclose
   orientation=formField.orientation
   todayHighlight=true
   format=format
   clearBtn=true
-  readonly="readonly"
+
 }}

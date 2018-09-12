@@ -14,7 +14,7 @@ export default Component.extend({
     once(this, function() {
       var formField = this.get('formField');
       var value = formField.value;
-      if (this.get("autofocus") && !value) {
+      if (formField.get("autoFocus") && !value) {
         this.$("input").focus();
       }
       if (formField.validationEvents) {
@@ -44,17 +44,17 @@ export default Component.extend({
 
   inputIcon: computed('formField.error', function() {
     var formField = this.get('formField');
-    if (this.get("formField.error")) {
+    if (formField.get("error")) {
       return "svg/icon-alert";
       return;
     }
-    if (this.get("formField.error") === false) {
+    if (formField.get("error") === false) {
       if (!this.get("formField.hideSuccessValidation")) {
         return "svg/icon-tick";
       return;
       }
     }
-    if (this.get("formField.error") === null || this.get("formField.error") === undefined) {
+    if (formField.get("error") === null || this.get("formField.error") === undefined) {
       if (formField.get("required")) {
         return "svg/icon-asterisk";
       } else {

@@ -1,0 +1,14 @@
+{{#layouts/private/outer-wrapper systemMessage=systemMessage class="users"}}
+  {{#layouts/content-wrapper title='Users'}}
+    <table>
+      <thead>
+        <tr><th>ID</th><th>Name</th><th>Country</th><th>Email</th></tr>
+      </thead>
+      <tbody>
+      {{#each model as |user| }}
+        <tr><td>{{user.id}}</td><td>{{user.name}}</td><td>{{user.country}}</td><td>{{user.email}}</td></tr>
+      {{/each}}
+      </tbody>
+    </table>
+  {{/layouts/content-wrapper}}
+{{/layouts/private/outer-wrapper}}
