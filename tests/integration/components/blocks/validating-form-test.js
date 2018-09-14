@@ -8,7 +8,7 @@ module('Integration | Component | blocks/validating-form', function(hooks) {
   setupRenderingTest(hooks);
   test('Initial rendering', async function(assert) {
     let session = this.owner.lookup('service:session');
-    this.set('formSchema', session.formSchema);
+    this.set('formSchema', session.signupFormSchema);
 
     await render(hbs`{{blocks/generic/validating-form formSchema=formSchema}}`);
     assert.ok(this.element.querySelector('form'), 'Form element is rendered.');
@@ -38,7 +38,7 @@ module('Integration | Component | blocks/validating-form', function(hooks) {
 
   test('Form defaults', async function(assert) {
     let session = this.owner.lookup('service:session');
-    this.set('formSchema', session.formSchema);
+    this.set('formSchema', session.signupFormSchema);
     this.set('formSchema.hideLabels', true);
     this.set('formSchema.hideSuccessValidation', true);
     var emailField = this.get('formSchema.fields').find((field) => {
@@ -76,11 +76,6 @@ module('Integration | Component | blocks/validating-form', function(hooks) {
       });
     });
 
-    // this.set('dummyAction_saveSuccess', (response, formFields, formMetaData) => {
-    //   console.log('dummyAction_saveSuccess');
-    //   assert.ok('' === '', 'Save success action is fired');// TODO move to acceptance test
-    // });
-
     this.set('dummyAction_saveFail', (response, formFields, formMetaData) => {
       console.log('dummyAction_saveFail');
       assert.ok('' === '', 'Save success action is fired');
@@ -90,8 +85,7 @@ module('Integration | Component | blocks/validating-form', function(hooks) {
     });
 
     let session = this.owner.lookup('service:session');
-    this.set('formSchema', session.formSchema);
-
+    this.set('formSchema', session.signupFormSchema);
     await render(hbs`{{blocks/generic/validating-form
       formSchema=formSchema
       formValidationFailed=(action dummyAction_formValidationFailed)
@@ -115,12 +109,15 @@ module('Integration | Component | blocks/validating-form', function(hooks) {
     await fillIn(this.element.querySelector('[data-test-id="validating-field-personal_details.phone_number"] input'), '354674234');
     await triggerKeyEvent(this.element.querySelector('input'), "keyup", 1);
     await fillIn(this.element.querySelector('[data-test-id="validating-field-personal_details.address.address_line1"] input'), 'City Hall');
+
     await triggerKeyEvent(this.element.querySelector('input'), "keyup", 1);
+
     await click(this.element.querySelector('[data-test-id="validating-field-personal_details.address.country"] .ember-power-select-trigger'));
+
     await click(document.querySelector('[data-option-index="0"]'));
     await click(this.element.querySelector('[data-test-id="validating-field-acceptTerms"] [data-test-id="radio-button-option-true"] input'));
-    await click(this.element.querySelector('[data-test-id="validating-field-birth_date"]'));
-    var interactor = await openDatepicker(this.element.querySelector('[data-test-id="validating-field-birth_date"] input'));
+    await click(this.element.querySelector('[data-test-id="validating-field-personal_details.birth_date"]'));
+    var interactor = await openDatepicker(this.element.querySelector('[data-test-id="validating-field-personal_details.birth_date"] input'));
     await interactor.selectDate(new Date(2010, 3, 28));
     await click('[data-test-id="validating-field-settings.mailing_list"] input');
     await click(this.element.querySelector('[data-test-id="evf-submit-form-button"] input'));
@@ -134,17 +131,5 @@ module('Integration | Component | blocks/validating-form', function(hooks) {
     await click(this.element.querySelector('[data-test-id="evf-submit-form-button"] input'));
     await isSettled();
     assert.equal(this.element.querySelector('[data-test-id="validating-field-name"] input').value, 'Little Sebastian', 'Form is not cleared after success response returns from submitForm action, if "resetAfterSubmit" is false.'); //TODO move to acceptance.
-
-    this.set('formSchema.showResetButton', true);
-    await render(hbs`{{blocks/generic/validating-form
-      formSchema=formSchema
-      formValidationFailed=(action dummyAction_formValidationFailed)
-      formValidationPassed=(action testAction)
-      submitAction=(action dummyAction_submitAction)
-      saveSuccess=(action dummyAction_saveSuccess)
-      saveFail=(action dummyAction_saveFail)
-      customValidations=(action testAction)
-
-    }}`);
   });
 });

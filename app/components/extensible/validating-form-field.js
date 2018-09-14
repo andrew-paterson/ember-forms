@@ -151,7 +151,7 @@ export default Component.extend({
     setFieldValue: function(value) {
       var formField = this.get('formField');
       if (this.setFormFieldValue) {
-        this.setFormFieldValue(formField.get('fieldId'), value);
+        this.setFormFieldValue(formField, value);
       } else {
         value = value || '';
         var formField = this.get('formField');
@@ -165,7 +165,7 @@ export default Component.extend({
     setFieldError: function(error) {
       var formField = this.get('formField');
       if (this.setFormFieldError) {
-        this.setFormFieldError(formField.fieldId, error);
+        this.setFormFieldError(formField, error);
       } else {
         formField.set('error', error);
       }

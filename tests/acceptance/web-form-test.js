@@ -4,14 +4,14 @@ import { setupApplicationTest } from 'ember-qunit';
 import { openDatepicker } from 'ember-pikaday/helpers/pikaday';
 import setupMirage from 'ember-cli-mirage/test-support/setup-mirage';
 
-module('Acceptance | web form', function(hooks) {
+module('Acceptance | Validating form', function(hooks) {
   setupApplicationTest(hooks);
   setupMirage(hooks);
 
-  test('visiting /web-form', async function(assert) {
+  test('Validating form | Create record', async function(assert) {
     let session = this.owner.lookup('service:session');
-
     session.set('signupFormSchema.resetAfterSubmit', false);
+    server.createList('user', 0);
     await visit('/signup');
 
     await fillIn(document.querySelector('[data-test-id="validating-field-name"] input'), 'Little Sebastian');
@@ -22,16 +22,30 @@ module('Acceptance | web form', function(hooks) {
     await click(document.querySelector('[data-test-id="validating-field-personal_details.address.country"] .ember-power-select-trigger'));
     await click(document.querySelector('[data-option-index="0"]'));
     await click(document.querySelector('[data-test-id="validating-field-acceptTerms"] [data-test-id="radio-button-option-true"] input'));
-    await click(document.querySelector('[data-test-id="validating-field-birth_date"]'));
-    var interactor = await openDatepicker('[data-test-id="validating-field-birth_date"] input');
+    await click(document.querySelector('[data-test-id="validating-field-personal_details.birth_date"]'));
+    var interactor = await openDatepicker('[data-test-id="validating-field-personal_details.birth_date"] input');
     await interactor.selectDate(new Date(2010, 3, 28));
     await click(document.querySelector('[data-test-id="validating-field-settings.mailing_list"] input'));
     await click(document.querySelector('[data-test-id="evf-submit-form-button"] input'));
     await isSettled();
     assert.equal(document.querySelector('[data-test-id="system-message"] .message-content').textContent, 'Success', 'Default success message displays on successful form submission, if "submitSuccessMessage" is null.');
 
+    await visit('/users');
+    assert.equal(document.querySelectorAll('[data-test-id="users-table"] tbody tr').length, 1, 'Submitting creates a new record.');
+    assert.equal(document.querySelector('[data-test-id="users-table"] tr:first-child [data-test-id="name"]').textContent, 'Little Sebastian', 'Correct values are saved in the new record.');
 
-
+    await visit('/signup');
+    await fillIn(document.querySelector('[data-test-id="validating-field-name"] input'), 'Little Sebastian');
+    await fillIn(document.querySelector('[data-test-id="validating-field-bio"] textarea'), `Bye bye Li'l Sebastian; Miss you in the saddest fashion; Bye bye Li'l ; Sebastian; You’re 5000 candles in the wind.`);
+    await fillIn(document.querySelector('[data-test-id="validating-field-personal_details.phone_number"] input'), '354674234');
+    await fillIn(document.querySelector('[data-test-id="validating-field-personal_details.address.address_line1"] input'), 'City Hall');
+    await click(document.querySelector('[data-test-id="validating-field-personal_details.address.country"] .ember-power-select-trigger'));
+    await click(document.querySelector('[data-option-index="0"]'));
+    await click(document.querySelector('[data-test-id="validating-field-acceptTerms"] [data-test-id="radio-button-option-true"] input'));
+    await click(document.querySelector('[data-test-id="validating-field-personal_details.birth_date"]'));
+    var interactor = await openDatepicker('[data-test-id="validating-field-personal_details.birth_date"] input');
+    await interactor.selectDate(new Date(2010, 3, 28));
+    await click(document.querySelector('[data-test-id="validating-field-settings.mailing_list"] input'));
     await fillIn(document.querySelector('[data-test-id="validating-field-email"] input'), 'alreadytaken@yahoo.com');
     await click(document.querySelector('[data-test-id="evf-submit-form-button"] input'));
     await isSettled();
@@ -51,7 +65,7 @@ module('Acceptance | web form', function(hooks) {
     await click(document.querySelector('[data-test-id="validating-field-personal_details.address.country"] .ember-power-select-trigger'));
     await click(document.querySelector('[data-option-index="0"]'));
     await click(document.querySelector('[data-test-id="validating-field-acceptTerms"] [data-test-id="radio-button-option-true"] input'));
-    var interactor = await openDatepicker('[data-test-id="validating-field-birth_date"] input');
+    var interactor = await openDatepicker('[data-test-id="validating-field-personal_details.birth_date"] input');
     await interactor.selectDate(new Date(2010, 3, 28));
     await click(document.querySelector('[data-test-id="validating-field-settings.mailing_list"] input'));
     await click(document.querySelector('[data-test-id="evf-submit-form-button"] input'));
@@ -74,6 +88,26 @@ module('Acceptance | web form', function(hooks) {
       return true;
     }
     assert.ok(allClear(), 'By default, form is cleared after success response returns from "submitForm" action.');
-    return this.pauseTest();
+  });
+
+  test('Validating form | Update record', async function(assert) {
+    setupApplicationTest(hooks);
+    setupMirage(hooks);
+    server.createList('user', 1);
+    await visit('/edit-account');
+    // TODO need a way to properly test this.
+    assert.ok(document.querySelector('[data-test-id="validating-form"]'), 'Form renders when given processedFormSchema, rather than formSchema.');
+
+    await fillIn(document.querySelector('[data-test-id="validating-field-name"] input'), 'Little Sebastian');
+    await triggerKeyEvent(this.element.querySelector('input'), "keyup", 1);
+    await click(document.querySelector('[data-test-id="validating-field-settings.mailing_list"] input'));
+    await click(document.querySelector('[data-test-id="validating-field-acceptTerms"] [data-test-id="radio-button-option-true"] input'));
+    await click(document.querySelector('[data-test-id="evf-submit-form-button"] input'));
+    await isSettled();
+
+    assert.equal(document.querySelector('[data-test-id="validating-field-name"] input').value, 'Little Sebastian', 'Form is not cleared after submit success.')
+    await visit('/users');
+    assert.equal(document.querySelectorAll('[data-test-id="users-table"] tbody tr').length, 1, 'Submit does not insert a new record.');
+    assert.equal(document.querySelector('[data-test-id="users-table"] tr:first-child [data-test-id="name"]').textContent, 'Little Sebastian', 'User edits are successfully saved when user clicks "Submit".');
   });
 });

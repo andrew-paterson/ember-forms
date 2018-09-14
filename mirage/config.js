@@ -27,6 +27,10 @@ export default function() {
 
   this.namespace = 'api';
 
+  this.get('/users', (schema, request) => {
+    return schema.all('user');
+  });
+
   this.post('/users', ({ users }, request) => {
     let attrs = JSON.parse(request.requestBody).data.attributes;
     if (attrs.email === 'alreadytaken@yahoo.com') {
@@ -39,11 +43,6 @@ export default function() {
   this.patch('/users/:id', function({ users }, request) {
     let id = request.params.id;
     let attrs = this.normalizedRequestAttrs();
-    console.log(users.find(id).update(attrs));
     return users.find(id).update(attrs);
-  });
-
-  this.get('/users', (schema, request) => {
-    return schema.all('user');
   });
 }

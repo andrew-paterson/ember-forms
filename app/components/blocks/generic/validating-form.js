@@ -71,18 +71,16 @@ export default Component.extend({
       this.customValidations(formField, this.get('formFields'));
     },
 
-    setFormFieldValue: function(fieldId, value) {
+    setFormFieldValue: function(formField, value) {
       value = value || '';
-      var fieldObject = this.get('formFields').findBy('fieldId', fieldId);
-      fieldObject.set('value', value);
+      formField.set('value', value);
       if (this.customTransforms) {
         this.customTransforms(this.get('formFields'), fieldId, this.get('formMetaData'));
       }
     },
 
-    setFormFieldError: function(fieldId, error) {
-      var fieldObject = this.get('formFields').findBy('fieldId', fieldId);
-      fieldObject.set('error', error);
+    setFormFieldError: function(formField, error) {
+      formField.set('error', error);
     },
 
     submit: function() {
@@ -96,8 +94,8 @@ export default Component.extend({
         var values = this.generateFormValues(formFields);
         this.set("requestInFlight", true);
         if (this.get('formMetaData.recordToUpdate')) {
-          var record = this.get('formMetaData.recordToUpdate');
           console.log('update');
+          var record = this.get('formMetaData.recordToUpdate');
           formFields.forEach(function(formField) {
             if (formField.fieldId) {
               if (record.get(formField.fieldId)) {
@@ -118,13 +116,12 @@ export default Component.extend({
             self.saveFail(error, formFields);
           });
         } else {
+          console.log('new');
+
           this.submitAction(values, formMetaData.modelName).then((response) => {
             self.saveSuccess(response, formFields, formMetaData);
             self.set("requestInFlight", false);
-
             if (formMetaData.resetAfterSubmit === true) {
-              // self.set('formObject', generateEmberValidatingFormFields(this.get('formSchema')));
-              // self.resetForm(formSchema);
               this.send('resetForm');
             }
           }).catch(error => {

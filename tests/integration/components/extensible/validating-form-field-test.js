@@ -143,6 +143,9 @@ module('Integration | Component | extensible/validating-form-field', function(ho
     this.set('fieldSchema.default', '');
     this.set('fieldSchema.validationEvents', ['keyUp']);
     await render(hbs`{{extensible/validating-form-field fieldSchema=fieldSchema}}`);
+    await focus(this.element.querySelector('input'));
+    assert.notOk(this.element.querySelector('div').classList.contains('valid') || this.element.querySelector('div').classList.contains('invalid'), 'No validation occurs on focus in to a text field.');
+
     await fillIn(this.element.querySelector('input'), 'test');
     await triggerKeyEvent(this.element.querySelector('input'), "keyup", 1);
     assert.ok(this.element.querySelector('[data-test-id="field-error"]'), 'Validation error shows on keyUp, when keyUp given as validation event for input, and input value is invalid.');
