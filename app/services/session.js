@@ -40,7 +40,7 @@ export default Service.extend({
           label: "Phone number",
           fieldId: "personal_details.phone_number",
           fieldType: "input",
-          validationRules: [{'validationMethod': 'isNumeric'}],
+          validationRules: [{'validationMethod': 'required'}],
           inputType: "text",
         },
         {

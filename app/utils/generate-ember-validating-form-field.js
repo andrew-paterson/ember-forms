@@ -39,7 +39,6 @@ export default function generateEmberValidatingFormField(field, index, formSchem
     fieldIdParts.forEach(function(part) {
       if (thisPart) {
         thisPart = thisPart[part];
-        console.log(thisPart);
       }
     });
     value = thisPart;

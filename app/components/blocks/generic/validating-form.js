@@ -95,11 +95,14 @@ export default Component.extend({
         var formMetaData = this.get('formMetaData');
         var values = this.generateFormValues(formFields);
         this.set("requestInFlight", true);
-        if (this.get('recordToUpdate')) {
-          var record = this.get('recordToUpdate');
+        if (this.get('formMetaData.recordToUpdate')) {
+          var record = this.get('formMetaData.recordToUpdate');
+          console.log('update');
           formFields.forEach(function(formField) {
-            if (formField.propertyName) {
-              record.set(formField.propertyName, formField.value);
+            if (formField.fieldId) {
+              if (record.get(formField.fieldId)) {
+                record.set(formField.fieldId, formField.value);
+              }
             }
           });
           this.submitAction(record).then((response) => {

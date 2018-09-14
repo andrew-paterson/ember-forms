@@ -11,7 +11,7 @@ export default function() {
 
   // this.urlPrefix = '';    // make this `http://localhost:8080`, for example, if your API is on a different server
   // this.namespace = '';    // make this `/api`, for example, if your API is namespaced
-  this.timing = 400;      // delay for each request, automatically set to 0 during testing
+  // this.timing = 400;      // delay for each request, automatically set to 0 during testing
 
   /*
     Shorthand cheatsheet:
@@ -31,20 +31,16 @@ export default function() {
     let attrs = JSON.parse(request.requestBody).data.attributes;
     if (attrs.email === 'alreadytaken@yahoo.com') {
       return new Response(400, {some: 'header'}, {errors: ['Email already taken.']});
-      // return new Response(
-      //   400,
-      //   {some: 'header'},
-      //   {errors: [
-      //     {
-      //       status: 422,
-      //       title: 'email is invalid',
-      //       description: 'Email already taken.'
-      //     }
-      //   ]
-      // });
     } else {
       return users.create(attrs);
     }
+  });
+
+  this.patch('/users/:id', function({ users }, request) {
+    let id = request.params.id;
+    let attrs = this.normalizedRequestAttrs();
+    console.log(users.find(id).update(attrs));
+    return users.find(id).update(attrs);
   });
 
   this.get('/users', (schema, request) => {
