@@ -136,20 +136,24 @@ module('Integration | Component | extensible/validating-form-field', function(ho
     this.set('fieldSchema.default', 'Test');
     await render(hbs`{{extensible/validating-form-field fieldSchema=fieldSchema}}`);
     assert.ok(this.element.querySelector('[data-test-id="field-error"]'), 'Field with "insert" as a validation event validates when inserted with a default value.');
+    await fillIn(this.element.querySelector('input'), 'test');
+    await triggerKeyEvent(this.element.querySelector('input'), "keyup", 1);
+    assert.notOk(this.element.querySelector('[data-test-id="field-error"]'), 'Validation error does not show on keyUp, when keyUp not given as validation event for input, and input value is invalid.');
 
     this.set('fieldSchema.default', '');
     this.set('fieldSchema.validationEvents', ['keyUp']);
     await render(hbs`{{extensible/validating-form-field fieldSchema=fieldSchema}}`);
-
     await fillIn(this.element.querySelector('input'), 'test');
     await triggerKeyEvent(this.element.querySelector('input'), "keyup", 1);
-    assert.ok(this.element.querySelector('[data-test-id="field-error"]'), 'Key up validation works when keyUp given as validation event for input.');
-    await fillIn(this.element.querySelector('input'), '');
-    await triggerKeyEvent(this.element.querySelector('input'), "keyup", 1);
-    assert.notOk(this.element.querySelector('[data-test-id="field-error"]'), 'Key up removes validation errors when all text in input is backspaced.');
+    assert.ok(this.element.querySelector('[data-test-id="field-error"]'), 'Validation error shows on keyUp, when keyUp given as validation event for input, and input value is invalid.');
     await fillIn(this.element.querySelector('input'), 'lil-s@pawnee-gov.com');
     await triggerKeyEvent(this.element.querySelector('input'), "keyup", 1);
     assert.ok(this.element.querySelector('div').classList.contains('valid'), "Success validation works on key up.");
+    await fillIn(this.element.querySelector('input'), '');
+    await triggerKeyEvent(this.element.querySelector('input'), "keyup", 1);
+    assert.notOk(this.element.querySelector('[data-test-id="field-error"]'), 'Validation error is removed on keyUp, when keyUp given as validation event for input, and input value is an empty string (When all text in input is backspaced).');
+    await blur(this.element.querySelector('input'));
+    assert.ok(this.element.querySelector('[data-test-id="field-error"]'), 'Validation error on focus out of a field that has keyUp as a validation method, and fails validation.');
 
   });
 });

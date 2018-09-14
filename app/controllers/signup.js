@@ -4,9 +4,4 @@ import { alias } from '@ember/object/computed';
 
 export default Controller.extend(GeneralControllerActionsMixin, {
   systemMessage: alias('systemMessages.routes.signup'),
-
-  actions: {
-    formSubmit: function() {
-    }
-  }
 });

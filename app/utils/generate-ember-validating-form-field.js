@@ -33,6 +33,17 @@ export default function generateEmberValidatingFormField(field, index, formSchem
   }
 
   var value;
+  if (formSchema) {
+    var fieldIdParts = field.fieldId.split('.');
+    var thisPart = formSchema.recordToUpdate;
+    fieldIdParts.forEach(function(part) {
+      if (thisPart) {
+        thisPart = thisPart[part];
+        console.log(thisPart);
+      }
+    });
+    value = thisPart;
+  }
   if (field.default && (value === undefined || value === null)) {
     value = field.trim ? field.default.trim() : field.default;
   }

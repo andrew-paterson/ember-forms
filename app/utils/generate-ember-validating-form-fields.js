@@ -11,9 +11,13 @@ export default function generateEmberValidatingFormFields(formSchema, existing) 
         }
       }
     }
+    if (formMetaData.submitSuccessMessage === null || formMetaData.submitSuccessMessage === undefined) {
+      formMetaData.submitSuccessMessage = "Success";
+    };
+
     if (formMetaData.resetAfterSubmit === null || formMetaData.resetAfterSubmit === undefined) {
       formMetaData.resetAfterSubmit = true;
-    }
+    };
     return formMetaData;
   };
 

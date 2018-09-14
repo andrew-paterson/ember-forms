@@ -8,7 +8,9 @@ import generateEmberValidatingFormField from 'ember-starter/utils/generate-ember
 export default Component.extend({
   classNames: ["form-field"],
   classNameBindings: ["formField.error:invalid", "valid:valid", "formField.required:required", "disabled:disabled", "readonly:readonly", "customClasses", 'hideSuccessValidation:hide-success-validation', 'validates:validates', 'typeClass'],
-  attributeBindings: ["data-test-id"],
+  attributeBindings: ["data-test-id", "data-test-validation-field"],
+
+
   didInsertElement: function() {
     //Code below will maintain validation colours when component is re-rendered.
     once(this, function() {

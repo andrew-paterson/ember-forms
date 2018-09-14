@@ -12,112 +12,7 @@ export default FormContainer.extend({
 
   init: function() {
     this._super(...arguments);
-    // this.model = EmberObject.create({
-    //   internal_settings: {}
-    // });
-    this.signUpFormSchema = {
-      title: 'Sign Up',
-      formName: 'signUpForm',
-      submitSuccessMessage: 'You have successfully signed up.',
-      submitButtonText: 'Request account',
-      modelName: 'user',
-      // resetAfterSubmit: true,
-      showResetButton: true,
-      // submitButtonFeedback: 'Test',
-      fields: [
-        {
-          fieldId: 'name',
-          label: 'Name',
-          fieldType: 'input',
-          hideLabel: true,
-          // validationRules: [{'validationMethod': 'required'}],
-          validationEvents: ['focusOut', 'keyUp', 'insert'],
-          inputType: 'text',
-          trim: true,
-        },
-        {
-          fieldId: 'email',
-          label: 'Email',
-          fieldType: 'input',
-          hideLabel: true,
-          // validationRules: [{'validationMethod': 'required'}, {'validationMethod': 'isEmail'}],
-          inputType: 'email',
-          trim: true,
-        },
-        {
-          fieldId: 'bio',
-          label: 'Bio',
-          fieldType: 'textarea',
-          hideLabel: true,
-          // validationRules: [{'validationMethod': 'required'}],
-          inputType: 'text',
-          trim: true,
-        },
-        {
-          fieldId: 'password',
-          label: 'Password (Minimum 8 characters)',
-          fieldType: 'input',
-          hideLabel: true,
-          // validationRules: [{'validationMethod': 'required'}, {'validationMethod': 'isLength', 'arguments': {min: 8, max: 72}}, {'validationMethod': 'custom'}],
-          inputType: 'password',
-        },
-        {
-          fieldId: 'password_confirmation',
-          label: 'Confirm password',
-          fieldType: 'input',
-          hideLabel: true,
-          // validationRules: [{'validationMethod': 'required'}, {'validationMethod': 'isLength', 'arguments': {min: 8, max: 72}}, {'validationMethod': 'custom'}],
-          inputType: 'password',
-          trim: true,
-        },
-        {
-          fieldId: 'country',
-          label: "Country",
-          fieldType: "select",
-          hideLabel: true,
-          // validationRules: [{'validationMethod': 'required'}],
-          options: this.get('globalVariables.countries'),
-        },
-        {
-          fieldId: 'acceptTerms',
-          fieldType: "radioButtonGroup",
-          label: 'Do you agree to the terms?',
-          showLabel: true,
-          // validationRules: [{'validationMethod': 'required'}, {'validationMethod': 'equals', 'arguments': 'true', 'errorMessage': 'You must accept the terms to continue.'}],
-          radioButtons: [{
-            'label': 'I agree',
-            'value': 'true'
-          }, {
-            'label': 'I do not agree',
-            'value': 'false'
-          }]
-        },
-        {
-          label: "Activation date",
-          fieldId: "activation_date",
-          fieldType: "date",
-          default: moment().toDate(),
-          hideLabel: true,
-          // validationRules: [{'validationMethod': 'required'}, {'validationMethod': 'isDate'}],
-          validationEvents: ['insert'],
-          showLabel: true
-        },
-        {
-          fieldId: 'hello',
-          fieldType: 'textSeparator',
-          text: "Hello world",
-          textElement: 'h3'
-        },
-        {
-          fieldId: 'test',
-          fieldType: "singleCheckbox",
-          // validationRules: [{'validationMethod': 'required'}],
-          label: 'test'
-        }
-      ]
-    };
-    var formSchema = this.get('signUpFormSchema');
-    // this.processedFormSchema = generateEmberValidatingFormFields(formSchema);
+    this.signUpFormSchema = this.get('session.signupFormSchema');
 
     this.standaloneField = {
       fieldId: 'standalone',
@@ -156,14 +51,11 @@ export default FormContainer.extend({
     },
 
     saveFail: function(errorResponse, formFields) {
-      var error = errorResponse.errors[0];
       console.log(errorResponse);
+      var emailField = formFields.findBy('fieldId', 'email');
+      emailField.set('error', 'Email already taken');
+      var error = errorResponse.errors[0];
       var errorDetail = httpErrorMessageGenerator(error);
-      //TODO test if this is happening.
-      if (error.detail === 'Email has already been taken') {
-        var fieldObject = formFields.findBy('propertyName', 'email');
-        fieldObject.set('error', 'Email has already been taken');
-      }
       // Todo - if error code is 40* use error detail, if not use hard coded fallback.
       var errorMessage = {
         'name': 'signupFormErrors',

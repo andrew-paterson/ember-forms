@@ -29,11 +29,21 @@ export default function() {
 
   this.post('/users', ({ users }, request) => {
     let attrs = JSON.parse(request.requestBody).data.attributes;
-    console.log('post');
-    if (attrs.name) {
-      return users.create(attrs);
+    if (attrs.email === 'alreadytaken@yahoo.com') {
+      return new Response(400, {some: 'header'}, {errors: ['Email already taken.']});
+      // return new Response(
+      //   400,
+      //   {some: 'header'},
+      //   {errors: [
+      //     {
+      //       status: 422,
+      //       title: 'email is invalid',
+      //       description: 'Email already taken.'
+      //     }
+      //   ]
+      // });
     } else {
-      return new Response(400, {some: 'header'}, {errors: ['Name cannot be blank']});
+      return users.create(attrs);
     }
   });
 

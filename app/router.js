@@ -19,6 +19,7 @@ Router.map(function() {
   this.route('dynamic-forms');
   this.route('signup');
   this.route('users');
+  this.route('edit-account');
 });
 
 Router.reopen({

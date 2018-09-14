@@ -2,14 +2,18 @@
 <form {{action "submit" on="submit"}}>
   {{#each formFields as |formField index|}}
     {{extensible/validating-form-field
+      data-test-validating-field
       formField=formField
       setFormFieldValue=(action 'setFormFieldValue')
       setFormFieldError=(action 'setFormFieldError')
       customValidations=(action 'customValidations')
       data-test-id=(concat 'validating-field-' formField.fieldId)
+
     }}
   {{/each}}
   {{custom-elements/form-submit-input value=submitButtonText requestInFlight=requestInFlight data-test-id='evf-submit-form-button'}}
   {{blocks/form-submit-feedback formMetaData=formMetaData}}
-  <button  type="button" data-test-id='evf-reset-form-button' onclick={{action 'resetForm'}}>{{resetButtonText}}</button>
+  {{#if formMetaData.showResetButton}}
+    <button  type="button" data-test-id='evf-reset-form-button' onclick={{action 'resetForm'}}>{{resetButtonText}}</button>
+  {{/if}}
 </form>

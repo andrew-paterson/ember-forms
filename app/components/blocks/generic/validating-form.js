@@ -116,7 +116,6 @@ export default Component.extend({
           });
         } else {
           this.submitAction(values, formMetaData.modelName).then((response) => {
-            console.log(response);
             self.saveSuccess(response, formFields, formMetaData);
             self.set("requestInFlight", false);
 

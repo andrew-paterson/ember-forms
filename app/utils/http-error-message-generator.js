@@ -1,8 +1,9 @@
 export default function httpErrorMessageGenerator(error, customFallbacks) {
+  console.log(error);
   //Todo put these translations into a more accessible place.
-  error = error.replace('Could not login.', 'Login failed. Please check your username and password and try again.')
-  .replace('param is missing or the value is empty: authorisation', 'Please fill in both the email and password field.')
-  .replace('Email has already been taken', 'This email address is already registered.');
+  // error = error.replace('Could not login.', 'Login failed. Please check your username and password and try again.')
+  // .replace('param is missing or the value is empty: authorisation', 'Please fill in both the email and password field.')
+  // .replace('Email has already been taken', 'This email address is already registered.');
 
   // customFallbacks = customFallbacks || {};
   // var defaultFallbacks = {

@@ -7,6 +7,7 @@ export default Component.extend({
   tagName: 'div',
   classNames: ['system-message'],
   classNameBindings: ['systemMessage.type'],
+  attributeBindings: ['data-test-id'],
 
   messageIcon: computed('systemMessage.type', function() {
     return this.get('systemMessage.type') === 'success' ? 'svg/icon-tick' : 'svg/icon-alert';

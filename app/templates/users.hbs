@@ -2,11 +2,29 @@
   {{#layouts/content-wrapper title='Users'}}
     <table>
       <thead>
-        <tr><th>ID</th><th>Name</th><th>Country</th><th>Email</th></tr>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Birth Date</th>
+          <th>Address</th>
+          <th>Country</th>
+          <th>Phone Number</th>
+          <th>Bio</th>
+        </tr>
       </thead>
       <tbody>
       {{#each model as |user| }}
-        <tr><td>{{user.id}}</td><td>{{user.name}}</td><td>{{user.country}}</td><td>{{user.email}}</td></tr>
+        <tr>
+          <td>{{user.id}}</td>
+          <td>{{user.name}}</td>
+          <td>{{user.email}}</td>
+          <td>{{moment-format user.personal_details.birth_date 'YYYY-MM-DD'}}</td>
+          <td>{{user.personal_details.address.address_line1}}</td>
+          <td>{{user.personal_details.address.country}}</td>
+          <td>{{user.personal_details.phone_number}}</td>
+          <td>{{user.bio}}</td>
+        </tr>
       {{/each}}
       </tbody>
     </table>
