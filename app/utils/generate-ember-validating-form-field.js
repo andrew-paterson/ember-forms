@@ -5,15 +5,20 @@ export default function generateEmberValidatingFormField(field, index, formSchem
     "input": "custom-elements/form-field-input",
     "textarea": "custom-elements/form-field-textarea",
     "select": "custom-elements/form-field-power-select",
-    "date": "custom-elements/form-field-date-input",
+    "date": "custom-elements/form-field-date-bootstrap",
+    "datePikaday": "custom-elements/form-field-date-pikaday",
     "singleCheckbox": "custom-elements/form-field-checkbox",
     "radioButtonGroup": "custom-elements/radio-button-group",
     "textSeparator": "custom-elements/form-field-text-separator"
   };
 
-   if (!field.fieldId) {
-    throw Error(`fieldId is a required field for validating form. This is missing in item ${index}.`);
+  if (!field.fieldId) {
+    throw Error(`[Ember validating field] fieldId is a required field for validating form. This is missing in item ${index}.`);
   }
+
+  // if (field.fieldType === 'radioButtonGroup' && !field.name) {
+  //   console.warn(`[Ember validating field] You have not provided a name attribute for the radioButtonsGroup with id ${field.fieldId}. This will prevent arrow navigation between options.`);
+  // }
 
   // TODO this must go many levels deep and be it's own util.
   var checkKeyExists = (object, searchKey) => {
@@ -54,6 +59,17 @@ export default function generateEmberValidatingFormField(field, index, formSchem
     }
   }
 
+  // var name = field.name || field.fieldId.replace(/\./g, '-');
+
+  // var placeholder;
+  // if (checkKeyExists(field, 'name')) {
+  //   name = field.name;
+  // } else {
+  //   if (field.fieldId) {
+  //     name = field.fieldId.replace(/\./g, '-');
+  //   }
+  // }
+
   // Inherit form form if not set on field.
   var hideSuccessValidation = false;
   if (checkKeyExists(field, 'hideSuccessValidation')) {
@@ -78,6 +94,8 @@ export default function generateEmberValidatingFormField(field, index, formSchem
   fieldObject.set('hideSuccessValidation', hideSuccessValidation);
   fieldObject.set('hideLabel', hideLabel);
   fieldObject.set('required', required);
+  fieldObject.set('name', field.name || field.fieldId.replace(/\./g, '-'));
+  fieldObject.set('placeholder', field.placeholder || field.fieldLabel);
   fieldObject.set('component', fieldElementComponents[field.fieldType]);
   return fieldObject;
 }

@@ -94,20 +94,28 @@ module('Acceptance | Validating form', function(hooks) {
     setupApplicationTest(hooks);
     setupMirage(hooks);
     server.createList('user', 1);
+    await visit('/users');
+    // TODO test all fields
+    var firstUsersName = document.querySelector('[data-test-id="users-table"] tbody tr:first-child [data-test-id="name"]').textContent;
     await visit('/edit-account');
+    // await focus(document.querySelector('[data-test-id="validating-field-name"] input'));
+
+
+
+    assert.equal(document.querySelector('[data-test-id="validating-field-name"] input').value, firstUsersName, 'Given record pre-populates the form.')
     // TODO need a way to properly test this.
     assert.ok(document.querySelector('[data-test-id="validating-form"]'), 'Form renders when given processedFormSchema, rather than formSchema.');
 
     await fillIn(document.querySelector('[data-test-id="validating-field-name"] input'), 'Little Sebastian');
-    await triggerKeyEvent(this.element.querySelector('input'), "keyup", 1);
+    // await triggerKeyEvent(document.querySelector('[data-test-id="validating-field-name"] input'), "keyup", 1);
     await click(document.querySelector('[data-test-id="validating-field-settings.mailing_list"] input'));
     await click(document.querySelector('[data-test-id="validating-field-acceptTerms"] [data-test-id="radio-button-option-true"] input'));
     await click(document.querySelector('[data-test-id="evf-submit-form-button"] input'));
     await isSettled();
 
-    assert.equal(document.querySelector('[data-test-id="validating-field-name"] input').value, 'Little Sebastian', 'Form is not cleared after submit success.')
+    assert.equal(document.querySelector('[data-test-id="validating-field-name"] input').value, 'Little Sebastian', 'Form is not cleared after submit success.');
     await visit('/users');
     assert.equal(document.querySelectorAll('[data-test-id="users-table"] tbody tr').length, 1, 'Submit does not insert a new record.');
-    assert.equal(document.querySelector('[data-test-id="users-table"] tr:first-child [data-test-id="name"]').textContent, 'Little Sebastian', 'User edits are successfully saved when user clicks "Submit".');
+    assert.equal(document.querySelector('[data-test-id="users-table"] tbody tr:first-child [data-test-id="name"]').textContent, 'Little Sebastian', 'User edits are successfully saved when user clicks "Submit".');
   });
 });

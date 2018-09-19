@@ -12,6 +12,13 @@ export default Component.extend({
 
 
   didInsertElement: function() {
+    var self = this;
+    this._super(...arguments);
+    var labelElement = this.$('label[for]');
+    var forAttr = labelElement.attr('for');
+    $(labelElement).click(function(e) {
+      self.$(`#${forAttr}`).focus();
+    });
     //Code below will maintain validation colours when component is re-rendered.
     once(this, function() {
       var formField = this.get('formField');
@@ -99,6 +106,7 @@ export default Component.extend({
 
   actions: {
     onUserInteraction: function(value) {
+      console.log(value);
       this.send('setFieldValue', value);
     },
 
@@ -125,11 +133,11 @@ export default Component.extend({
       }
     },
 
-    onKeyUp: function(value) {
+    onKeyUp: function(value, event) {
       this.send('setFieldValue', value);
       var formField = this.get('formField');
-      if (this.keyUpAction) {
-        this.keyUpAction(formField.get('fieldId'), value);
+      if (this.afterKeyUpAction) {
+        this.afterKeyUpAction(value, event, formField);
       }
     },
 

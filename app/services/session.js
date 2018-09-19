@@ -17,7 +17,7 @@ export default Service.extend({
       fields: [
         {
           fieldId: 'name',
-          label: 'Name',
+          fieldLabel: 'Name',
           fieldType: 'input',
           validationRules: [{'validationMethod': 'required'}],
           validationEvents: ['focusOut', 'keyUp', 'insert'],
@@ -25,19 +25,19 @@ export default Service.extend({
         },
         {
           fieldId: 'email',
-          label: 'Email',
+          fieldLabel: 'Email',
           fieldType: 'input',
           validationRules: [{'validationMethod': 'isEmail'}],
           inputType: 'email',
         },
         {
           fieldId: 'bio',
-          label: 'Bio',
+          fieldLabel: 'Bio',
           fieldType: 'textarea',
           inputType: 'text',
         },
         {
-          label: "Phone number",
+          fieldLabel: "Phone number",
           fieldId: "personal_details.phone_number",
           fieldType: "input",
           validationRules: [{'validationMethod': 'required'}],
@@ -50,17 +50,18 @@ export default Service.extend({
           textElement: 'h3'
         },
         {
-          label: "Address line 1",
+          fieldLabel: "Address line 1",
           fieldId: "personal_details.address.address_line1",
           fieldType: "input",
           validationRules: [{'validationMethod': 'required'}],
           inputType: "text",
         },
         {
-          label: "Country",
+          fieldLabel: "Country",
           fieldId: 'personal_details.address.country',
           fieldType: "select",
           validationRules: [{'validationMethod': 'required'}],
+          searchPlaceholder: 'Search Countries',
           options: [
             "Afghanistan",
             "Åland Islands",
@@ -79,9 +80,9 @@ export default Service.extend({
         {
           fieldId: 'acceptTerms',
           fieldType: "radioButtonGroup",
-          label: 'Do you agree to the terms?',
+          fieldLegend: 'Do you agree to the terms?',
           validationRules: [{'validationMethod': 'required'}, {'validationMethod': 'equals', 'arguments': 'true', 'errorMessage': 'You must accept the terms to continue.'}],
-          radioButtons: [{
+          options: [{
             'label': 'I agree',
             'value': 'true'
           }, {
@@ -90,11 +91,30 @@ export default Service.extend({
           }]
         },
         {
-          label: "Birth date",
+          fieldLabel: "Birth date",
           fieldId: "personal_details.birth_date",
           fieldType: "date",
           validationRules: [{'validationMethod': 'required'}, {'validationMethod': 'isDate'}],
           validationEvents: ['insert'],
+          autoclose: true
+        },
+
+        {
+          fieldLabel: "Death date",
+          fieldId: "personal_details.death_date",
+          fieldType: "datePikaday",
+          validationRules: [{'validationMethod': 'required'}, {'validationMethod': 'isDate'}],
+          validationEvents: ['insert'],
+          // useUTC: true,
+          // disabled: true,
+          options: {
+            numberOfMonths: 2,
+            disableWeekends: true,
+            minDate: moment("2018-09-01").toDate(),
+            maxDate: moment("2018-10-01").toDate(),
+            format: "DD/MM/YYYY",
+            //
+          }
         },
         {
           fieldId: 'settings.mailing_list',

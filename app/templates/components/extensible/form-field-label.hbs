@@ -1,0 +1,3 @@
+{{#unless formField.hideLabel}}
+  <label for={{formField.name}}>{{#if formField.labelComponent}}{{component labelComponent}}{{else if formField.label}}{{formField.label}}{{/if}}</label>
+{{/unless}}

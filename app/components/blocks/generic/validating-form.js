@@ -94,7 +94,6 @@ export default Component.extend({
         var values = this.generateFormValues(formFields);
         this.set("requestInFlight", true);
         if (this.get('formMetaData.recordToUpdate')) {
-          console.log('update');
           var record = this.get('formMetaData.recordToUpdate');
           formFields.forEach(function(formField) {
             if (formField.fieldId) {
@@ -116,7 +115,6 @@ export default Component.extend({
             self.saveFail(error, formFields);
           });
         } else {
-          console.log('new');
 
           this.submitAction(values, formMetaData.modelName).then((response) => {
             self.saveSuccess(response, formFields, formMetaData);
@@ -154,7 +152,9 @@ export default Component.extend({
     resetForm() {
       window.scrollTo(0, 0);
       this.set('formObject', generateEmberValidatingFormFields(this.get('formSchema')));
-    }
+    },
+
+
   },
 
   formValidates: function() {

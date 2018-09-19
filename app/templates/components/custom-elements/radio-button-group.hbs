@@ -1,5 +1,5 @@
-{{#each formField.radioButtons as |option|}}
-  {{custom-elements/radio-button-element
+{{#each formField.options as |option|}}
+  {{custom-elements/labelled-radio-button
     data-test-id=(concat 'radio-button-option-' option.value)
     value=option.value
     groupValue=groupValue
@@ -8,6 +8,5 @@
     disabled=disabled
     label=option.label
     changedAction=(action onUserInteraction groupValue)
-    fieldName=option.fieldName
   }}
 {{/each}}

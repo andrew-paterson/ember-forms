@@ -43,7 +43,7 @@ export default Component.extend({
     },
 
     resetForm: function(formSchema) {
-      // console.log('resetForm');
+      //
       // this.set("formFields", generateEmberValidatingFormFields(formSchema));
       // this.set('processedFormSchema', generateEmberValidatingFormFields(formSchema));
     }

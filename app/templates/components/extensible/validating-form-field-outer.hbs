@@ -1,10 +1,15 @@
 {{#unless formField.hideLabel}}
   {{#if formField.labelComponent}}
-    <label>{{component labelComponent}}</label>
-  {{else if formField.label}}
-    <label>{{formField.label}}</label>
+    <label for={{formField.name}}>{{component labelComponent}}</label>
+  {{else if formField.fieldLabel}}
+    <label for={{formField.name}}>{{formField.fieldLabel}}</label>
   {{/if}}
 {{/unless}}
+{{#if formField.legendComponent}}
+  <legend>{{component legendComponent}}</legend>
+{{else if formField.fieldLegend}}
+  <legend>{{formField.fieldLegend}}</legend>
+{{/if}}
 <div class="field-controls">
   {{yield}}
   {{component inputIcon class='form-field-icon'}}

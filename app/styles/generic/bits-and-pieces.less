@@ -1,6 +1,7 @@
 @import url(https://fonts.googleapis.com/css?family=Lato:300,400,700,900);
 
-:focus {
+input:focus,
+button:focus {
   outline: none;
 }
 
@@ -44,8 +45,6 @@ a,
   color: @body-content-link-color;
   text-decoration: @body-content-link-text-decoration;
   font-weight: 700;
-  border:none;
-    outline:none
 }
 
 a:hover,
@@ -202,15 +201,13 @@ a.button {
 }
 
 button:hover,
-.button:hover {
+.button:hover,
+button:focus,
+.button:focus {
   background-color: @button-hover-background-color;
   text-decoration: none;
   color: @button-color;
   cursor: pointer;
-}
-
-.button input  {
-  background-color: transparent;
 }
 
 .submit-input-container.button {
@@ -411,66 +408,57 @@ div.checkbox-label-container {
   margin-bottom: 15px;
 }
 
-.input-radio-checkbox {
-  float: left;
-  width: @radio-checkbox-width-height;
-  height: @radio-checkbox-width-height;
-  margin-right: 5px;
+input[type=radio],
+input[type=checkbox] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
   position: relative;
-}
-
-.input-radio-checkbox input[type=radio],
-.input-radio-checkbox input[type=checkbox] {
-  position: absolute;
+  cursor: pointer;
   left: 0;
   top: 0;
-  width: @radio-checkbox-width-height;
-  height: @radio-checkbox-width-height;
-  opacity: 0;
+  width: @radio-button-checkbox-width-height;
+  height: @radio-button-checkbox-width-height;
+  padding: 0 !important;
+  background: transparent !important;
+  border-width: 0 !important;
 }
 
-.input-radio-checkbox input[type=radio]:hover,
-.input-radio-checkbox input[type=checkbox]:hover {
-  cursor: pointer;
+input[type=radio] + label {
+  line-height: 150%;
+  margin: 0;
 }
 
-.disabled .input-radio-checkbox input[type=radio]:hover,
-.disabled .input-radio-checkbox input[type=checkbox]:hover {
-  cursor: not-allowed;
-  border-color: @input-border-color;
-  background-color: transparent;
-}
-
-.input-radio-checkbox .radio-checkbox-dummy {
-  width: @radio-checkbox-width-height;
-  box-sizing: border-box;
-  height: @radio-checkbox-width-height;
-  border: @input-border-width @input-border-style @input-border-color;
-  background: @input-background-color;
-}
-
-.input-radio-checkbox:hover .radio-checkbox-dummy,
-.input-radio-checkbox:hover .radio-checkbox-dummy {
-  border-color: @input-hover-border-color;
-  background-color: @radio-checkbox-hover-background-color;
-  cursor: pointer;
-}
-
-.disabled .input-radio-checkbox:hover .radio-checkbox-dummy,
-.disabled .input-radio-checkbox:hover .radio-checkbox-dummy {
-  border-color: @input-border-color;
+input[type=radio]:after,
+input[type=checkbox]:after {
+  border: 2px solid @input-border-color;
+  content: "";
   background-color: @input-background-color;
+  box-sizing: border-box;
+  border: 2px solid @input-hover-border-color;
+  width: @radio-button-checkbox-width-height;
+  height: @radio-button-checkbox-width-height;
+  box-sizing: border-box;
+  position: absolute;
+  top: @radio-button-checkbox-vertical-offset;
+  left: 0px;
 }
 
-.some-selected .input-radio-checkbox .radio-checkbox-dummy,
-.all-selected .input-radio-checkbox .radio-checkbox-dummy,
-.input-radio-checkbox input[type=radio]:checked + .radio-checkbox-dummy,
-.input-radio-checkbox input[type=checkbox]:checked + .radio-checkbox-dummy {
-  border-color: @input-hover-border-color;
-  background-color: @radio-checkbox-selected-background-color;
+input[type=radio]:checked:after,
+input[type=checkbox]:checked:after {
+  background: @radio-checkbox-selected-background-color @svg-data-uri-icon-tick no-repeat center 4px;
+  background-size: 14px;
 }
 
-input[type=radio] + .radio-checkbox-dummy{
+input[type=radio]:focus:after,
+input[type=checkbox]:focus:after,
+input[type=radio]:focus:checked:after,
+input[type=checkbox]:focus:checked:after {
+  border-color: @input-focus-border-color;
+}
+
+input[type=radio],
+input[type=radio]:before,
+input[type=radio]:after {
   -webkit-border-radius: 50%;
     -moz-border-radius: 50%;
     border-radius: 50%;
@@ -499,41 +487,41 @@ input[type=radio] + .radio-checkbox-dummy{
 
 /*---General styling for tables---*/
 
-table {
-  border-radius: 0px;
-  -moz-border-radius: 0px;
-  -webkit-border-radius: 0px;
-  margin-bottom: 20px;
-  border-collapse: collapse;
+// table {
+//   border-radius: 0px;
+//   -moz-border-radius: 0px;
+//   -webkit-border-radius: 0px;
+//   margin-bottom: 20px;
+//   border-collapse: collapse;
 
-}
+// }
 
-table th {
-  color: @table-header-cell-color;
-  background-color: @table-header-cell-background-color;
-  font-size: @table-header-cell-font-size/@body-content-text-font-size;
-  text-transform: @table-header-cell-text-transform;
-  text-align: @table-header-cell-text-align;
-  font-family: @table-header-cell-font-family;
-  font-weight: @table-header-cell-font-weight;
-  padding: @table-cell-padding-top @table-cell-padding-left-right @table-cell-padding-bottom;
-  border: 1px @table-border-style @table-header-cell-border-color;
-  border-radius: 0px;
-  -moz-border-radius: 0px;
-  -webkit-border-radius: 0px;
-  font-size: @table-header-cell-font-size/@body-content-text-font-size;
-  line-height: 100%;
-}
+// table th {
+//   color: @table-header-cell-color;
+//   background-color: @table-header-cell-background-color;
+//   font-size: @table-header-cell-font-size/@body-content-text-font-size;
+//   text-transform: @table-header-cell-text-transform;
+//   text-align: @table-header-cell-text-align;
+//   font-family: @table-header-cell-font-family;
+//   font-weight: @table-header-cell-font-weight;
+//   padding: @table-cell-padding-top @table-cell-padding-left-right @table-cell-padding-bottom;
+//   border: 1px @table-border-style @table-header-cell-border-color;
+//   border-radius: 0px;
+//   -moz-border-radius: 0px;
+//   -webkit-border-radius: 0px;
+//   font-size: @table-header-cell-font-size/@body-content-text-font-size;
+//   line-height: 100%;
+// }
 
-table td {
-  color: inherit;
-  background-color: @table-cell-background-color;
-  font-family: @table-cell-font-family;
-  line-height: @table-cell-text-line-height;
-  padding: @table-cell-padding-top @table-cell-padding-left-right @table-cell-padding-bottom;
-  font-size: 1em;
-  border: 1px @table-border-style @table-border-color;
-}
+// table td {
+//   color: inherit;
+//   background-color: @table-cell-background-color;
+//   font-family: @table-cell-font-family;
+//   line-height: @table-cell-text-line-height;
+//   padding: @table-cell-padding-top @table-cell-padding-left-right @table-cell-padding-bottom;
+//   font-size: 1em;
+//   border: 1px @table-border-style @table-border-color;
+// }
 
 table.compact-table {
   tr td {

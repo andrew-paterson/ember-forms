@@ -1,10 +1,10 @@
-@import url(https://fonts.googleapis.com/css?family=Lato:400,600,700,900);
-  @import "app-specific/variables";
-  @import "_mixins-and-variables/variables-bits-and-pieces";
-  @import "_mixins-and-variables/variables-layout";
-  @import "_mixins-and-variables/variables-colour-definitions";
-  @import "_mixins-and-variables/mixins";
-  @import "layout/body-and-footer-styles";
+@import url('https://fonts.googleapis.com/css?family=Lato:400,600,700,900');
+@import "app-specific/variables";
+@import "_mixins-and-variables/variables-bits-and-pieces";
+@import "_mixins-and-variables/variables-layout";
+@import "_mixins-and-variables/variables-colour-definitions";
+@import "_mixins-and-variables/mixins";
+@import "layout/body-and-footer-styles";
 
 .ember-application {
   position: relative;
@@ -13,6 +13,7 @@
 
   @import "dependencies/ember-power-select";
   @import "dependencies/ember-basic-dropdown";
+  @import "dependencies/ember-pikaday";
 
   @import "layout/general-ui";
   @import "layout/private-ui";
@@ -95,3 +96,8 @@
 // [Todo] forms forms component sends the model object but also a list of objects with the label and the value.
 // [Todo] forms - validating form component must be self contained- but if formObject not supplied it generates it from the form Schema.
 // [Todo] forms. Radio button group must have single disable all property and each option must be capable of having it's own disabled property.
+// [Todo] forms - conditional fields
+// [Todo] forms - sections- accordion and steps.
+// Todo default overrides for name and placeholder, required etc.
+// Todo test that label component works for field labels and radio button or checkbox labels.
+// Todo test custom component for field.

@@ -25,10 +25,6 @@ export default FormContainer.extend({
       trim: true,
     }
     this.processedStandaloneField = generateEmberValidatingFormField(this.get('standaloneField'));
-    this.cities = [{
-      name: 'test'
-    }];
-
   },
 
   actions: {
@@ -68,13 +64,5 @@ export default FormContainer.extend({
       };
       this.setProperty('systemMessage', errorMessage);
     },
-
-    afterKeyUpAction: function(value, event, formField) {
-      if (event) {
-        if (event.key === 'KeyP' || event.code === 'KeyP') {
-          console.log('P pressed');
-        }
-      }
-    }
   }
 });

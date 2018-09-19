@@ -5,13 +5,11 @@
       onFocusOut=(action 'onFocusOut')
       onFocusIn=(action 'onFocusIn')
       onKeyUp=(action 'onKeyUp')
-      tagName=''
     }}
   {{else}}
     {{component formField.component
       formField=formField
       onUserInteraction=(action 'onUserInteraction')
-      tagName=''
     }}
   {{/if}}
 {{/extensible/validating-form-field-outer}}

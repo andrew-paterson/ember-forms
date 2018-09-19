@@ -6,6 +6,7 @@ import hbs from 'htmlbars-inline-precompile';
 
 module('Integration | Component | blocks/validating-form', function(hooks) {
   setupRenderingTest(hooks);
+
   test('Initial rendering', async function(assert) {
     let session = this.owner.lookup('service:session');
     this.set('formSchema', session.signupFormSchema);
@@ -13,12 +14,12 @@ module('Integration | Component | blocks/validating-form', function(hooks) {
     await render(hbs`{{blocks/generic/validating-form formSchema=formSchema}}`);
     assert.ok(this.element.querySelector('form'), 'Form element is rendered.');
     assert.ok(this.element.querySelector('h3').textContent === 'Sign up form', 'Form header renders.');
-    assert.ok(this.element.querySelector('[data-test-id="evf-submit-form-button"] input').type === 'submit', 'Submit form button renders as an input with type="submit".');
-    assert.ok(this.element.querySelector('[data-test-id="evf-submit-form-button"] input').value === 'Submit', 'Correct default text renders on submit form button.');
-
+    assert.ok(this.element.querySelector('[data-test-id="evf-submit-form-button"]').type === 'submit', 'Submit form button renders as an input with type="submit".');
+    assert.equal(this.element.querySelector('[data-test-id="evf-submit-form-button"]').textContent, 'Submit', 'Correct default text renders on submit form button.');
+    console.log(this.element.querySelector('[data-test-id="evf-submit-form-button"]').textContent);
     this.set('formSchema.submitButtonText', 'Request account');
     await render(hbs`{{blocks/generic/validating-form formSchema=formSchema}}`);
-    assert.ok(this.element.querySelector('[data-test-id="evf-submit-form-button"] input').value === 'Request account', 'Custom text renders on the submit button if specified in form schema.');
+    assert.ok(this.element.querySelector('[data-test-id="evf-submit-form-button"]').textContent === 'Request account', 'Custom text renders on the submit button if specified in form schema.');
     assert.notOk(this.element.querySelector('[data-test-id="evf-reset-form-button"]'), 'Reset button does not show by default.');
     this.set('formSchema.showResetButton', true);
     await render(hbs`{{blocks/generic/validating-form formSchema=formSchema}}`);
@@ -29,11 +30,6 @@ module('Integration | Component | blocks/validating-form', function(hooks) {
     assert.ok(this.element.querySelector('[data-test-id="evf-reset-form-button"]').textContent === 'Cancel', 'Custom text renders on the reset button if specified in form schema.');
     assert.ok(this.element.querySelector('[data-test-id="validating-field-name"] label').textContent === 'Name', 'Labels show on fields by default.');
 
-
-    await fillIn(this.element.querySelector('[data-test-id="validating-field-name"] input'), 'Little Sebastian');
-    await triggerKeyEvent(this.element.querySelector('input'), "keyup", 1);
-    await click(this.element.querySelector('[data-test-id="evf-reset-form-button"]'));
-    assert.deepEqual(this.element.querySelector('[data-test-id="validating-field-name"] input').value, '', 'Form resets when reset button is clicked');
   });
 
   test('Form defaults', async function(assert) {
@@ -59,6 +55,30 @@ module('Integration | Component | blocks/validating-form', function(hooks) {
     assert.ok(this.element.querySelector('[data-test-id="validating-field-email"]').classList.contains('valid'), 'Success validation shows where individual field has "hideSuccessValidation:false", and formSchema has "hideSuccessValidation=true".');
   });
 
+  test('Basic actions', async function(assert) {
+    let session = this.owner.lookup('service:session');
+    this.set('formSchema', session.signupFormSchema);
+    this.set('formSchema.showResetButton', true);
+
+    this.set('dummyAction_afterKeyUpAction', (value, event, formField) => {
+      assert.ok('' === '', 'afterKeyUpAction action is fired');
+    });
+
+     this.set('testAction', (actual) => {
+    });
+
+    await render(hbs`{{blocks/generic/validating-form
+      formSchema=formSchema
+      formValidationPassed=(action testAction)
+      customValidations=(action testAction)
+      afterKeyUpAction=(action dummyAction_afterKeyUpAction)
+    }}`);
+    await fillIn(this.element.querySelector('[data-test-id="validating-field-name"] input'), 'Little Sebastian');
+    await triggerKeyEvent(this.element.querySelector('input'), "keyup", 1);
+    await click(this.element.querySelector('[data-test-id="evf-reset-form-button"]'));
+    assert.deepEqual(this.element.querySelector('[data-test-id="validating-field-name"] input').value, '', 'Form resets when reset button is clicked');
+  });
+
   test('Form validation on submit', async function(assert) {
     this.set('dummyAction_formValidationFailed', (formFields, formMetaData) => {
       assert.deepEqual(formMetaData.submitButtonFeedback, 'Some fields have errors which must be fixed before continuing.', 'Follow up action is sent when form validation fails, with formFields and formMetaData as arguments.');
@@ -77,7 +97,6 @@ module('Integration | Component | blocks/validating-form', function(hooks) {
     });
 
     this.set('dummyAction_saveFail', (response, formFields, formMetaData) => {
-      console.log('dummyAction_saveFail');
       assert.ok('' === '', 'Save success action is fired');
     });
 
@@ -93,9 +112,10 @@ module('Integration | Component | blocks/validating-form', function(hooks) {
       saveFail=(action testAction)
       formValidationPassed=(action testAction)
       customValidations=(action testAction)
+
     }}`);
 
-    await click(this.element.querySelector('[data-test-id="evf-submit-form-button"] input'));
+    await click(this.element.querySelector('[data-test-id="evf-submit-form-button"]'));
     await isSettled();
     assert.deepEqual(this.element.querySelectorAll('[data-test-id="field-error"]').length, this.element.querySelectorAll('.validates').length, 'All required but empty fields get errors, when submit is clicked with no other interaction.');
     assert.ok(this.element.querySelector('div').classList.contains('validation-failed'), 'Form gets class "validation-failed" when validation fails.');
@@ -120,7 +140,7 @@ module('Integration | Component | blocks/validating-form', function(hooks) {
     var interactor = await openDatepicker(this.element.querySelector('[data-test-id="validating-field-personal_details.birth_date"] input'));
     await interactor.selectDate(new Date(2010, 3, 28));
     await click('[data-test-id="validating-field-settings.mailing_list"] input');
-    await click(this.element.querySelector('[data-test-id="evf-submit-form-button"] input'));
+    await click(this.element.querySelector('[data-test-id="evf-submit-form-button"]'));
     await isSettled();
 
 
@@ -128,7 +148,7 @@ module('Integration | Component | blocks/validating-form', function(hooks) {
     await fillIn(this.element.querySelector('[data-test-id="validating-field-name"] input'), 'Little Sebastian');
     await triggerKeyEvent(this.element.querySelector('input'), "keyup", 1);
     await click('[data-test-id="validating-field-settings.mailing_list"] input');
-    await click(this.element.querySelector('[data-test-id="evf-submit-form-button"] input'));
+    await click(this.element.querySelector('[data-test-id="evf-submit-form-button"]'));
     await isSettled();
     assert.equal(this.element.querySelector('[data-test-id="validating-field-name"] input').value, 'Little Sebastian', 'Form is not cleared after success response returns from submitForm action, if "resetAfterSubmit" is false.'); //TODO move to acceptance.
   });
