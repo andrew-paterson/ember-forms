@@ -9,6 +9,7 @@ export default function generateEmberValidatingFormField(field, index, formSchem
     "datePikaday": "custom-elements/form-field-date-pikaday",
     "singleCheckbox": "custom-elements/form-field-checkbox",
     "radioButtonGroup": "custom-elements/radio-button-group",
+    "checkboxGroup": "custom-elements/checkbox-group",
     "textSeparator": "custom-elements/form-field-text-separator"
   };
 
@@ -87,6 +88,14 @@ export default function generateEmberValidatingFormField(field, index, formSchem
     if (formSchema.hideLabels) {
       hideLabel = formSchema.hideLabels;
     }
+  }
+
+  if (field.fieldType === 'checkboxGroup') {
+    var options = field.options;
+    options = options.map(function(option) {
+      return EmberObject.create(option);
+    });
+    fieldObject.set('options', options);
   }
 
   // fieldObject.set('error', null);

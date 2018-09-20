@@ -1,12 +1,17 @@
-{{input
-  value=(readonly formField.value)
-  focusOut=(action onFocusOut value='target.value')
-  focusIn=(action onFocusIn value='target.value')
-  placeholder=formField.placeholder
-  autofocus=formField.autofocus
-	type=formField.inputType
-	readonly=formField.readonly
-	disabled=formField.disabled
-  name=formField.name
-  id=formField.name
-}}
+{{extensible/form-field-label formField=formField}}
+<div class="field-controls">
+  {{input
+    value=(readonly formField.value)
+    focusOut=(action onFocusOut value='target.value')
+    focusIn=(action onFocusIn value='target.value')
+    placeholder=formField.placeholder
+    autofocus=formField.autofocus
+    type=formField.inputType
+    readonly=formField.readonly
+    disabled=formField.disabled
+    name=formField.name
+    id=formField.name
+  }}
+  {{component inputIcon class='form-field-icon'}}
+</div>
+{{extensible/form-field-error formField=formField}}

@@ -72,20 +72,17 @@ div.form-field.invalid {
 		border-color: @input-invalid-border-color;
 		background: @input-invalid-background-color;
 	}
+
 	div.svg.form-field-icon svg {
 		fill: @input-invalid-border-color;
 		margin-top: 10px;
 	}
 
-
-
 	div.field-error {
-		margin-top: -1*@input-margin-bottom;
 		min-height: @input-margin-bottom;
 		color: @error-text-color;
 		font-weight: 700;
 		margin-left: 10px;
-		// height: 23px;
 		div.svg {
 			height: 100%;
 			width: 20px;
@@ -93,13 +90,11 @@ div.form-field.invalid {
 			fill: @error-text-color;
 		}
 	}
-}
 
-// div.form-field {
-// 	.ember.ember-power-select-trigger:focus {
-// 		border-color: @input-focus-border-color;
-// 	}
-// }
+	div.field-controls + div.field-error {
+		margin-top: -1*@input-margin-bottom;
+	}
+}
 
 div.form-field.power-select {
 	max-width: 300px;
@@ -114,6 +109,7 @@ div.form-field.power-select  div.field-container > div.svg {
 div.form-field .single-checkbox-container,
 div.form-field .radio-button-group-container {
 	// margin: 15px 0;
+	margin-bottom: 30px;
 	position: relative;
 	padding: 5px 5px;
 	border: 2px solid @input-border-color;
@@ -121,13 +117,25 @@ div.form-field .radio-button-group-container {
 	.border-radius;
 }
 
-div.form-field.radio-button-group .radio-button-group-label {
-	padding-right: 36px;
-	margin-bottom: 15px;
+div.form-field.field-type-radio-button-group {
+	legend {
+		margin-bottom: 5px;
+	}
+	position: relative;
+	.labelled-radio-button {
+		margin: 0 0 15px 10px;
+	}
 }
 
-div.form-field.radio-button-group .checkbox-label-container {
-	margin-left: 20px;
-}
+// div.form-field.invalidfield-type-radio-button-group {
+
+// div.form-field.radio-button-group .radio-button-group-label {
+// 	padding-right: 36px;
+// 	margin-bottom: 15px;
+// }
+
+// div.form-field.radio-button-group .checkbox-label-container {
+// 	margin-left: 20px;
+// }
 
 

@@ -91,6 +91,30 @@ export default Service.extend({
           }]
         },
         {
+          fieldId: 'colours',
+          fieldType: "checkboxGroup",
+          fieldLegend: 'Choose at least one colour',
+          validationRules: [{'validationMethod': 'custom'}],
+          // validationEvents: ['insert'],
+          options: [{
+            'key': 'red',
+            'label': 'Red'
+          }, {
+            'key': 'orange',
+            'label': 'Orange'
+          },{
+            'key': 'yellow',
+            'label': 'Yellow'
+          },{
+            'key': 'green',
+            'label': 'Green'
+          },{
+            'key': 'blue',
+            'label': 'Blue'
+          },],
+          default: ['red', 'green']
+        },
+        {
           fieldLabel: "Birth date",
           fieldId: "personal_details.birth_date",
           fieldType: "date",

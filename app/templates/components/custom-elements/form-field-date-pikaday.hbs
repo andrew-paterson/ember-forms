@@ -1,19 +1,24 @@
-<div data-test-type='form-field-date-picker'>
-  {{pikaday-input
-    data-test-type='date'
-    value=(readonly formField.value)
-    onSelection=onUserInteraction
-    placeholder=formField.placeholder
-    disabled=formField.disabled
-    useUTC=formField.useUTC
-    firstDay=formField.firstDay
-    readonly=formField.readonly
-    yearRange=formField.yearRange
-    options=formField.options
-    name=formField.name
-    id=formField.name
-  }}
+{{extensible/form-field-label formField=formField}}
+<div class="field-controls">
+  <div data-test-type='form-field-date-picker'>
+    {{pikaday-input
+      data-test-type='date'
+      value=(readonly formField.value)
+      onSelection=onUserInteraction
+      placeholder=formField.placeholder
+      disabled=formField.disabled
+      useUTC=formField.useUTC
+      firstDay=formField.firstDay
+      readonly=formField.readonly
+      yearRange=formField.yearRange
+      options=formField.options
+      name=formField.name
+      id=formField.name
+    }}
+  </div>
+  {{component inputIcon class='form-field-icon'}}
 </div>
+{{extensible/form-field-error formField=formField}}
 
 {{!--
   Can't add these actions if any of them are undefined.

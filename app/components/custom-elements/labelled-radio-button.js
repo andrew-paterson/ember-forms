@@ -2,6 +2,6 @@ import Component from '@ember/component';
 
 export default Component.extend({
   tagName: "div",
-  classNames: ["checkbox-label-container"],
+  classNames: ["labelled-radio-button"],
   classNameBindings: ["disabled:disabled"],
 });

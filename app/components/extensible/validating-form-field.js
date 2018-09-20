@@ -13,12 +13,6 @@ export default Component.extend({
 
   didInsertElement: function() {
     var self = this;
-    this._super(...arguments);
-    var labelElement = this.$('label[for]');
-    var forAttr = labelElement.attr('for');
-    $(labelElement).click(function(e) {
-      self.$(`#${forAttr}`).focus();
-    });
     //Code below will maintain validation colours when component is re-rendered.
     once(this, function() {
       var formField = this.get('formField');
@@ -55,28 +49,25 @@ export default Component.extend({
     var formField = this.get('formField');
     if (formField.get("error")) {
       return "svg/icon-alert";
-      return;
     }
     if (formField.get("error") === false) {
       if (!this.get("formField.hideSuccessValidation")) {
         return "svg/icon-tick";
-      return;
       }
     }
     if (formField.get("error") === null || this.get("formField.error") === undefined) {
       if (formField.get("required")) {
         return "svg/icon-asterisk";
       } else {
-        this.set("inputIcon", this.get("defaultInputIcon"));
+        return this.get("defaultInputIcon");
       }
-      return;
     }
     if (formField.get("required")) {
       return "svg/icon-asterisk";
     }
   }),
 
-  sendValidateOnValueUpdate: observer('formField.value', function() {
+  sendValidateOnValueUpdate: observer('formField.value', 'formField.value.@each', function() {
     var formField = this.get('formField');
     formField.validationEvents = formField.validationEvents || [];
     // If a field validates on keyUp, don't show a validation error if the backspace all chars in the field.
@@ -142,6 +133,7 @@ export default Component.extend({
     },
 
     validateField: function() {
+      console.log('validateField');
       // Todo error must be updated by sending updateForm action if it is supplied.
       var self = this;
       var formField = this.get('formField');

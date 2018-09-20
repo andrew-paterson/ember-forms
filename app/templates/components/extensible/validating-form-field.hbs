@@ -1,15 +1,15 @@
-{{#extensible/validating-form-field-outer formField=formField inputIcon=inputIcon}}
-  {{#if (or (eq formField.fieldType "input") (eq formField.fieldType "textarea")) }}
-    {{component formField.component
-      formField=formField
-      onFocusOut=(action 'onFocusOut')
-      onFocusIn=(action 'onFocusIn')
-      onKeyUp=(action 'onKeyUp')
-    }}
-  {{else}}
-    {{component formField.component
-      formField=formField
-      onUserInteraction=(action 'onUserInteraction')
-    }}
-  {{/if}}
-{{/extensible/validating-form-field-outer}}
+{{#if (or (eq formField.fieldType "input") (eq formField.fieldType "textarea")) }}
+  {{component formField.component
+    formField=formField
+    inputIcon=inputIcon
+    onFocusOut=(action 'onFocusOut')
+    onFocusIn=(action 'onFocusIn')
+    onKeyUp=(action 'onKeyUp')
+  }}
+{{else}}
+  {{component formField.component
+    formField=formField
+    inputIcon=inputIcon
+    onUserInteraction=(action 'onUserInteraction')
+  }}
+{{/if}}
