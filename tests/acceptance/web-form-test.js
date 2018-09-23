@@ -26,7 +26,7 @@ module('Acceptance | Validating form', function(hooks) {
     var interactor = await openDatepicker('[data-test-id="validating-field-personal_details.birth_date"] input');
     await interactor.selectDate(new Date(2010, 3, 28));
     await click(document.querySelector('[data-test-id="validating-field-settings.mailing_list"] input'));
-    await click(document.querySelector('[data-test-id="evf-submit-form-button"] input'));
+    await click(document.querySelector('[data-test-id="evf-submit-form-button"]'));
     await isSettled();
     assert.equal(document.querySelector('[data-test-id="system-message"] .message-content').textContent, 'Success', 'Default success message displays on successful form submission, if "submitSuccessMessage" is null.');
 
@@ -47,7 +47,7 @@ module('Acceptance | Validating form', function(hooks) {
     await interactor.selectDate(new Date(2010, 3, 28));
     await click(document.querySelector('[data-test-id="validating-field-settings.mailing_list"] input'));
     await fillIn(document.querySelector('[data-test-id="validating-field-email"] input'), 'alreadytaken@yahoo.com');
-    await click(document.querySelector('[data-test-id="evf-submit-form-button"] input'));
+    await click(document.querySelector('[data-test-id="evf-submit-form-button"]'));
     await isSettled();
     assert.equal(document.querySelector('[data-test-id="system-message"] .message-content').textContent, 'Email already taken.', 'Error message shows where POST request returns error.');
     assert.ok(document.querySelector('[data-test-id="validating-field-email"]').classList.contains('invalid'), 'Email field gets invalid class when server returns "Email already taken" error.');
@@ -68,7 +68,7 @@ module('Acceptance | Validating form', function(hooks) {
     var interactor = await openDatepicker('[data-test-id="validating-field-personal_details.birth_date"] input');
     await interactor.selectDate(new Date(2010, 3, 28));
     await click(document.querySelector('[data-test-id="validating-field-settings.mailing_list"] input'));
-    await click(document.querySelector('[data-test-id="evf-submit-form-button"] input'));
+    await click(document.querySelector('[data-test-id="evf-submit-form-button"]'));
     await isSettled();
 
     assert.equal(document.querySelector('[data-test-id="system-message"] .message-content').textContent, 'Thank you for signing up.', 'Custom success message displays on successful form submission if "submitSuccessMessage" is specified.');
@@ -108,11 +108,11 @@ module('Acceptance | Validating form', function(hooks) {
 
     await fillIn(document.querySelector('[data-test-id="validating-field-name"] input'), 'Little Sebastian');
     // await triggerKeyEvent(document.querySelector('[data-test-id="validating-field-name"] input'), "keyup", 1);
+
     await click(document.querySelector('[data-test-id="validating-field-settings.mailing_list"] input'));
     await click(document.querySelector('[data-test-id="validating-field-acceptTerms"] [data-test-id="radio-button-option-true"] input'));
-    await click(document.querySelector('[data-test-id="evf-submit-form-button"] input'));
+    await click(document.querySelector('[data-test-id="evf-submit-form-button"]'));
     await isSettled();
-
     assert.equal(document.querySelector('[data-test-id="validating-field-name"] input').value, 'Little Sebastian', 'Form is not cleared after submit success.');
     await visit('/users');
     assert.equal(document.querySelectorAll('[data-test-id="users-table"] tbody tr').length, 1, 'Submit does not insert a new record.');

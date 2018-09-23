@@ -6,6 +6,7 @@ export default function generateEmberValidatingFormField(field, index, formSchem
     "textarea": "custom-elements/form-field-textarea",
     "select": "custom-elements/form-field-power-select",
     "date": "custom-elements/form-field-date-bootstrap",
+    "powerDatePicker": "custom-elements/form-field-power-datepicker",
     "datePikaday": "custom-elements/form-field-date-pikaday",
     "singleCheckbox": "custom-elements/form-field-checkbox",
     "radioButtonGroup": "custom-elements/radio-button-group",

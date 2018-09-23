@@ -133,7 +133,6 @@ export default Component.extend({
     },
 
     validateField: function() {
-      console.log('validateField');
       // Todo error must be updated by sending updateForm action if it is supplied.
       var self = this;
       var formField = this.get('formField');

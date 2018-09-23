@@ -118,6 +118,7 @@ module('Integration | Component | blocks/validating-form', function(hooks) {
     await click(this.element.querySelector('[data-test-id="evf-submit-form-button"]'));
     await isSettled();
     assert.deepEqual(this.element.querySelectorAll('[data-test-id="field-error"]').length, this.element.querySelectorAll('.validates').length, 'All required but empty fields get errors, when submit is clicked with no other interaction.');
+
     assert.ok(this.element.querySelector('div').classList.contains('validation-failed'), 'Form gets class "validation-failed" when validation fails.');
     // TODO find a way to test Enter key press to submit form.
     await fillIn(this.element.querySelector('[data-test-id="validating-field-name"] input'), 'Little Sebastian');
@@ -136,9 +137,12 @@ module('Integration | Component | blocks/validating-form', function(hooks) {
 
     await click(document.querySelector('[data-option-index="0"]'));
     await click(this.element.querySelector('[data-test-id="validating-field-acceptTerms"] [data-test-id="radio-button-option-true"] input'));
-    await click(this.element.querySelector('[data-test-id="validating-field-personal_details.birth_date"]'));
+
+    // await click(this.element.querySelector('[data-test-id="validating-field-personal_details.birth_date"]'));
+     return this.pauseTest();
     var interactor = await openDatepicker(this.element.querySelector('[data-test-id="validating-field-personal_details.birth_date"] input'));
     await interactor.selectDate(new Date(2010, 3, 28));
+
     await click('[data-test-id="validating-field-settings.mailing_list"] input');
     await click(this.element.querySelector('[data-test-id="evf-submit-form-button"]'));
     await isSettled();

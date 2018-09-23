@@ -143,7 +143,10 @@ export default Component.extend({
         if (formField.get('error')) {
           return;
         }
-        if (self.customValidations) {
+        // if (self.customValidations) {
+        //   self.customValidations(formField, self.get('formFields'));
+        // }
+        if (self.customValidations && formField.get('validationRules').findBy('validationMethod', 'custom')) {
           self.customValidations(formField, self.get('formFields'));
         }
       });

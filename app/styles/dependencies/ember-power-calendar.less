@@ -1,0 +1,183 @@
+@cell-size: 34px;
+@cell-width: @cell-size;
+@cell-height: @cell-size;
+@row-width: @cell-width * 7;
+@primary-color: #0078c9;
+@nav-button-color: @primary-color;
+@nav-button-color--focus: lighten(@nav-button-color, 10%);
+@day-default-text-color: #bbb;
+@day-current-month-color: #fff;
+@day-weekday-text-color: #333333;
+@day-current-month-text-color: #656D78;
+@day-other-month-text-color--hover: @day-current-month-text-color;
+@day-focus-shadow-color: @primary-color;
+@day-today-color: #eee;
+@day-color--hover: #eee;
+@day-range-bookend-color: lighten(@primary-color, 40%);
+@day-range-start-background-color: @day-range-bookend-color;
+@day-range-start-background-color--hover: @day-range-start-background-color;
+@day-range-end-background-color: @day-range-bookend-color;
+@day-range-end-background-color--hover: @day-range-end-background-color;
+@day-selected-color: lighten(@primary-color, 50%);
+@day-selected-color--hover: @day-selected-color;
+@day-selected-text-color: #656D78;
+@day-selected-text-color--hover: @day-selected-text-color;
+
+.ember-basic-dropdown-content.ember-power-calendar {
+  background: #fff;
+  border: 1px solid #ccc;
+}
+
+.ember-power-calendar {
+  background: #fff;
+  border: 1px solid #ccc;
+  width: @row-width + 20px;
+  box-sizing: border-box;
+  padding: 10px;
+
+  .ember-power-calendar-week:first-child {
+    &[data-missing-days="1"] {
+      padding-left: @cell-width * 1;
+    }
+    &[data-missing-days="2"] {
+      padding-left: @cell-width * 2;
+    }
+    &[data-missing-days="3"] {
+      padding-left: @cell-width * 3;
+    }
+    &[data-missing-days="4"] {
+      padding-left: @cell-width * 4;
+    }
+    &[data-missing-days="5"] {
+      padding-left: @cell-width * 5;
+    }
+    &[data-missing-days="6"] {
+      padding-left: @cell-width * 6;
+    }
+  }
+  .ember-power-calendar-week:last-child {
+    &[data-missing-days="1"] {
+      padding-right: @cell-width * 1;
+    }
+    &[data-missing-days="2"] {
+      padding-right: @cell-width * 2;
+    }
+    &[data-missing-days="3"] {
+      padding-right: @cell-width * 3;
+    }
+    &[data-missing-days="4"] {
+      padding-right: @cell-width * 4;
+    }
+    &[data-missing-days="5"] {
+      padding-right: @cell-width * 5;
+    }
+    &[data-missing-days="6"] {
+      padding-right: @cell-width * 6;
+    }
+  }
+  .ember-power-calendar-day {
+    color: @day-default-text-color;
+  }
+  .ember-power-calendar-weekdays {
+    color: @day-weekday-text-color;
+  }
+  .ember-power-calendar-nav-control {
+    color: @nav-button-color;
+    &:focus {
+      color: lighten(@nav-button-color--focus, 10%);
+    }
+  }
+  .ember-power-calendar-day--current-month {
+    color: @day-current-month-text-color;
+    background-color: @day-current-month-color;
+  }
+  .ember-power-calendar-day--today {
+    background-color: @day-today-color;
+  }
+  .ember-power-calendar-day:not([disabled]):hover {
+    background-color: @day-color--hover;
+  }
+  .ember-power-calendar-day--focused {
+    box-shadow: inset 0px -2px 0px 0px @day-focus-shadow-color;
+  }
+  .ember-power-calendar-day--selected.ember-power-calendar-day--range-start {
+    background-color: @day-range-start-background-color;
+    &:hover {
+      background-color: @day-range-start-background-color--hover;
+    }
+  }
+  .ember-power-calendar-day--selected.ember-power-calendar-day--range-end {
+    background-color: @day-range-end-background-color;
+    &:hover {
+      background-color: @day-range-end-background-color--hover;
+    }
+  }
+  .ember-power-calendar-day--selected {
+    background-color: @day-selected-color;
+    color: @day-selected-text-color;
+  }
+  .ember-power-calendar-day--selected:not([disabled]):hover {
+    background-color: @day-selected-color--hover;
+    color: @day-selected-text-color--hover;
+  }
+
+  .ember-power-calendar-day--other-month:not([disabled]):hover {
+    color: @day-other-month-text-color--hover;
+  }
+
+  .ember-power-calendar-nav-title {
+    font-weight: 600;
+    font-size: 1.2em;
+  }
+
+  .ember-power-calendar-nav {
+    .ember-power-calendar-nav-control {
+      color: #666;
+      height: auto;
+      line-height: normal;
+      padding: 0 8px;
+    }
+    .ember-power-calendar-nav-control:hover {
+      background-color: transparent;
+    }
+  }
+
+  .ember-power-calendar-weekdays {
+    padding: 8px 0;
+    .ember-power-calendar-weekday {
+      color: #999;
+      font-size: 0.9em;
+    }
+  }
+
+  .ember-power-calendar-day {
+    border-radius: 0;
+    color: #666;
+    border: 1px solid #e3e5e5;
+    margin: -1px 0 0 -1px;
+    font-weight: 400;
+    height: @cell-size;
+
+  }
+
+  .ember-power-calendar-day--other-month {
+    opacity: 0.3;
+    border-color: transparent;
+  }
+
+  // .ember-power-calendar-day--interactive:hover {
+  //   background: #ddd;
+  //   color: #666;
+  // }
+  .ember-power-calendar:focus {
+    background: red;
+  }
+}
+
+.field-type-power-date-picker {
+  position: relative;
+  .ember-power-calendar {
+    position: absolute;
+    top: 40px;
+  }
+}

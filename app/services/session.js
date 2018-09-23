@@ -94,8 +94,7 @@ export default Service.extend({
           fieldId: 'colours',
           fieldType: "checkboxGroup",
           fieldLegend: 'Choose at least one colour',
-          validationRules: [{'validationMethod': 'custom'}],
-          // validationEvents: ['insert'],
+          // validationRules: [{'validationMethod': 'custom'}],
           options: [{
             'key': 'red',
             'label': 'Red'
@@ -112,12 +111,12 @@ export default Service.extend({
             'key': 'blue',
             'label': 'Blue'
           },],
-          default: ['red', 'green']
+          // default: ['red', 'green']
         },
         {
           fieldLabel: "Birth date",
           fieldId: "personal_details.birth_date",
-          fieldType: "date",
+          fieldType: "powerDatePicker",
           validationRules: [{'validationMethod': 'required'}, {'validationMethod': 'isDate'}],
           validationEvents: ['insert'],
           autoclose: true
@@ -133,9 +132,9 @@ export default Service.extend({
           // disabled: true,
           options: {
             numberOfMonths: 2,
-            disableWeekends: true,
-            minDate: moment("2018-09-01").toDate(),
-            maxDate: moment("2018-10-01").toDate(),
+            // disableWeekends: true,
+            // minDate: moment("2018-09-01").toDate(),
+            // maxDate: moment("2018-10-01").toDate(),
             format: "DD/MM/YYYY",
             //
           }
