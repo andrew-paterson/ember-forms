@@ -7,11 +7,22 @@ export default Component.extend({
   }),
   actions: {
     openDropdown: function(dropdown) {
-      if (!this.get('selected')) {
-        this.set('selected', moment().toDate());
-      }
       dropdown.actions.open();
+      var startDate = moment().toDate()
+      var formField = this.get('formField');
+      if (formField.get('maxDate') < moment().toDate()) {
+        startDate = formField.get('maxDate');
+      }
+      if (formField.get('minDate') > moment().toDate() ||
+      formField.get('minDate') < moment().toDate() && formField.get('maxDate') < moment().toDate() ||
+      formField.get('minDate') > moment().toDate() && formField.get('maxDate') > moment().toDate()) {
+        startDate = formField.get('minDate');
+      }
+      if (!this.get('selected')) {
+        this.set('selected', startDate);
+      }
     },
+
     onTriggerKeydown(dropdown, e) {
       if (e.keyCode === 13) {
         this.send('setDate', this.get('selected'));

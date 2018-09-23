@@ -9,7 +9,7 @@ import EmberObject from '@ember/object';
 export default FormContainer.extend({
   globalVariables: service(),
   session: service(),
-  birthdate: new Date(1986, 8, 3),
+
   init: function() {
     this._super(...arguments);
     this.signUpFormSchema = this.get('session.signupFormSchema');
@@ -28,7 +28,6 @@ export default FormContainer.extend({
     this.cities = [{
       name: 'test'
     }];
-
   },
 
   actions: {

@@ -20,6 +20,6 @@
       <button class="ember-power-calendar-nav-control" onclick={{action dp.actions.moveCenter 1 'month'}}>›</button>
       <button class="ember-power-calendar-nav-control" onclick={{action dp.actions.moveCenter 12 'month'}}>»</button>
     </nav>
-    {{dp.days showDaysAround=true}}
+    {{dp.days minDate=formField.minDate maxDate=formField.maxDate}}
   {{/dp.content}}
 {{/power-datepicker}}
