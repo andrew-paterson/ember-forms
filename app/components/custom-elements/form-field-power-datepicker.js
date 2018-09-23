@@ -69,35 +69,75 @@ export default Component.extend({
     },
 
     nextDay: function() {
-      this.set('selected', moment(this.get('selected')).add(1, 'days'));
+      var formField = this.get('formField');
+      var nextDay = moment(this.get('selected')).add(1, 'days');
+      if (nextDay > formField.get('maxDate')) {
+        return;
+      }
+      this.set('selected', nextDay);
     },
 
     previousDay: function() {
-      this.set('selected', moment(this.get('selected')).subtract(1, 'days'));
+      var formField = this.get('formField');
+      var previousDay = moment(this.get('selected')).subtract(1, 'days');
+      if (previousDay < formField.get('minDate')) {
+        return;
+      }
+      this.set('selected', previousDay);
     },
 
     nextWeek: function() {
-      this.set('selected', moment(this.get('selected')).add(7, 'days'));
+      var formField = this.get('formField');
+      var nextWeek = moment(this.get('selected')).add(7, 'days');
+      if (nextWeek > formField.get('maxDate')) {
+        return;
+      }
+      this.set('selected', nextWeek);
     },
 
     previousWeek: function() {
-      this.set('selected', moment(this.get('selected')).subtract(7, 'days'));
+      var formField = this.get('formField');
+      var previousWeek = moment(this.get('selected')).subtract(7, 'days');
+      if (previousWeek < formField.get('minDate')) {
+        return;
+      }
+      this.set('selected', previousWeek);
     },
 
     nextMonth: function() {
-      this.set('selected', moment(this.get('selected')).add(1, 'months'));
+      var formField = this.get('formField');
+      var nextMonth = moment(this.get('selected')).add(1, 'months');
+      if (nextMonth > formField.get('maxDate')) {
+        return;
+      }
+      this.set('selected', nextMonth);
     },
 
     previousMonth: function() {
-      this.set('selected', moment(this.get('selected')).add(1, 'months'));
+      var formField = this.get('formField');
+      var previousMonth = moment(this.get('selected')).subtract(1, 'months');
+      if (previousMonth < formField.get('minDate')) {
+        return;
+      }
+      this.set('selected', previousMonth);
     },
 
     nextYear: function() {
-      this.set('selected', moment(this.get('selected')).add(1, 'years'));
+      var formField = this.get('formField');
+      var nextYear = moment(this.get('selected')).add(1, 'years');
+      if (nextYear > formField.get('maxDate')) {
+        return;
+      }
+      this.set('selected', nextYear);
     },
 
     previousYear: function() {
-      this.set('selected', moment(this.get('selected')).subtract(1, 'years'));
+      var formField = this.get('formField');
+      var previousYear = moment(this.get('selected')).subtract(1, 'years');
+      if (previousYear < formField.get('minDate')) {
+        return;
+      }
+      this.set('selected', previousYear);
     },
 
     setDate: function(date) {
