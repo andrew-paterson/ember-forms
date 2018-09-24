@@ -4,7 +4,7 @@
     <div class="field-controls">
       <div data-test-type='form-field-power-datepicker'>
         <input type='text' class="my-input-class" readonly value={{if formField.value (moment-format formField.value 'DD-MM-YYYY hh:mm')}}
-          placeholder={{formField.placeholder}} onfocus={{action "openDropdown" dp}}/>
+          placeholder={{formField.placeholder}} onfocus={{action "onTriggerFocus" dp}}/>
         {{component inputIcon class='form-field-icon'}}
     </div>
   </div>
@@ -12,13 +12,13 @@
   {{/dp.trigger}}
   {{#dp.content class="demo-datepicker-small ember-power-calendar" }}
     <nav class="ember-power-calendar-nav">
-      <button type="button" class="ember-power-calendar-nav-control" onclick={{action dp.actions.moveCenter -12 'month'}}>«</button>
-      <button type="button" class="ember-power-calendar-nav-control" onclick={{action dp.actions.moveCenter -1 'month'}}>‹</button>
+      <button type="button" class="{{unless navButtons.previousYear 'disabled'}} ember-power-calendar-nav-control" onclick={{action 'navigate' dp -12 'month'}}>«</button>
+      <button type="button" class="{{unless navButtons.previousMonth 'disabled'}} ember-power-calendar-nav-control" onclick={{action 'navigate' dp -1 'month'}}>‹</button>
       <div class="ember-power-calendar-nav-title">
         {{moment-format dp.center 'MMMM YYYY'}}
       </div>
-      <button class="ember-power-calendar-nav-control" onclick={{action dp.actions.moveCenter 1 'month'}}>›</button>
-      <button class="ember-power-calendar-nav-control" onclick={{action dp.actions.moveCenter 12 'month'}}>»</button>
+      <button class="{{unless navButtons.nextMonth 'disabled'}} ember-power-calendar-nav-control" onclick={{action 'navigate' dp 1 'month'}}>›</button>
+      <button class="{{unless navButtons.nextYear 'disabled'}} ember-power-calendar-nav-control" onclick={{action 'navigate' dp 12 'month'}}>»</button>
     </nav>
     {{dp.days minDate=formField.minDate maxDate=formField.maxDate}}
   {{/dp.content}}

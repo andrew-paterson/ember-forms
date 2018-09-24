@@ -2,12 +2,19 @@ import Component from '@ember/component';
 import { computed } from '@ember/object';
 
 export default Component.extend({
-  center: computed('selected', function() {
-    return this.get('selected');
+  navButtons: computed('center', function() {
+    var allowNavigationOutOfRange = this.get('formField.allowNavigationOutOfRange');
+    return {
+      nextMonth: allowNavigationOutOfRange || this.targetInRange(1, 'months'),
+      nextYear: allowNavigationOutOfRange || this.targetInRange(1, 'years'),
+      previousMonth: allowNavigationOutOfRange || this.targetInRange(-1, 'months'),
+      previousYear: allowNavigationOutOfRange || this.targetInRange(-1, 'years'),
+    }
   }),
+
   actions: {
-    openDropdown: function(dropdown) {
-      dropdown.actions.open();
+    onTriggerFocus: function(datepicker) {
+      datepicker.actions.open();
       var startDate = moment().toDate()
       var formField = this.get('formField');
       if (formField.get('maxDate') < moment().toDate()) {
@@ -18,12 +25,39 @@ export default Component.extend({
       formField.get('minDate') > moment().toDate() && formField.get('maxDate') > moment().toDate()) {
         startDate = formField.get('minDate');
       }
-      if (!this.get('selected')) {
-        this.set('selected', startDate);
+      this.set('center', startDate);
+    },
+
+    navigate: function(datepicker, span, units) {
+      if (this.get('formField.allowNavigationOutOfRange') || this.targetInRange(span, units)) {
+        datepicker.actions.moveCenter(span, units);
       }
     },
 
-    onTriggerKeydown(dropdown, e) {
+    selectDay: function(datepicker, span, units) {
+      var formField = this.get('formField');
+      var startOfVisibleMonth = moment(this.get('center')).startOf('month').toDate();
+      var endOfVisibleMonth = moment(this.get('center')).endOf('month').toDate();
+      var currentSelected = moment(this.get('selected'));
+      var targetDay;
+
+      if (this.get('selected') >= startOfVisibleMonth && this.get('selected') <= endOfVisibleMonth) {
+        targetDay = currentSelected.add(span, units);
+      } else {
+        targetDay = startOfVisibleMonth;
+      }
+      if (targetDay > formField.get('maxDate')) {
+        targetDay = formField.get('maxDate');
+      }
+      if (targetDay < formField.get('minDate')) {
+        targetDay = formField.get('minDate');
+      }
+
+      this.set('selected', targetDay);
+      this.set('center', this.get('selected'));
+    },
+
+    onTriggerKeydown(datepicker, e) {
       if (e.keyCode === 13) {
         this.send('setDate', this.get('selected'));
         e.preventDefault();
@@ -31,118 +65,60 @@ export default Component.extend({
       if (e.keyCode === 39) {
         if (e.shiftKey) {
           if (e.metaKey) {
-            this.send('nextYear');
+            this.send('navigate', datepicker, 1, 'years');
+          } else {
+            this.send('navigate', datepicker, 1, 'months');
           }
-          this.send('nextMonth');
         } else {
-          this.send('nextDay');
+          this.send('selectDay', datepicker, 1, 'days');
         }
         e.preventDefault();
       }
       if (e.keyCode === 37) {
         if (e.shiftKey) {
           if (e.metaKey) {
-            this.send('previousYear');
+            this.send('navigate', datepicker, -1, 'years');
+          } else {
+            this.send('navigate', datepicker, -1, 'months');
           }
-          this.send('previousMonth');
         } else {
-          this.send('previousDay');
+          this.send('selectDay', datepicker, -1, 'days');
         }
         e.preventDefault();
       }
       if (e.keyCode === 40) {
-        if (!dropdown.isOpen) {
-          dropdown.actions.open();
+        if (!datepicker.isOpen) {
+          datepicker.actions.open();
         } else {
-          this.send('nextWeek');
+          this.send('selectDay', datepicker, 7, 'days');
+
         }
         e.preventDefault();
       }
       if (e.keyCode === 38) {
-        if (!dropdown.isOpen) {
-          dropdown.actions.open();
+        if (!datepicker.isOpen) {
+          datepicker.actions.open();
         } else {
-          this.send('previousWeek');
+          this.send('selectDay', datepicker, -7, 'days');
+
         }
         e.preventDefault();
       }
-    },
-
-    nextDay: function() {
-      var formField = this.get('formField');
-      var nextDay = moment(this.get('selected')).add(1, 'days');
-      if (nextDay > formField.get('maxDate')) {
-        return;
-      }
-      this.set('selected', nextDay);
-    },
-
-    previousDay: function() {
-      var formField = this.get('formField');
-      var previousDay = moment(this.get('selected')).subtract(1, 'days');
-      if (previousDay < formField.get('minDate')) {
-        return;
-      }
-      this.set('selected', previousDay);
-    },
-
-    nextWeek: function() {
-      var formField = this.get('formField');
-      var nextWeek = moment(this.get('selected')).add(7, 'days');
-      if (nextWeek > formField.get('maxDate')) {
-        return;
-      }
-      this.set('selected', nextWeek);
-    },
-
-    previousWeek: function() {
-      var formField = this.get('formField');
-      var previousWeek = moment(this.get('selected')).subtract(7, 'days');
-      if (previousWeek < formField.get('minDate')) {
-        return;
-      }
-      this.set('selected', previousWeek);
-    },
-
-    nextMonth: function() {
-      var formField = this.get('formField');
-      var nextMonth = moment(this.get('selected')).add(1, 'months');
-      if (nextMonth > formField.get('maxDate')) {
-        return;
-      }
-      this.set('selected', nextMonth);
-    },
-
-    previousMonth: function() {
-      var formField = this.get('formField');
-      var previousMonth = moment(this.get('selected')).subtract(1, 'months');
-      if (previousMonth < formField.get('minDate')) {
-        return;
-      }
-      this.set('selected', previousMonth);
-    },
-
-    nextYear: function() {
-      var formField = this.get('formField');
-      var nextYear = moment(this.get('selected')).add(1, 'years');
-      if (nextYear > formField.get('maxDate')) {
-        return;
-      }
-      this.set('selected', nextYear);
-    },
-
-    previousYear: function() {
-      var formField = this.get('formField');
-      var previousYear = moment(this.get('selected')).subtract(1, 'years');
-      if (previousYear < formField.get('minDate')) {
-        return;
-      }
-      this.set('selected', previousYear);
     },
 
     setDate: function(date) {
       this.onUserInteraction(date);
       this.set('selected', date);
     },
+  },
+
+  targetInRange: function(span, units) {
+    var formField = this.get('formField');
+    var firstOfTargetMonth = moment(this.get('center')).add(span, units).startOf('month').toDate();
+    var lastOfTargetMonth = moment(this.get('center')).add(span, units).endOf('month').toDate();
+    if (firstOfTargetMonth > formField.get('maxDate') || lastOfTargetMonth < formField.get('minDate')) {
+      return false;
+    }
+    return true;
   },
 });

@@ -119,8 +119,9 @@ export default Service.extend({
           fieldType: "powerDatePicker",
           validationRules: [{'validationMethod': 'required'}, {'validationMethod': 'isDate'}],
           validationEvents: ['insert'],
-          minDate: moment("2013-09-01").toDate(),
-          maxDate: moment("2013-09-05").toDate(),
+          minDate: moment("2017-08-28").toDate(),
+          maxDate: moment("2017-11-05").toDate(),
+          allowNavigationOutOfRange: false
         },
 
         {
