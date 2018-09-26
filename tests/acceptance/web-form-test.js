@@ -3,6 +3,9 @@ import { visit, currentURL, fillIn, focus, find, blur, click, triggerKeyEvent, t
 import { setupApplicationTest } from 'ember-qunit';
 import { openDatepicker } from 'ember-pikaday/helpers/pikaday';
 import setupMirage from 'ember-cli-mirage/test-support/setup-mirage';
+import { selectChoose, selectSearch, removeMultipleOption, clearSelected } from 'ember-power-select/test-support';
+import { calendarCenter, calendarSelect } from 'ember-power-calendar/test-support';
+import { clickDropdown } from 'ember-basic-dropdown/test-support/helpers';
 
 module('Acceptance | Validating form', function(hooks) {
   setupApplicationTest(hooks);
@@ -13,7 +16,6 @@ module('Acceptance | Validating form', function(hooks) {
     session.set('signupFormSchema.resetAfterSubmit', false);
     server.createList('user', 0);
     await visit('/signup');
-
     await fillIn(document.querySelector('[data-test-id="validating-field-name"] input'), 'Little Sebastian');
     await fillIn(document.querySelector('[data-test-id="validating-field-email"] input'), 'lsebastian@pawneegov.org');
     await fillIn(document.querySelector('[data-test-id="validating-field-bio"] textarea'), `Bye bye Li'l Sebastian; Miss you in the saddest fashion; Bye bye Li'l ; Sebastian; You’re 5000 candles in the wind.`);
@@ -23,12 +25,15 @@ module('Acceptance | Validating form', function(hooks) {
     await click(document.querySelector('[data-option-index="0"]'));
     await click(document.querySelector('[data-test-id="validating-field-acceptTerms"] [data-test-id="radio-button-option-true"] input'));
     await click(document.querySelector('[data-test-id="validating-field-personal_details.birth_date"]'));
-    var interactor = await openDatepicker('[data-test-id="validating-field-personal_details.birth_date"] input');
-    await interactor.selectDate(new Date(2010, 3, 28));
+
+    await click('[data-test-id="validating-field-personal_details.birth_date"] .ember-power-datepicker-trigger');
+    return this.pauseTest();
+    // await interactor.selectDate(new Date(2010, 3, 28));
     await click(document.querySelector('[data-test-id="validating-field-settings.mailing_list"] input'));
     await click(document.querySelector('[data-test-id="evf-submit-form-button"]'));
     await isSettled();
     assert.equal(document.querySelector('[data-test-id="system-message"] .message-content').textContent, 'Success', 'Default success message displays on successful form submission, if "submitSuccessMessage" is null.');
+
 
     await visit('/users');
     assert.equal(document.querySelectorAll('[data-test-id="users-table"] tbody tr').length, 1, 'Submitting creates a new record.');

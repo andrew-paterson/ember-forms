@@ -26,6 +26,7 @@
 .ember-basic-dropdown-content.ember-power-calendar {
   background: #fff;
   border: 1px solid #ccc;
+  position: absolute;
 }
 
 .ember-power-calendar {
@@ -137,8 +138,14 @@
       line-height: normal;
       padding: 0 8px;
     }
-    .ember-power-calendar-nav-control:hover {
+    .ember-power-calendar-nav-control:hover,
+    .ember-power-calendar-nav-control:focus {
       background-color: transparent;
+    }
+
+    .ember-power-calendar-nav-control.disabled {
+      opacity: 0;
+      cursor: default;
     }
   }
 
@@ -164,20 +171,87 @@
     opacity: 0.3;
     border-color: transparent;
   }
+}
 
-  // .ember-power-calendar-day--interactive:hover {
-  //   background: #ddd;
-  //   color: #666;
-  // }
-  .ember-power-calendar:focus {
-    background: red;
+.field-type-power-date-picker .field-controls {
+  display: flex;
+  flex-wrap: wrap;
+  border: @input-border-width solid @input-border-color;
+  border-radius: @input-border-radius;
+  background: @input-background-color;
+  padding: 10px;
+  input {
+    border-width: 0;
+    padding-right: 0;
+    background: transparent;
   }
 }
 
-.field-type-power-date-picker {
-  position: relative;
-  .ember-power-calendar {
-    position: absolute;
-    top: 40px;
+.ember-power-datepicker-trigger {
+  margin-right: 10px;
+}
+
+.time-select {
+  display: flex;
+  flex-wrap: wrap;
+  background: @button-background-color;
+  border-radius: @button-border-radius;
+  padding-left: @button-side-padding;
+  div.svg,
+  svg {
+    margin-top: 5px;
+    display: inline-block;
+    height: 20px;
+    width: auto;
+    fill: #fff;
   }
+  .ember-power-select-trigger {
+    padding-left: 0;
+    padding-right: 0;
+    width: 40px;
+    border-width: 0;
+    background: transparent;
+    color: @button-color;
+    .ember-power-select-selected-item {
+        margin-top: 2px;
+        margin-left: 4px;
+        display: inline-block;
+    }
+    .ember-power-select-status-icon {
+      display: none;
+    }
+
+  }
+
+  .ember-power-select-trigger:hover {
+    background: @button-hover-background-color;
+  }
+
+  .ember-power-select-trigger:focus {
+    background: @button-focus-background-color;
+  }
+
+  .time-select-trigger.hour {
+      text-align: right;
+      .ember-power-select-selected-item {
+        margin-right: 4px;
+        margin-left: 18px;
+      }
+  }
+  .time-divider {
+    color: @button-color;
+    font-weight: @button-font-weight;
+    line-height: 37px;
+  }
+}
+// .time-select:hover {
+//   background: @button-hover-background-color;
+// }
+
+.time-select.disabled {
+  background: @button-disabled-background-color;
+}
+
+.ember-power-select-dropdown.form-field-time-select {
+  width: 60px;
 }

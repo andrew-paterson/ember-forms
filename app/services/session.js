@@ -22,6 +22,7 @@ export default Service.extend({
           validationRules: [{'validationMethod': 'required'}],
           validationEvents: ['focusOut', 'keyUp', 'insert'],
           inputType: 'text',
+          default: "Paddy"
         },
         {
           fieldId: 'email',
@@ -35,6 +36,7 @@ export default Service.extend({
           fieldLabel: 'Bio',
           fieldType: 'textarea',
           inputType: 'text',
+          validationRules: [{'validationMethod': 'required'}],
         },
         {
           fieldLabel: "Phone number",
@@ -94,7 +96,7 @@ export default Service.extend({
           fieldId: 'colours',
           fieldType: "checkboxGroup",
           fieldLegend: 'Choose at least one colour',
-          // validationRules: [{'validationMethod': 'custom'}],
+          validationRules: [{'validationMethod': 'custom'}],
           options: [{
             'key': 'red',
             'label': 'Red'
@@ -111,7 +113,7 @@ export default Service.extend({
             'key': 'blue',
             'label': 'Blue'
           },],
-          // default: ['red', 'green']
+          default: ['red', 'blue']
         },
         {
           fieldLabel: "Birth date",
@@ -120,27 +122,16 @@ export default Service.extend({
           validationRules: [{'validationMethod': 'required'}, {'validationMethod': 'isDate'}],
           validationEvents: ['insert'],
           minDate: moment("2017-08-28").toDate(),
-          maxDate: moment("2017-11-05").toDate(),
-          allowNavigationOutOfRange: false
+          maxDate: moment("2019-11-05").toDate(),
+          allowNavigationOutOfRange: false,
+          default: moment("2018-08-28").toDate(),
+          dateFormat:'YYYY/MM/DD',
+          defaultTime: '12:00',
+          timeSelect: true,
+          dateButtonText: 'Test date',
+          timeButtonText: 'Test time'
         },
 
-        {
-          fieldLabel: "Death date",
-          fieldId: "personal_details.death_date",
-          fieldType: "datePikaday",
-          validationRules: [{'validationMethod': 'required'}, {'validationMethod': 'isDate'}],
-          validationEvents: ['insert'],
-          // useUTC: true,
-          // disabled: true,
-          options: {
-            numberOfMonths: 2,
-            // disableWeekends: true,
-            // minDate: moment("2018-09-01").toDate(),
-            // maxDate: moment("2018-10-01").toDate(),
-            format: "DD/MM/YYYY",
-            //
-          }
-        },
         {
           fieldId: 'settings.mailing_list',
           fieldType: "singleCheckbox",
@@ -149,6 +140,5 @@ export default Service.extend({
         }
       ]
     };
-    // this.exisitingUser =
   }
 });

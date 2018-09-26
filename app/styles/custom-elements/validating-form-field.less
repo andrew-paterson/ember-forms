@@ -1,6 +1,5 @@
 div.field-controls {
 	margin-bottom: @input-margin-bottom;
-	line-height: 0;
 	position: relative;
 }
 
@@ -21,10 +20,6 @@ div.form-field div.svg.form-field-icon {
 	padding-right: 36px;
 }
 
-// .form-field {
-// 	display: inline-block;
-// }
-
 div.form-field.required {
 	div.svg.form-field-icon svg {
 		fill: @app-colour-shade-two;
@@ -32,14 +27,8 @@ div.form-field.required {
 	}
 }
 
-
-
 div.form-field.valid {
-	input:not(:focus),
-	textarea:not(:focus),
-	.ember-power-select-trigger:not(:focus),
-	.checkbox-group-container,
-	.radio-button-group-container {
+	.validation-area {
 		border-color: @input-valid-border-color;
 		background: @input-valid-background-color;
 	}
@@ -49,26 +38,8 @@ div.form-field.valid {
 	}
 }
 
-// div.form-field.valid.hide-success-validation {
-// 	input,
-// 	textarea,
-//   .ember-power-select-trigger,
-// 	.single-checkbox-container,
-// 	.radio-button-group-container {
-// 		border-color: @input-border-color;
-// 		background: @input-background-color;
-// 	}
-// 	div.svg.form-field-icon svg {
-// 		display: none;
-// 	}
-// }
-
 div.form-field.invalid {
-	input:not(:focus),
-  textarea:not(:focus),
-  .ember-power-select-trigger:not(:focus),
-	.checkbox-group-container,
-	.radio-button-group-container {
+	.validation-area {
 		border-color: @input-invalid-border-color;
 		background: @input-invalid-background-color;
 	}
@@ -104,12 +75,8 @@ div.form-field.power-select  div.field-container > div.svg {
 	right: -24px;
 }
 
-
-
 div.form-field .checkbox-group-container,
 div.form-field .radio-button-group-container {
-	// margin: 15px 0;
-	margin-bottom: 30px;
 	position: relative;
 	padding: 5px 5px;
 	border: 2px solid @input-border-color;
@@ -138,16 +105,3 @@ div.form-field.field-type-checkbox-group {
 		}
 	}
 }
-
-// div.form-field.invalidfield-type-radio-button-group {
-
-// div.form-field.radio-button-group .radio-button-group-label {
-// 	padding-right: 36px;
-// 	margin-bottom: 15px;
-// }
-
-// div.form-field.radio-button-group .checkbox-label-container {
-// 	margin-left: 20px;
-// }
-
-

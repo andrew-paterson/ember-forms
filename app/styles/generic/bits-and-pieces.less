@@ -201,13 +201,18 @@ a.button {
 }
 
 button:hover,
-.button:hover,
-button:focus,
-.button:focus {
+.button:hover {
   background-color: @button-hover-background-color;
   text-decoration: none;
   color: @button-color;
   cursor: pointer;
+}
+
+button:focus,
+.button:focus {
+  color: @button-color;
+  background-color: @button-focus-background-color;
+  text-decoration: none;
 }
 
 .submit-input-container.button {
@@ -280,7 +285,8 @@ button.disabled,
 .button.disabled,
 button.disabled:hover,
 .button.disabled:hover  {
-  background-color: #ccc;
+  background-color: @button-disabled-background-color;
+  color: @button-disabled-color;
   cursor: not-allowed;
 }
 

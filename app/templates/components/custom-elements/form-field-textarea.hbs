@@ -1,6 +1,7 @@
 {{extensible/form-field-label formField=formField}}
 <div class="field-controls">
   {{textarea
+    class='validation-area'
     value=(readonly formField.value)
     focusOut=(action onFocusOut value='target.value')
     focusIn=(action onFocusIn value='target.value')

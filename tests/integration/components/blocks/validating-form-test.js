@@ -139,7 +139,7 @@ module('Integration | Component | blocks/validating-form', function(hooks) {
     await click(this.element.querySelector('[data-test-id="validating-field-acceptTerms"] [data-test-id="radio-button-option-true"] input'));
 
     // await click(this.element.querySelector('[data-test-id="validating-field-personal_details.birth_date"]'));
-     return this.pauseTest();
+     // return this.pauseTest();
     var interactor = await openDatepicker(this.element.querySelector('[data-test-id="validating-field-personal_details.birth_date"] input'));
     await interactor.selectDate(new Date(2010, 3, 28));
 
