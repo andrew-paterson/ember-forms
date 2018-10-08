@@ -18,8 +18,13 @@ export default Factory.extend({
     return faker.lorem.sentence();
   },
 
+  acceptTerms() {
+    return 'true';
+  },
+
   personal_details() {
     return {
+      favourite_colours: ['red', 'green'],
       birth_date: faker.date.past(),
       phone_number: faker.phone.phoneNumber(),
       address: {
@@ -28,13 +33,4 @@ export default Factory.extend({
       }
     };
   },
-
-  // personalDetails(i) {
-  //   return 'Test';
-  //   // return {
-  //   //   "phone_number": faker.phone.phoneNumber(i),
-  //   // }
-  // }
-
-
 });

@@ -48,7 +48,7 @@ export default FormContainer.extend({
           passwordConfirmationFieldObject.set('error', null);
         }
       }
-      if (fieldObject.fieldId === 'colours') {
+      if (fieldObject.fieldId === 'personal_details.favourite_colours') {
         var value = fieldObject.value || [];
         if (value.length === 0) {
           fieldObject.set('error', 'Please choose at least one colour.');

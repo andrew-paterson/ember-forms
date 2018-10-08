@@ -9,22 +9,24 @@ module('Integration | Component | extensible/validating-form-field', function(ho
   test('Basic rendering', async function(assert) {
     var fieldSchema = {
       fieldId: 'testInput',
-      label: 'Test Input',
+      fieldLabel: 'Test Input',
       fieldType: 'input',
     }
-    var formSchema = {
-      hideLabels: true,
-    }
+    // var formSchema = {
+    //   hideLabels: true,
+    // }
     this.set('fieldSchema', fieldSchema);
     await render(hbs`{{extensible/validating-form-field fieldSchema=fieldSchema}}`);
     assert.ok(this.element.querySelector('label').textContent === 'Test Input', 'Label renders correctly.');
-    assert.ok(this.element.querySelector('input').placeholder === 'Test Input', 'Placeholder renders as label by default.');
+    assert.ok(this.element.querySelector('input').placeholder === 'Test Input', 'Placeholder uses label value by default.');
     assert.ok(this.element.querySelector('input'), 'Input is rendered');
     assert.ok(this.element.querySelector('input').type === 'text', 'Input renders as type text if inputType is not specified.');
 
     this.set('fieldSchema.autoFocus', true);
+    this.set('fieldSchema.placeholder', 'Test Placeholder');
     await render(hbs`{{extensible/validating-form-field fieldSchema=fieldSchema}}`);
     assert.ok(this.element.querySelector('input:focus'), '[Autofocus] Input is correctly auto focussed when the "autoFocus" property is true.');
+    assert.ok(this.element.querySelector('input').placeholder === 'Test Placeholder' && this.element.querySelector('label').textContent === 'Test Input', 'Custom placeholder renders correctly.');
 
     this.set('fieldSchema.inputType', 'number');
     await render(hbs`{{extensible/validating-form-field fieldSchema=fieldSchema}}`);

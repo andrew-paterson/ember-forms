@@ -1,0 +1,68 @@
+{{#power-datepicker selected=selected onSelect=(action "setDate" value="date") closeOnSelect=false onCenterChange=(action (mut center) value="date") center=center as |dp|}}
+  {{#dp.trigger tabindex="-1" onKeyDown=(action "onTriggerKeydown") }}
+        <button type="button" class="date-button" data-test-type="power-datepicker-date-trigger" readonly onfocus={{action "onTriggerFocus" dp}}>
+          {{svg/icon-calendar}}
+          {{#if value}}
+            {{moment-format value dateDisplayFormat}}
+          {{else}}
+            {{#if dateButtonComponent}}
+              {{component dateButtonComponent}}
+            {{else}}
+              {{or dateButtonText "Select Date"}}
+            {{/if}}
+          {{/if}}
+        </button>
+  {{/dp.trigger}}
+  {{#dp.content class="demo-datepicker-small ember-power-calendar" }}
+    <nav class="ember-power-calendar-nav">
+      <button type="button" class="{{unless navButtons.previousYear "disabled"}} ember-power-calendar-nav-control" onclick={{action "navigate" dp -12 "month"}}>«</button>
+      <button type="button" class="{{unless navButtons.previousMonth "disabled"}} ember-power-calendar-nav-control" onclick={{action "navigate" dp -1 "month"}}>‹</button>
+      <div class="ember-power-calendar-nav-title">
+        {{moment-format dp.center "MMMM YYYY"}}
+      </div>
+      <button class="{{unless navButtons.nextMonth "disabled"}} ember-power-calendar-nav-control" onclick={{action "navigate" dp 1 "month"}}>›</button>
+      <button class="{{unless navButtons.nextYear "disabled"}} ember-power-calendar-nav-control" onclick={{action "navigate" dp 12 "month"}}>»</button>
+    </nav>
+    {{dp.days minDate=minDate maxDate=maxDate}}
+  {{/dp.content}}
+{{/power-datepicker}}
+{{#if timeSelect}}
+  <div data-test-type="time-selector" class="time-select {{unless value "disabled"}}">
+    {{svg/icon-clock}}
+    {{#if value}}
+      {{#power-select
+        triggerClass="time-select-trigger hour"
+        dropdownClass="form-field-time-select"
+        matchTriggerWidth=false
+        options=hours
+        selected=(moment-format value "HH")
+        placeholder="hh"
+        searchEnabled=false
+        onchange=(action "setTime" "selectedHour")
+        onclose=onclose
+        triggerId=(concat (if name (concat name "-" )) "hours")
+        as |option|
+        }}
+        {{option}}
+      {{/power-select}}
+      <div class="time-divider">:</div>
+      {{#power-select
+        triggerClass="time-select-trigger minute"
+        dropdownClass="form-field-time-select"
+        matchTriggerWidth=false
+        options=minutes
+        selected=(moment-format value "mm")
+        placeholder="mm"
+        searchEnabled=false
+        onchange=(action "setTime" "selectedMinute")
+        onclose=onclose
+        triggerId=(concat (if name (concat name "-" )) "minutes")
+        as |option|
+        }}
+        {{option}}
+      {{/power-select}}
+    {{else}}
+      <button class="time-select-placeholder disabled" disabled>{{or timeButtonText "Select Time"}}</button>
+    {{/if}}
+  </div>
+{{/if}}

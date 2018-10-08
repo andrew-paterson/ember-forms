@@ -52,7 +52,7 @@ export default FormContainer.extend({
         }
       }
 
-      if (fieldObject.fieldId === 'colours') {
+      if (fieldObject.fieldId === 'personal_details.favourite_colours') {
         var value = fieldObject.value || [];
         if (value.length === 0) {
           fieldObject.set('error', 'Please choose at least one colour.');
@@ -80,7 +80,6 @@ export default FormContainer.extend({
     afterKeyUpAction: function(value, event, formField) {
       if (event) {
         if (event.key === 'KeyP' || event.code === 'KeyP') {
-          console.log('P pressed');
         }
       }
     }

@@ -1,26 +1,16 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { render } from '@ember/test-helpers';
+import { render, click, triggerKeyEvent, focus, blur, fillIn, isSettled } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
+
+
 
 module('Integration | Component | custom-elements/form-field-power-datepicker', function(hooks) {
   setupRenderingTest(hooks);
 
   test('it renders', async function(assert) {
-    // Set any properties with this.set('myProperty', 'value');
-    // Handle any actions with this.set('myAction', function(val) { ... });
 
     await render(hbs`{{custom-elements/form-field-power-datepicker}}`);
 
-    assert.equal(this.element.textContent.trim(), '');
-
-    // Template block usage:
-    await render(hbs`
-      {{#custom-elements/form-field-power-datepicker}}
-        template block text
-      {{/custom-elements/form-field-power-datepicker}}
-    `);
-
-    assert.equal(this.element.textContent.trim(), 'template block text');
   });
 });

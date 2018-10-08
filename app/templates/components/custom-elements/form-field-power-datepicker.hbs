@@ -1,96 +1,23 @@
 {{extensible/form-field-label formField=formField}}
 <div class="clr"></div>
 <div class="field-controls validation-area">
-  {{#power-datepicker selected=selected onSelect=(action 'setDate' value="date" ) closeOnSelect=false center=center as |dp|}}
-    {{#dp.trigger tabindex='-1' onKeyDown=(action "onTriggerKeydown")}}
-        <div data-test-type='form-field-power-datepicker'>
-          <button type='button' class="my-input-class" readonly
-            placeholder={{formField.placeholder}} onfocus={{action "onTriggerFocus" dp}}>
-            {{svg/icon-calendar}}
-            {{#if formField.value}}
-              {{moment-format formField.value dateFormat}}
-            {{else}}
-              {{#if formField.dateButtonComponent}}
-                {{component formField.dateButtonComponent}}
-              {{else}}
-                {{formField.dateButtonText}}
-              {{/if}}
-            {{/if}}
-          </button>
-      </div>
-    {{/dp.trigger}}
-    {{#dp.content class="demo-datepicker-small ember-power-calendar" }}
-      <nav class="ember-power-calendar-nav">
-        <button type="button" class="{{unless navButtons.previousYear 'disabled'}} ember-power-calendar-nav-control" onclick={{action 'navigate' dp -12 'month'}}>«</button>
-        <button type="button" class="{{unless navButtons.previousMonth 'disabled'}} ember-power-calendar-nav-control" onclick={{action 'navigate' dp -1 'month'}}>‹</button>
-        <div class="ember-power-calendar-nav-title">
-          {{moment-format dp.center 'MMMM YYYY'}}
-        </div>
-        <button class="{{unless navButtons.nextMonth 'disabled'}} ember-power-calendar-nav-control" onclick={{action 'navigate' dp 1 'month'}}>›</button>
-        <button class="{{unless navButtons.nextYear 'disabled'}} ember-power-calendar-nav-control" onclick={{action 'navigate' dp 12 'month'}}>»</button>
-      </nav>
-      {{dp.days minDate=formField.minDate maxDate=formField.maxDate}}
-    {{/dp.content}}
-  {{/power-datepicker}}
-  {{#if formField.timeSelect}}
-    <div class="time-select {{unless formField.value 'disabled'}}">
-      {{svg/icon-clock}}
-      {{#if formField.value}}
-        {{#power-select
-          triggerClass="time-select-trigger hour"
-          dropdownClass='form-field-time-select'
-          matchTriggerWidth=false
-          options=hours
-          class='test'
-          selected=(moment-format formField.value 'HH')
-          placeholder='hh'
-          searchEnabled=false
-          onchange=(action 'setTime' 'hour')
-          onclose=onclose
-          triggerId=(concat formField.name '-hours')
-          as |option|
-          }}
-          {{option}}
-        {{/power-select}}
-        <div class="time-divider">:</div>
-        {{#power-select
-          triggerClass="time-select-trigger minute"
-          dropdownClass='form-field-time-select'
-          matchTriggerWidth=false
-          options=minutes
-          selected=(moment-format formField.value 'mm')
-          placeholder='mm'
-          searchEnabled=false
-          onchange=(action 'setTime' 'minute')
-          onclose=onclose
-          triggerId=(concat formField.name '-minutes')
-          as |option|
-          }}
-          {{option}}
-        {{/power-select}}
-      {{else}}
-        <button class='time-select-placeholder disabled' disabled>{{formField.timeButtonText}}</button>
-      {{/if}}
-
-    </div>
-    {{component inputIcon class='form-field-icon'}}
-  {{/if}}
+  {{custom-elements/power-datetime-picker
+    formField=formField
+    value=formField.value
+    dateButtonComponent=formField.dateButtonComponent
+    dateButtonText=formField.dateButtonText
+    minDate=formField.minDate
+    maxDate=formField.maxDate
+    timeSelect=formField.timeSelect
+    name=formField.name
+    timeButtonText=formField.timeButtonText
+    dateFormat=formField.dateFormat
+    calendarCenter=formField.calendarCenter
+    allowNavigationOutOfRange=formField.allowNavigationOutOfRange
+    defaultTime=formField.defaultTime
+    defaultDate=formField.defaultDate
+    onSelectDateTime=(action onUserInteraction)
+  }}
+  {{component inputIcon class='form-field-icon'}}
 </div>
 {{extensible/form-field-error formField=formField}}
-{{hour}}
-
-{{!-- <div class="range-slider">
-<input type="range"
-  oninput={{action 'minChanged'}}
-  min={{min}}
-  max={{max}}
-  value={{minValue}}
-  steps="1">
-  <input type="range"
-  oninput={{action 'maxChanged'}}
-  min={{min}}
-  max={{max}}
-  value={{maxValue}}
-  steps="1">
-</div>
-  {{minValue}} - {{maxValue}} --}}

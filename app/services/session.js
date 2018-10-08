@@ -22,7 +22,7 @@ export default Service.extend({
           validationRules: [{'validationMethod': 'required'}],
           validationEvents: ['focusOut', 'keyUp', 'insert'],
           inputType: 'text',
-          default: "Paddy"
+          // default: "Paddy"
         },
         {
           fieldId: 'email',
@@ -93,7 +93,7 @@ export default Service.extend({
           }]
         },
         {
-          fieldId: 'colours',
+          fieldId: 'personal_details.favourite_colours',
           fieldType: "checkboxGroup",
           fieldLegend: 'Choose at least one colour',
           validationRules: [{'validationMethod': 'custom'}],
@@ -113,7 +113,7 @@ export default Service.extend({
             'key': 'blue',
             'label': 'Blue'
           },],
-          default: ['red', 'blue']
+          // default: ['red', 'blue']
         },
         {
           fieldLabel: "Birth date",
@@ -121,15 +121,16 @@ export default Service.extend({
           fieldType: "powerDatePicker",
           validationRules: [{'validationMethod': 'required'}, {'validationMethod': 'isDate'}],
           validationEvents: ['insert'],
-          minDate: moment("2017-08-28").toDate(),
-          maxDate: moment("2019-11-05").toDate(),
+          minDate: moment().add(1, 'years').startOf('date').toDate(),
+          // maxDate: moment("2018-11-05").toDate(),
           allowNavigationOutOfRange: false,
-          default: moment("2018-08-28").toDate(),
-          dateFormat:'YYYY/MM/DD',
-          defaultTime: '12:00',
+          calendarStartDate: moment('2018-09-02').toDate(),
+          // defaultDate: moment("2018-08-28").toDate(),
+          // dateFormat:'YYYY/MM/DD',
+          // defaultTime: '12:07',
           timeSelect: true,
-          dateButtonText: 'Test date',
-          timeButtonText: 'Test time'
+          // dateButtonText: 'Test date',
+          // timeButtonText: 'Test time'
         },
 
         {

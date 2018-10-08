@@ -97,7 +97,6 @@ export default Component.extend({
 
   actions: {
     onUserInteraction: function(value) {
-      console.log(value);
       this.send('setFieldValue', value);
     },
 
@@ -125,6 +124,7 @@ export default Component.extend({
     },
 
     onKeyUp: function(value, event) {
+      console.log(event);
       this.send('setFieldValue', value);
       var formField = this.get('formField');
       if (this.afterKeyUpAction) {

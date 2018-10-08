@@ -3,7 +3,8 @@ import { computed } from '@ember/object';
 
 export default Component.extend({
   classNames: ['radio-button-group'],
-  groupValue: computed('value', function() {
-    return this.get('value');
+
+  groupValue: computed('formField.value', function() {
+    return this.get('formField.value');
   }),
 });

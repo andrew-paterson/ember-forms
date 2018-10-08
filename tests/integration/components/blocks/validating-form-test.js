@@ -1,6 +1,5 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import { openDatepicker } from 'ember-pikaday/helpers/pikaday';
 import { render, click, triggerKeyEvent, focus, blur, fillIn, isSettled } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
@@ -16,7 +15,6 @@ module('Integration | Component | blocks/validating-form', function(hooks) {
     assert.ok(this.element.querySelector('h3').textContent === 'Sign up form', 'Form header renders.');
     assert.ok(this.element.querySelector('[data-test-id="evf-submit-form-button"]').type === 'submit', 'Submit form button renders as an input with type="submit".');
     assert.equal(this.element.querySelector('[data-test-id="evf-submit-form-button"]').textContent, 'Submit', 'Correct default text renders on submit form button.');
-    console.log(this.element.querySelector('[data-test-id="evf-submit-form-button"]').textContent);
     this.set('formSchema.submitButtonText', 'Request account');
     await render(hbs`{{blocks/generic/validating-form formSchema=formSchema}}`);
     assert.ok(this.element.querySelector('[data-test-id="evf-submit-form-button"]').textContent === 'Request account', 'Custom text renders on the submit button if specified in form schema.');
@@ -29,7 +27,6 @@ module('Integration | Component | blocks/validating-form', function(hooks) {
     await render(hbs`{{blocks/generic/validating-form formSchema=formSchema}}`);
     assert.ok(this.element.querySelector('[data-test-id="evf-reset-form-button"]').textContent === 'Cancel', 'Custom text renders on the reset button if specified in form schema.');
     assert.ok(this.element.querySelector('[data-test-id="validating-field-name"] label').textContent === 'Name', 'Labels show on fields by default.');
-
   });
 
   test('Form defaults', async function(assert) {
@@ -105,6 +102,8 @@ module('Integration | Component | blocks/validating-form', function(hooks) {
 
     let session = this.owner.lookup('service:session');
     this.set('formSchema', session.signupFormSchema);
+    var colorsField = this.get('formSchema.fields').findBy('fieldId', 'personal_details.favourite_colours');
+    colorsField.validationRules = null;
     await render(hbs`{{blocks/generic/validating-form
       formSchema=formSchema
       formValidationFailed=(action dummyAction_formValidationFailed)
@@ -117,6 +116,7 @@ module('Integration | Component | blocks/validating-form', function(hooks) {
 
     await click(this.element.querySelector('[data-test-id="evf-submit-form-button"]'));
     await isSettled();
+    // await this.pauseTest();
     assert.deepEqual(this.element.querySelectorAll('[data-test-id="field-error"]').length, this.element.querySelectorAll('.validates').length, 'All required but empty fields get errors, when submit is clicked with no other interaction.');
 
     assert.ok(this.element.querySelector('div').classList.contains('validation-failed'), 'Form gets class "validation-failed" when validation fails.');
@@ -138,10 +138,8 @@ module('Integration | Component | blocks/validating-form', function(hooks) {
     await click(document.querySelector('[data-option-index="0"]'));
     await click(this.element.querySelector('[data-test-id="validating-field-acceptTerms"] [data-test-id="radio-button-option-true"] input'));
 
-    // await click(this.element.querySelector('[data-test-id="validating-field-personal_details.birth_date"]'));
-     // return this.pauseTest();
-    var interactor = await openDatepicker(this.element.querySelector('[data-test-id="validating-field-personal_details.birth_date"] input'));
-    await interactor.selectDate(new Date(2010, 3, 28));
+    await click('[data-test-id="validating-field-personal_details.birth_date"] .ember-power-datepicker-trigger');
+    await click('[data-date="2018-09-13"]');
 
     await click('[data-test-id="validating-field-settings.mailing_list"] input');
     await click(this.element.querySelector('[data-test-id="evf-submit-form-button"]'));
