@@ -124,7 +124,6 @@ export default Component.extend({
     },
 
     onKeyUp: function(value, event) {
-      console.log(event);
       this.send('setFieldValue', value);
       var formField = this.get('formField');
       if (this.afterKeyUpAction) {
@@ -140,6 +139,9 @@ export default Component.extend({
       this.send('setFieldError', null); // To ensure the error message updates, if the field has been updated but now fails a different validation rule to the previous validation attempt.
       var error = validateField(formField);
       this.send('setFieldError', error);
+      if (!this.customValidations && this.afterValidation) {
+        this.afterValidation(formField);
+      }
       if (error) { return; }
       // TODO throw error if custom is passed as a validation rule, but the 'customValidations' action is not passed in. Do this on didInsert.
       if (this.customValidations && validationRules.findBy('validationMethod', 'custom')) {
@@ -168,10 +170,6 @@ export default Component.extend({
       } else {
         formField.set('error', error);
       }
-    },
-
-    customValidations: function() {
-
     },
   },
   // TODO this must be used to generate more specific error messages.

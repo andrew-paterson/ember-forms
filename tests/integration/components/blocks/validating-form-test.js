@@ -138,7 +138,7 @@ module('Integration | Component | blocks/validating-form', function(hooks) {
     await click(document.querySelector('[data-option-index="0"]'));
     await click(this.element.querySelector('[data-test-id="validating-field-acceptTerms"] [data-test-id="radio-button-option-true"] input'));
 
-    await click('[data-test-id="validating-field-personal_details.birth_date"] .ember-power-datepicker-trigger');
+    await click('[data-test-id="validating-field-personal_details.birth_date"] [data-test-type="power-datepicker-date-trigger"]');
     await click('[data-date="2018-09-13"]');
 
     await click('[data-test-id="validating-field-settings.mailing_list"] input');

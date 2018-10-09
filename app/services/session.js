@@ -20,9 +20,8 @@ export default Service.extend({
           fieldLabel: 'Name',
           fieldType: 'input',
           validationRules: [{'validationMethod': 'required'}],
-          validationEvents: ['focusOut', 'keyUp', 'insert'],
-          inputType: 'text',
-          // default: "Paddy"
+          validationEvents: ['focusOut', 'keyUp'],
+          inputType: 'text'
         },
         {
           fieldId: 'email',
@@ -113,7 +112,6 @@ export default Service.extend({
             'key': 'blue',
             'label': 'Blue'
           },],
-          // default: ['red', 'blue']
         },
         {
           fieldLabel: "Birth date",
@@ -121,10 +119,10 @@ export default Service.extend({
           fieldType: "powerDatePicker",
           validationRules: [{'validationMethod': 'required'}, {'validationMethod': 'isDate'}],
           validationEvents: ['insert'],
-          minDate: moment().add(1, 'years').startOf('date').toDate(),
-          // maxDate: moment("2018-11-05").toDate(),
+          minDate: moment("2016-11-05").toDate(),
+          maxDate: moment("2019-12-05").toDate(),
           allowNavigationOutOfRange: false,
-          calendarStartDate: moment('2018-09-02').toDate(),
+          calendarStartMonth: '09/2018',
           // defaultDate: moment("2018-08-28").toDate(),
           // dateFormat:'YYYY/MM/DD',
           // defaultTime: '12:07',

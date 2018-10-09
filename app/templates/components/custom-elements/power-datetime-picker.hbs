@@ -15,13 +15,13 @@
   {{/dp.trigger}}
   {{#dp.content class="demo-datepicker-small ember-power-calendar" }}
     <nav class="ember-power-calendar-nav">
-      <button type="button" class="{{unless navButtons.previousYear "disabled"}} ember-power-calendar-nav-control" onclick={{action "navigate" dp -12 "month"}}>«</button>
-      <button type="button" class="{{unless navButtons.previousMonth "disabled"}} ember-power-calendar-nav-control" onclick={{action "navigate" dp -1 "month"}}>‹</button>
-      <div class="ember-power-calendar-nav-title">
+      <button type="button" class="{{unless navButtons.previousYear "disabled"}} ember-power-calendar-nav-control" onclick={{action "navigate" dp -12 "month"}} data-test-id="power-calendar-nav-previous-year" disabled={{not navButtons.previousYear}}>«</button>
+      <button type="button" class="{{unless navButtons.previousMonth "disabled"}} ember-power-calendar-nav-control" onclick={{action "navigate" dp -1 "month"}} data-test-id="power-calendar-nav-previous-month" disabled={{not navButtons.previousMonth}}>‹</button>
+      <div class="ember-power-calendar-nav-title" data-test-id="power-calendar-nav-title">
         {{moment-format dp.center "MMMM YYYY"}}
       </div>
-      <button class="{{unless navButtons.nextMonth "disabled"}} ember-power-calendar-nav-control" onclick={{action "navigate" dp 1 "month"}}>›</button>
-      <button class="{{unless navButtons.nextYear "disabled"}} ember-power-calendar-nav-control" onclick={{action "navigate" dp 12 "month"}}>»</button>
+      <button class="{{unless navButtons.nextMonth "disabled"}} ember-power-calendar-nav-control" onclick={{action "navigate" dp 1 "month"}} data-test-id="power-calendar-nav-next-month" disabled={{not navButtons.nextMonth}}>›</button>
+      <button class="{{unless navButtons.nextYear "disabled"}} ember-power-calendar-nav-control" onclick={{action "navigate" dp 12 "month"}} data-test-id="power-calendar-nav-next-year" disabled={{not navButtons.nextYear}}>»</button>
     </nav>
     {{dp.days minDate=minDate maxDate=maxDate}}
   {{/dp.content}}

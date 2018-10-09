@@ -15,6 +15,7 @@ module('Acceptance | Validating form', function(hooks) {
     session.set('signupFormSchema.resetAfterSubmit', false);
     server.createList('user', 0);
     await visit('/signup');
+
     await fillIn(document.querySelector('[data-test-id="validating-field-name"] input'), 'Little Sebastian');
     await fillIn(document.querySelector('[data-test-id="validating-field-email"] input'), 'lsebastian@pawneegov.org');
     await fillIn(document.querySelector('[data-test-id="validating-field-bio"] textarea'), `Bye bye Li'l Sebastian; Miss you in the saddest fashion; Bye bye Li'l ; Sebastian; You’re 5000 candles in the wind.`);
@@ -26,8 +27,10 @@ module('Acceptance | Validating form', function(hooks) {
     await click(document.querySelector('[data-test-id="validating-field-acceptTerms"] [data-test-id="radio-button-option-true"] input'));
     await click(document.querySelector('[data-test-id="validating-field-personal_details.birth_date"]'));
     // TODO update these to use the test helper provided, when the addon is updated so that tests use the Ember 3 way.
-    await click('[data-test-id="validating-field-personal_details.birth_date"] .ember-power-datepicker-trigger');
+
+    await click('[data-test-id="validating-field-personal_details.birth_date"] [data-test-type="power-datepicker-date-trigger"]');
     await click('[data-date="2018-09-13"]');
+
     await click(document.querySelector('[data-test-id="validating-field-personal_details.favourite_colours"] input'));
     await click(document.querySelector('[data-test-id="validating-field-settings.mailing_list"] input'));
     await click(document.querySelector('[data-test-id="evf-submit-form-button"]'));
@@ -49,7 +52,7 @@ module('Acceptance | Validating form', function(hooks) {
     await click(document.querySelector('[data-test-id="validating-field-acceptTerms"] [data-test-id="radio-button-option-true"] input'));
     await click(document.querySelector('[data-test-id="validating-field-personal_details.birth_date"]'));
     // TODO update these to use the test helper provided, when the addon is updated so that tests use the Ember 3 way.
-    await click('[data-test-id="validating-field-personal_details.birth_date"] .ember-power-datepicker-trigger');
+    await click('[data-test-id="validating-field-personal_details.birth_date"] [data-test-type="power-datepicker-date-trigger"]');
     await click('[data-date="2018-09-13"]');
     await click(document.querySelector('[data-test-id="validating-field-personal_details.favourite_colours"] input'));
     await click(document.querySelector('[data-test-id="validating-field-settings.mailing_list"] input'));
@@ -73,7 +76,7 @@ module('Acceptance | Validating form', function(hooks) {
     await click(document.querySelector('[data-option-index="0"]'));
     await click(document.querySelector('[data-test-id="validating-field-acceptTerms"] [data-test-id="radio-button-option-true"] input'));
     // TODO update these to use the test helper provided, when the addon is updated so that tests use the Ember 3 way.
-    await click('[data-test-id="validating-field-personal_details.birth_date"] .ember-power-datepicker-trigger');
+    await click('[data-test-id="validating-field-personal_details.birth_date"] [data-test-type="power-datepicker-date-trigger"]');
     await click('[data-date="2018-09-13"]');
     await click(document.querySelector('[data-test-id="validating-field-personal_details.favourite_colours"] input'));
     await click(document.querySelector('[data-test-id="validating-field-settings.mailing_list"] input'));

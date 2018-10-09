@@ -15,6 +15,8 @@ export default Component.extend({
     this.minutes = ['00', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31', '32', '33', '34', '35', '36', '37', '38', '39', '40', '41', '42', '43', '44', '45', '46', '47', '48', '49', '50', '51', '52', '53', '54', '55', '56', '57', '58', '59'];
   },
 
+  test: false,
+
   didInsertElement: function() {
     if (this.get('defaultDate')) {
       this.set('selectedDate', this.get('defaultDate'));
@@ -22,6 +24,10 @@ export default Component.extend({
     if (this.get('defaultTime')) {
       this.set('selectedHour', this.get('defaultTime').split(':')[0]);
       this.set('selectedMinute', this.get('defaultTime').split(':')[1]);
+    }
+    if (this.get('calendarStartMonth')) {
+      var split = this.get('calendarStartMonth').split('/');
+      this.set('calendarStartDate', moment().year(parseInt(split[1])).month(parseInt(split[0])-1).day(1));
     }
   },
 
@@ -54,6 +60,10 @@ export default Component.extend({
   }),
 
   actions: {
+    test: function() {
+      console.log('test');
+    },
+
     setDate: function(selectedDate) {
       this.set('selectedDate', selectedDate);
     },
@@ -63,8 +73,9 @@ export default Component.extend({
     },
 
     onTriggerFocus: function(datepicker) {
+      console.log('triggerFocus');
       datepicker.actions.open();
-      var startDate = this.get('calendarCenter') || moment().toDate()
+      var startDate = this.get('calendarStartDate') || moment().toDate()
       if (this.get('maxDate') < moment().toDate()) {
         startDate = this.get('maxDate');
       }
@@ -73,8 +84,6 @@ export default Component.extend({
       this.get('minDate') > moment().toDate() && this.get('maxDate') > moment().toDate()) {
         startDate = this.get('minDate');
       }
-      // console.log(this.get('minDate'));
-      // console.log(startDate);
       this.set('center', startDate);
     },
 
@@ -105,13 +114,14 @@ export default Component.extend({
     },
 
     onTriggerKeydown(datepicker, e) {
+      console.log(e);
       if (e.keyCode === 13) {
         this.send('setDate', this.get('selected'));
         e.preventDefault();
       }
       if (e.keyCode === 39) {
-        if (e.shiftKey) {
-          if (e.metaKey) {
+        if (e.metaKey) {
+          if (e.shiftKey) {
             this.send('navigate', datepicker, 1, 'years');
           } else {
             this.send('navigate', datepicker, 1, 'months');
@@ -122,8 +132,8 @@ export default Component.extend({
         e.preventDefault();
       }
       if (e.keyCode === 37) {
-        if (e.shiftKey) {
-          if (e.metaKey) {
+        if (e.metaKey) {
+          if (e.shiftKey) {
             this.send('navigate', datepicker, -1, 'years');
           } else {
             this.send('navigate', datepicker, -1, 'months');
