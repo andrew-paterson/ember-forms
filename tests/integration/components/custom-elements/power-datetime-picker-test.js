@@ -1,6 +1,7 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render, click, triggerKeyEvent } from '@ember/test-helpers';
+import { selectChoose, selectSearch, removeMultipleOption, clearSelected } from 'ember-power-select/test-support';
 import hbs from 'htmlbars-inline-precompile';
 
 module('Integration | Component | custom-elements/power-datetime-picker', function(hooks) {
@@ -70,9 +71,12 @@ module('Integration | Component | custom-elements/power-datetime-picker', functi
   test('Date and time selection', async function(assert) {
     var testDate = '2018-04-01';
     var testTime = '00:00';
+    var currentUnit = 'date';
     this.set('dummyAction_onSelectDateTime', (dateTime) => {
       this.set('value', dateTime);
-      assert.equal(dateTime.toString(), moment(`${testDate} ${testTime}`).toDate().toString(), '[---Action---] The date is correctly sent to the onSelectDateTime action when a date is clicked.');
+      if (dateTime) {
+        assert.equal(dateTime.toString(), moment(`${testDate} ${testTime}`).toDate().toString(), `[---Action---] The correct datetime object is sent to the onSelectDateTime action when the ${currentUnit} is selected.`);
+      }
     });
     this.set('calendarStartMonth', '04/2018');
     await render(hbs`{{custom-elements/power-datetime-picker
@@ -84,6 +88,17 @@ module('Integration | Component | custom-elements/power-datetime-picker', functi
     await click(this.element.querySelector('[data-test-type="power-datetime-picker"] [data-test-type="power-datepicker-date-trigger"]'));
     await click(`[data-date="${testDate}"]`);
     assert.equal(this.element.querySelector('[data-test-type="power-datetime-picker"] [data-test-type="power-datepicker-date-trigger"]').textContent.trim(), '01-04-2018', 'The value property shows on the datepicker button when date is clicked.');
+    testTime = '13:00';
+    currentUnit = 'hour';
+    await selectChoose('[data-test-type="time-selector"] .hour', '13');
+    testTime = '13:47';
+    currentUnit = 'minute';
+    await selectChoose('[data-test-type="time-selector"] .minute', '47');
+    testDate = null;
+    testTime = null;
+    await click('[data-test-id="datetime-picker-clear-datetime"]');
+    assert.equal(this.element.querySelector('[data-test-type="power-datetime-picker"] [data-test-type="power-datepicker-date-trigger"]').textContent.trim(), 'Select Date', 'Date is correctly cleared when clear button is clicked.');
+    assert.equal(this.element.querySelector('[data-test-type="power-datetime-picker"] [data-test-type="time-selector"]').textContent.trim(), 'Select Time', 'Time is correctly cleared when clear button is clicked.');
   });
 
   test('Calendar Navigation', async function(assert) {
@@ -236,3 +251,4 @@ module('Integration | Component | custom-elements/power-datetime-picker', functi
 });
 
 // TODO when default date is out of minDate and maxDate range.
+// TODO keyboard option for clear power select and datetime.

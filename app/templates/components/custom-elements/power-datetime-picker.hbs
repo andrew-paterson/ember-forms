@@ -1,17 +1,18 @@
-{{#power-datepicker selected=selected onSelect=(action "setDate" value="date") closeOnSelect=false onCenterChange=(action (mut center) value="date") center=center as |dp|}}
+{{#power-datepicker
+  selected=selected onSelect=(action "setDate" value="date") closeOnSelect=false onCenterChange=(action (mut center) value="date") center=center as |dp|}}
   {{#dp.trigger tabindex="-1" onKeyDown=(action "onTriggerKeydown") }}
-        <button type="button" class="date-button" data-test-type="power-datepicker-date-trigger" readonly onfocus={{action "onTriggerFocus" dp}}>
-          {{svg/icon-calendar}}
-          {{#if value}}
-            {{moment-format value dateDisplayFormat}}
-          {{else}}
-            {{#if dateButtonComponent}}
-              {{component dateButtonComponent}}
-            {{else}}
-              {{or dateButtonText "Select Date"}}
-            {{/if}}
-          {{/if}}
-        </button>
+    <button type="button" class="date-button" data-test-type="power-datepicker-date-trigger" readonly onfocus={{action "onTriggerFocus" dp}}>
+      {{svg/icon-calendar}}
+      {{#if value}}
+        {{moment-format value dateDisplayFormat}}
+      {{else}}
+        {{#if dateButtonComponent}}
+          {{component dateButtonComponent}}
+        {{else}}
+          {{or dateButtonText "Select Date"}}
+        {{/if}}
+      {{/if}}
+    </button>
   {{/dp.trigger}}
   {{#dp.content class="demo-datepicker-small ember-power-calendar" }}
     <nav class="ember-power-calendar-nav">
@@ -65,4 +66,7 @@
       <button class="time-select-placeholder disabled" disabled>{{or timeButtonText "Select Time"}}</button>
     {{/if}}
   </div>
+{{/if}}
+{{#if value}}
+  <div class="clear-date-time-button" data-test-id="datetime-picker-clear-datetime" onclick={{action 'clearDateTime'}}>×</div>
 {{/if}}
