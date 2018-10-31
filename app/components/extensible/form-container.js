@@ -8,7 +8,6 @@ export default Component.extend({
 
   actions: {
     saveSuccess: function(response, formFields, formMetaData) {
-
       var successMessage = {
         'type': 'success',
         'content': formMetaData.submitSuccessMessage,

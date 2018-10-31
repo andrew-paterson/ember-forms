@@ -2,16 +2,16 @@ import EmberObject from '@ember/object';
 
 export default function generateEmberValidatingFormField(field, index, formSchema, existing) {
   var fieldElementComponents = {
-    "input": "custom-elements/form-field-input",
-    "textarea": "custom-elements/form-field-textarea",
-    "select": "custom-elements/form-field-power-select",
-    "date": "custom-elements/form-field-date-bootstrap",
-    "powerDatePicker": "custom-elements/form-field-power-datepicker",
-    "datePikaday": "custom-elements/form-field-date-pikaday",
-    "singleCheckbox": "custom-elements/form-field-checkbox",
-    "radioButtonGroup": "custom-elements/radio-button-group",
-    "checkboxGroup": "custom-elements/checkbox-group",
-    "textSeparator": "custom-elements/form-field-text-separator"
+    "input":            "form-field-input",
+    "textarea":         "form-field-textarea",
+    "powerSelect":      "form-field-power-select",
+    "powerDatePicker":  "form-field-power-datepicker",
+    "singleCheckbox":   "form-field-checkbox",
+    "radioButtonGroup": "form-field-radio-button-group",
+    "checkboxGroup":    "form-field-checkbox-group",
+    "textSeparator":    "form-field-text-separator",
+    // "datePikaday":      "custom-elements/form-field-date-pikaday",
+    // "date":             "custom-elements/form-field-date-bootstrap"
   };
 
   if (!field.fieldId) {
@@ -56,6 +56,7 @@ export default function generateEmberValidatingFormField(field, index, formSchem
 
   var required;
   if (field.validationRules) {
+    console.log(field.validationRules);
     if (field.validationRules.findBy('validationMethod', 'required')) {
       required = true;
     }

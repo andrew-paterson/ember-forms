@@ -23,10 +23,10 @@ export default Component.extend({
       this.set('selectedHour', this.get('defaultTime').split(':')[0]);
       this.set('selectedMinute', this.get('defaultTime').split(':')[1]);
     }
-      if (this.get('calendarStartMonth')) {
-        var split = this.get('calendarStartMonth').split('/');
-        this.set('calendarStartDate', moment().year(parseInt(split[1])).month(parseInt(split[0])-1).day(1));
-      }
+    if (this.get('calendarStartMonth')) {
+      var split = this.get('calendarStartMonth').split('/');
+      this.set('calendarStartDate', moment().year(parseInt(split[1])).month(parseInt(split[0]) - 1).day(1));
+    }
   },
 
   updateDateTime: observer('selectedDate', 'selectedHour', 'selectedMinute', function() {
@@ -59,7 +59,6 @@ export default Component.extend({
 
   actions: {
     clearDateTime: function() {
-      console.log('clearDateTime');
       this.onSelectDateTime(null);
     },
 
@@ -72,15 +71,14 @@ export default Component.extend({
     },
 
     onTriggerFocus: function(datepicker) {
-      console.log('triggerFocus');
       datepicker.actions.open();
       var startDate = this.get('calendarStartDate') || moment().toDate()
       if (this.get('maxDate') < moment().toDate()) {
         startDate = this.get('maxDate');
       }
       if (this.get('minDate') > moment().toDate() ||
-      this.get('minDate') < moment().toDate() && this.get('maxDate') < moment().toDate() ||
-      this.get('minDate') > moment().toDate() && this.get('maxDate') > moment().toDate()) {
+        this.get('minDate') < moment().toDate() && this.get('maxDate') < moment().toDate() ||
+        this.get('minDate') > moment().toDate() && this.get('maxDate') > moment().toDate()) {
         startDate = this.get('minDate');
       }
       this.set('center', startDate);
@@ -113,7 +111,6 @@ export default Component.extend({
     },
 
     onTriggerKeydown(datepicker, e) {
-      console.log(e);
       if (e.keyCode === 13) {
         this.send('setDate', this.get('selected'));
         e.preventDefault();

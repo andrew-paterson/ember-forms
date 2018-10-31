@@ -1,8 +1,8 @@
 {{extensible/form-field-label formField=formField}}
 <div class="field-controls">
-  <div data-test-type='form-field-date-picker'>
+  <div data-test-type="form-field-date-picker">
     {{bootstrap-datepicker
-      data-test-type='date'
+      data-test-type="date"
       value=(readonly formField.value)
       calendarWeeks=formField.calendarWeeks
       clearBtn=formField.clearBtn
@@ -32,6 +32,6 @@
       id=formField.name
     }}
   </div>
-  {{component inputIcon class='form-field-icon'}}
+  {{component inputIcon class="form-field-icon"}}
 </div>
 {{extensible/form-field-error formField=formField}}

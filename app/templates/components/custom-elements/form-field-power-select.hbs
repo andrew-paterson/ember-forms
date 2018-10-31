@@ -1,8 +1,8 @@
 {{extensible/form-field-label formField=formField}}
 <div class="field-controls">
-  <div data-test-type='form-field-power-select'>
+  <div data-test-type="form-field-power-select">
     {{#power-select
-      triggerClass='validation-area'
+      triggerClass="validation-area"
       options=formField.options
       selected=(readonly formField.value)
       searchPlaceholder=formField.searchPlaceholder
@@ -16,6 +16,6 @@
       {{option}}
     {{/power-select}}
   </div>
- {{component inputIcon class='form-field-icon'}}
+  {{component inputIcon class="form-field-icon"}}
 </div>
 {{extensible/form-field-error formField=formField}}

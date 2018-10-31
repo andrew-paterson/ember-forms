@@ -1,20 +1,20 @@
 <h3>{{formMetaData.title}}</h3>
-<form {{action "submit" on="submit"}} data-test-id='validating-form'>
+<form {{action "submit" on="submit"}} data-test-id="validating-form">
   {{#each formFields as |formField index|}}
     {{extensible/validating-form-field
       data-test-validating-field
       formField=formField
-      setFormFieldValue=(action 'setFormFieldValue')
-      setFormFieldError=(action 'setFormFieldError')
-      customValidations=(action 'customValidations')
+      setFormFieldValue=(action "setFormFieldValue")
+      setFormFieldError=(action "setFormFieldError")
+      customValidations=(action "customValidations")
       afterKeyUpAction=afterKeyUpAction
       afterValidationAction=afterValidationAction
-      data-test-id=(concat 'validating-field-' formField.fieldId)
+      data-test-id=(concat "validating-field-" formField.fieldId)
     }}
   {{/each}}
-  {{custom-elements/form-submit-input value=submitButtonText requestInFlight=requestInFlight data-test-id='evf-submit-form-button'}}
+  {{custom-elements/form-submit-input value=submitButtonText requestInFlight=requestInFlight data-test-id="evf-submit-form-button"}}
   {{blocks/form-submit-feedback formMetaData=formMetaData}}
   {{#if formMetaData.showResetButton}}
-    <button  type="button" data-test-id='evf-reset-form-button' onclick={{action 'resetForm'}}>{{resetButtonText}}</button>
+    <button type="button" data-test-id="evf-reset-form-button" onclick={{action "resetForm"}}>{{resetButtonText}}</button>
   {{/if}}
 </form>

@@ -1,107 +1,104 @@
 div.field-controls {
-	margin-bottom: @input-margin-bottom;
-	position: relative;
+  margin-bottom: @input-margin-bottom;
+  position: relative;
 }
 
-div.form-field div.svg.form-field-icon {
-	position: absolute;
-	width: 20px;
-	right: 10px;
-	top: 1px;
+div.form-field svg.form-field-icon {
+  position: absolute;
+  width: 20px;
+  right: 10px;
+  top: 1px;
 }
 
 .form-field.readonly input,
-.form-field.disabled input  {
-	background-color: #e9e9e9;
-	cursor: not-allowed;
+.form-field.disabled input {
+  background-color: #e9e9e9;
+  cursor: not-allowed;
 }
 
 .validates input {
-	padding-right: 36px;
+  padding-right: 36px;
 }
 
 div.form-field.required {
-	div.svg.form-field-icon svg {
-		fill: @app-colour-shade-two;
-		margin-top: 9px;
-	}
+  svg.form-field-icon svg {
+    fill: @app-colour-shade-two;
+    margin-top: 9px;
+  }
 }
 
 div.form-field.valid {
-	.validation-area {
-		border-color: @input-valid-border-color;
-		background: @input-valid-background-color;
-	}
-	div.svg.form-field-icon svg {
-		fill: @input-valid-border-color;
-		margin-top: 13px;
-	}
+  .validation-area {
+    border-color: @input-valid-border-color;
+    background: @input-valid-background-color;
+  }
+  svg.form-field-icon svg {
+    fill: @input-valid-border-color;
+    margin-top: 13px;
+  }
 }
 
 div.form-field.invalid {
-	.validation-area {
-		border-color: @input-invalid-border-color;
-		background: @input-invalid-background-color;
-	}
-
-	div.svg.form-field-icon svg {
-		fill: @input-invalid-border-color;
-		margin-top: 10px;
-	}
-
-	div.field-error {
-		min-height: @input-margin-bottom;
-		color: @error-text-color;
-		font-weight: 700;
-		margin-left: 10px;
-		div.svg {
-			height: 100%;
-			width: 20px;
-			float: left;
-			fill: @error-text-color;
-		}
-	}
-
-	div.field-controls + div.field-error {
-		margin-top: -1*@input-margin-bottom;
-	}
+  .validation-area {
+    border-color: @input-invalid-border-color;
+    background: @input-invalid-background-color;
+  }
+  svg.form-field-icon svg {
+    fill: @input-invalid-border-color;
+    margin-top: 10px;
+  }
+  div.field-error {
+    min-height: @input-margin-bottom;
+    color: @error-text-color;
+    font-weight: 700;
+    margin-left: 10px;
+    svg {
+      height: 100%;
+      width: 20px;
+      float: left;
+      fill: @error-text-color;
+    }
+  }
+  div.field-controls+div.field-error {
+    margin-top: -1*@input-margin-bottom;
+  }
 }
 
 div.form-field.power-select {
-	max-width: 300px;
+  max-width: 300px;
 }
 
-div.form-field.power-select  div.field-container > div.svg {
-	right: -24px;
+div.form-field.power-select div.field-container>svg {
+  right: -24px;
 }
 
 div.form-field .checkbox-group-container,
 div.form-field .radio-button-group-container {
-	position: relative;
-	padding: 5px 5px;
-	border: 2px solid @input-border-color;
-	background: #fff;
-	.border-radius;
+  position: relative;
+  padding: 5px 5px;
+  border: 2px solid @input-border-color;
+  background: #fff;
+  .border-radius;
 }
 
 div.form-field.field-type-radio-button-group,
 div.form-field.field-type-checkbox-group {
-	legend {
-		margin-bottom: 5px;
-	}
-	position: relative;
-	.labelled-radio-button,
-	.labelled-checkbox {
-		margin: 0 0 5px 10px;
-	}
+  legend {
+    margin-bottom: 5px;
+  }
+  position: relative;
+  .labelled-radio-button,
+  .labelled-checkbox {
+    margin: 0 0 5px 10px;
+  }
 }
 
 @media (max-width: 979px) {
-	div.form-field.field-type-radio-button-group,
-	div.form-field.field-type-checkbox-group {
-		.labelled-radio-button,
-		.labelled-checkbox {
-			margin-bottom: 15px;
-		}
-	}
+  div.form-field.field-type-radio-button-group,
+  div.form-field.field-type-checkbox-group {
+    .labelled-radio-button,
+    .labelled-checkbox {
+      margin-bottom: 15px;
+    }
+  }
 }

@@ -105,7 +105,7 @@ export default Component.extend({
     },
 
     setType: function(groupValue, propertyName) {
-      this.set(`currentField.${propertyName}`, groupValue);
+        this.set(`currentField.${propertyName}`, groupValue);
       this.send('saveField');
     }
   },

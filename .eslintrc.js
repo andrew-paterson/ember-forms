@@ -1,6 +1,7 @@
 module.exports = {
   globals: {
     server: true,
+    "moment": true
   },
   root: true,
   parserOptions: {
@@ -18,6 +19,8 @@ module.exports = {
     browser: true
   },
   rules: {
+    'ember-cli/ember-cli-eslint/attribute-indentation': 0,
+    // 'no-unused-vars': 0
   },
   overrides: [
     // node files

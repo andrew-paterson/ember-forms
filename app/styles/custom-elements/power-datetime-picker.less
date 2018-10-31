@@ -5,19 +5,15 @@
   border-radius: @input-border-radius;
   background: @input-background-color;
   padding: 10px;
-          input {
-            border-width: 0;
-            padding-right: 0;
-            background: transparent;
-          }
+
+  input {
+    border-width: 0;
+    padding-right: 0;
+    background: transparent;
+  }
 }
 
-
-
-
-
 .ember-power-datepicker-trigger {
-
   margin-right: 10px;
 }
 
@@ -27,7 +23,8 @@
   background: @button-background-color;
   border-radius: @button-border-radius;
   padding-left: @button-side-padding;
-  div.svg,
+
+  svg,
   svg {
     margin-top: 5px;
     display: inline-block;
@@ -35,6 +32,7 @@
     width: auto;
     fill: #fff;
   }
+
   .ember-power-select-trigger {
     padding-left: 0;
     padding-right: 0;
@@ -42,11 +40,13 @@
     border-width: 0;
     background: transparent;
     color: @button-color;
+
     .ember-power-select-selected-item {
-        margin-top: 2px;
-        margin-left: 4px;
-        display: inline-block;
+      margin-top: 2px;
+      margin-left: 4px;
+      display: inline-block;
     }
+
     .ember-power-select-status-icon {
       display: none;
     }
@@ -61,18 +61,21 @@
   }
 
   .time-select-trigger.hour {
-      text-align: right;
-      .ember-power-select-selected-item {
-        margin-right: 4px;
-        margin-left: 18px;
-      }
+    text-align: right;
+
+    .ember-power-select-selected-item {
+      margin-right: 4px;
+      margin-left: 18px;
+    }
   }
+
   .time-divider {
     color: @button-color;
     font-weight: @button-font-weight;
     line-height: 37px;
   }
 }
+
 // .time-select:hover {
 //   background: @button-hover-background-color;
 // }

@@ -1,15 +1,16 @@
 <ul>
-	<li  {{action 'toggleFullNav'}} class='menu-toggle'>
-		<div class='hamburger'>
-			<span class='hamburger-stripe'></span>
-			<span class='hamburger-stripe'></span>
-			<span class='hamburger-stripe'></span>
-		</div>
-		{{svg/icon-collapse-menu class='nav-collapse'}}
-	</li>
-  <li>{{#link-to 'dashboard' class='dashboard'}}{{svg/icon-home class='dashboard'}}Dashboard{{/link-to}}</li>
-	<li>{{#link-to 'signup' class='signup'}}{{svg/icon-user class='dashboard'}}Signup{{/link-to}}</li>
-	<li>{{#link-to 'edit-account' class='edit-account'}}{{svg/icon-edit-pencil class='dashboard'}}Edit Account{{/link-to}}</li>
-	<li>{{#link-to 'dynamic-forms' class='dynamic-forms'}}{{svg/icon-new-doc class='dashboard'}}Dynamic Forms{{/link-to}}</li>
-	<li>{{#link-to 'users' class='users'}}{{svg/icon-user class='users'}}Users{{/link-to}}</li>
+  <li {{action "toggleFullNav"}} class="menu-toggle">
+    <div class="hamburger">
+      <span class="hamburger-stripe"></span>
+      <span class="hamburger-stripe"></span>
+      <span class="hamburger-stripe"></span>
+    </div>
+    {{svg/icon-collapse-menu class="nav-collapse"}}
+  </li>
+  <li>{{#link-to "dashboard" class="dashboard"}}{{svg/icon-home class="dashboard"}}Dashboard{{/link-to}}</li>
+  <li>{{#link-to "signup" class="signup"}}{{svg/icon-user class="dashboard"}}Signup{{/link-to}}</li>
+  <li>{{#link-to "edit-account" class="edit-account"}}{{svg/icon-edit-pencil class="dashboard"}}Edit Account{{/link-to}}</li>
+  <li>{{#link-to "dynamic-forms" class="dynamic-forms"}}{{svg/icon-new-doc class="dashboard"}}Dynamic Forms{{/link-to}}</li>
+  <li>{{#link-to "users" class="users"}}{{svg/icon-user class="users"}}Users{{/link-to}}</li>
 </ul>
+{{test-one}}

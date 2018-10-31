@@ -1,51 +1,49 @@
 <h3>Add a new field</h3>
 {{custom-elements/form-field-input
   data-test-id="fieldLabel"
-  fieldId='label'
-  propertyName='label'
+  fieldId="label"
+  propertyName="label"
   value=fieldLabel
   error=fieldLabelError
-  label='Field Label'
-  fieldUpdatedAction=(action 'validateField')
-  keyUpAction=(action 'validateField')
-  type='text'
+  label="Field Label"
+  fieldUpdatedAction=(action "validateField")
+  keyUpAction=(action "validateField")
+  type="text"
   trim=true
   required=true
-  validateField=(action 'validateField')
+  validateField=(action "validateField")
   validateOnInsert=true
   showLabel=true
 }}
-
-  {{custom-elements/radio-button-group
-    fieldId='fieldType'
-    propertyName='fieldType'
+{{custom-elements/radio-button-group
+    fieldId="fieldType"
+    propertyName="fieldType"
     value=(readonly fieldType)
     options=fieldTypes
-    fieldUpdatedAction=(action 'setType')
+    fieldUpdatedAction=(action "setType")
     showLabel=true
   }}
-
-  {{#if showOptionsField}}
-    <div class="options-container">
-      <h4>Add some options</h4>
-      {{#each currentField.fieldOptions as | option index|}}
-        {{custom-elements/form-field-input
+{{#if showOptionsField}}
+  <div class="options-container">
+    <h4>Add some options</h4>
+    {{#each currentField.fieldOptions as | option index|}}
+      {{custom-elements/form-field-input
           data-test-id="optionLabel"
           fieldId=option.id
-          propertyName='optionLabel'
+          propertyName="optionLabel"
           value=option.label
           error=optionLabelError
-          label=(concat 'Option ' index)
-          fieldUpdatedAction=(action 'updateOption')
-          keyUpAction=(action 'updateOption')
-          type='text'
+          label=(concat "Option " index)
+          fieldUpdatedAction=(action "updateOption")
+          keyUpAction=(action "updateOption")
+          type="text"
           trim=true
           required=true
-          validateField=(action 'validateField')
+          validateField=(action "validateField")
           validateOnInsert=true
         }}
-      {{/each}}
-      <button onclick={{action 'addOption'}}>Add another option</button>
-    </div>
-  {{/if}}
-<button onclick={{action 'saveField'}}>Save</button>
+    {{/each}}
+    <button onclick={{action "addOption"}}>Add another option</button>
+  </div>
+{{/if}}
+<button onclick={{action "saveField"}}>Save</button>

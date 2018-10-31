@@ -1,4 +1,4 @@
-<label for={{if name (concat elementId '-' name)}}>
-  <input type="checkbox" checked={{readonly value}} onclick={{action 'checkboxClicked' value="target.checked"}} disabled={{disabled}} id={{if name (concat elementId '-' name)}} name={{name}}>
+<label for={{if name (concat elementId "-" name)}}>
+  <input type="checkbox" checked={{readonly value}} onclick={{action "checkboxClicked" value="target.checked"}} disabled={{disabled}} id={{if name (concat elementId "-" name)}} name={{name}}>
   {{#if labelComponent}}{{component labelComponent}}{{else if label}}{{label}}{{/if}}
 </label>

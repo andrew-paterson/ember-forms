@@ -2,14 +2,14 @@
   {{component formField.component
     formField=formField
     inputIcon=inputIcon
-    onFocusOut=(action 'onFocusOut')
-    onFocusIn=(action 'onFocusIn')
-    onKeyUp=(action 'onKeyUp')
+    onFocusOut=(action "onFocusOut")
+    onFocusIn=(action "onFocusIn")
+    onKeyUp=(action "onKeyUp")
   }}
 {{else}}
   {{component formField.component
     formField=formField
     inputIcon=inputIcon
-    onUserInteraction=(action 'onUserInteraction')
+    onUserInteraction=(action "onUserInteraction")
   }}
 {{/if}}

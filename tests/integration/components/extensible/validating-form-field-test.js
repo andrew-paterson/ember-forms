@@ -17,7 +17,7 @@ module('Integration | Component | extensible/validating-form-field', function(ho
     // }
     this.set('fieldSchema', fieldSchema);
     await render(hbs`{{extensible/validating-form-field fieldSchema=fieldSchema}}`);
-    assert.ok(this.element.querySelector('label').textContent === 'Test Input', 'Label renders correctly.');
+    assert.ok(this.element.querySelector('label').textContent.trim() === 'Test Input', 'Label renders correctly.');
     assert.ok(this.element.querySelector('input').placeholder === 'Test Input', 'Placeholder uses label value by default.');
     assert.ok(this.element.querySelector('input'), 'Input is rendered');
     assert.ok(this.element.querySelector('input').type === 'text', 'Input renders as type text if inputType is not specified.');
@@ -26,7 +26,7 @@ module('Integration | Component | extensible/validating-form-field', function(ho
     this.set('fieldSchema.placeholder', 'Test Placeholder');
     await render(hbs`{{extensible/validating-form-field fieldSchema=fieldSchema}}`);
     assert.ok(this.element.querySelector('input:focus'), '[Autofocus] Input is correctly auto focussed when the "autoFocus" property is true.');
-    assert.ok(this.element.querySelector('input').placeholder === 'Test Placeholder' && this.element.querySelector('label').textContent === 'Test Input', 'Custom placeholder renders correctly.');
+    assert.ok(this.element.querySelector('input').placeholder === 'Test Placeholder' && this.element.querySelector('label').textContent.trim() === 'Test Input', 'Custom placeholder renders correctly.');
 
     this.set('fieldSchema.inputType', 'number');
     await render(hbs`{{extensible/validating-form-field fieldSchema=fieldSchema}}`);
@@ -82,7 +82,7 @@ module('Integration | Component | extensible/validating-form-field', function(ho
     await focus(this.element.querySelector('input'));
     await blur(this.element.querySelector('input'));
     assert.ok(this.element.querySelector('[data-test-id="svg-icon-alert"]'), 'Alert icon displays if validation is failed.');
-    assert.equal(this.element.querySelector('[data-test-id="field-error"]').textContent, 'This field is required.', 'Correct error message shows on focus out of a required field which is empty.');
+    assert.equal(this.element.querySelector('[data-test-id="field-error"]').textContent.trim(), 'This field is required.', 'Correct error message shows on focus out of a required field which is empty.');
     assert.notOk(this.element.querySelector('div').classList.contains('valid'), "Valid class does not display on invalid field.");
     assert.ok(this.element.querySelector('div').classList.contains('invalid'), "Invalid class displays on invalid field.");
     assert.ok(this.element.querySelector('[data-test-id="field-error"] [data-test-id="svg-icon-curved-arrow-right"]'), 'Arrow icon displays with error message.');
@@ -93,7 +93,7 @@ module('Integration | Component | extensible/validating-form-field', function(ho
     await fillIn(this.element.querySelector('input'), 'test');
     await triggerKeyEvent(this.element.querySelector('input'), "keyup", 1);
     await blur(this.element.querySelector('input'));
-    assert.ok(this.element.querySelector('[data-test-id="field-error"]') && this.element.querySelector('[data-test-id="field-error"]').textContent !== 'This field is required.', 'Validation rules are applied in the order that they are passed.');
+    assert.ok(this.element.querySelector('[data-test-id="field-error"]') && this.element.querySelector('[data-test-id="field-error"]').textContent.trim() !== 'This field is required.', 'Validation rules are applied in the order that they are passed.');
 
     this.set('fieldSchema.hideSuccessValidation', true);
     await render(hbs`{{extensible/validating-form-field fieldSchema=fieldSchema}}`);
@@ -112,7 +112,7 @@ module('Integration | Component | extensible/validating-form-field', function(ho
     await render(hbs`{{extensible/validating-form-field fieldSchema=fieldSchema}}`);
     await focus(this.element.querySelector('input'));
     await blur(this.element.querySelector('input'));
-    assert.equal(this.element.querySelector('[data-test-id="field-error"]').textContent, 'Custom validation error message.', 'Custom validation error message displays if passed.');
+    assert.equal(this.element.querySelector('[data-test-id="field-error"]').textContent.trim(), 'Custom validation error message.', 'Custom validation error message displays if passed.');
 
   });
 

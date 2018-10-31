@@ -36,11 +36,11 @@ module('Acceptance | Validating form', function(hooks) {
     await click(document.querySelector('[data-test-id="evf-submit-form-button"]'));
     await isSettled();
 
-    assert.equal(document.querySelector('[data-test-id="system-message"] .message-content').textContent, 'Success', 'Default success message displays on successful form submission, if "submitSuccessMessage" is null.');
+    assert.equal(document.querySelector('[data-test-id="system-message"] .message-content').textContent.trim(), 'Success', 'Default success message displays on successful form submission, if "submitSuccessMessage" is null.');
 
     await visit('/users');
     assert.equal(document.querySelectorAll('[data-test-id="users-table"] tbody tr').length, 1, 'Submitting creates a new record.');
-    assert.equal(document.querySelector('[data-test-id="users-table"] tr:first-child [data-test-id="name"]').textContent, 'Little Sebastian', 'Correct values are saved in the new record.');
+    assert.equal(document.querySelector('[data-test-id="users-table"] tr:first-child [data-test-id="name"]').textContent.trim(), 'Little Sebastian', 'Correct values are saved in the new record.');
 
     await visit('/signup');
     await fillIn(document.querySelector('[data-test-id="validating-field-name"] input'), 'Little Sebastian');
@@ -59,7 +59,7 @@ module('Acceptance | Validating form', function(hooks) {
     await fillIn(document.querySelector('[data-test-id="validating-field-email"] input'), 'alreadytaken@yahoo.com');
     await click(document.querySelector('[data-test-id="evf-submit-form-button"]'));
     await isSettled();
-    assert.equal(document.querySelector('[data-test-id="system-message"] .message-content').textContent, 'Email already taken.', 'Error message shows where POST request returns error.');
+    assert.equal(document.querySelector('[data-test-id="system-message"] .message-content').textContent.trim(), 'Email already taken.', 'Error message shows where POST request returns error.');
     assert.ok(document.querySelector('[data-test-id="validating-field-email"]').classList.contains('invalid'), 'Email field gets invalid class when server returns "Email already taken" error.');
     assert.ok(document.querySelector('[data-test-id="validating-field-email"] [data-test-id="field-error"]'), 'Email field gets error message when server returns "Email already taken" error.');
 
@@ -82,7 +82,7 @@ module('Acceptance | Validating form', function(hooks) {
     await click(document.querySelector('[data-test-id="validating-field-settings.mailing_list"] input'));
     await click(document.querySelector('[data-test-id="evf-submit-form-button"]'));
     await isSettled();
-    assert.equal(document.querySelector('[data-test-id="system-message"] .message-content').textContent, 'Thank you for signing up.', 'Custom success message displays on successful form submission if "submitSuccessMessage" is specified.');
+    assert.equal(document.querySelector('[data-test-id="system-message"] .message-content').textContent.trim(), 'Thank you for signing up.', 'Custom success message displays on successful form submission if "submitSuccessMessage" is specified.');
 
     var allClear = function() {
       var allValues = [];
@@ -115,7 +115,7 @@ module('Acceptance | Validating form', function(hooks) {
     server.createList('user', 1);
     await visit('/users');
     // TODO test all fields
-    var firstUsersName = document.querySelector('[data-test-id="users-table"] tbody tr:first-child [data-test-id="name"]').textContent;
+    var firstUsersName = document.querySelector('[data-test-id="users-table"] tbody tr:first-child [data-test-id="name"]').textContent.trim();
     await visit('/edit-account');
     assert.equal(document.querySelector('[data-test-id="validating-field-name"] input').value, firstUsersName, 'Given record pre-populates the form.')
     // TODO need a way to properly test this.
@@ -129,7 +129,7 @@ module('Acceptance | Validating form', function(hooks) {
     await visit('/users');
     assert.equal(document.querySelectorAll('[data-test-id="users-table"] tbody tr').length, 1, 'Submit does not insert a new record.');
 
-    assert.equal(document.querySelector('[data-test-id="users-table"] tbody tr:first-child [data-test-id="name"]').textContent, 'Little Sebastian', 'User edits are successfully saved when user clicks "Submit".');
+    assert.equal(document.querySelector('[data-test-id="users-table"] tbody tr:first-child [data-test-id="name"]').textContent.trim(), 'Little Sebastian', 'User edits are successfully saved when user clicks "Submit".');
 
   });
 

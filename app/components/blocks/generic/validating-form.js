@@ -1,4 +1,3 @@
-// TODO arguments sent with submitAction change depending on whether the forms creates a new record or updates an existing one. This is differentiated by whether or not the "recordToUpdate" property is set, in which case it sends the updated model record.
 import Component from '@ember/component';
 import { computed } from '@ember/object';
 import Object from '@ember/object';

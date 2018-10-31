@@ -313,8 +313,8 @@ button.secondary svg,
   fill: @button-background-color;
 }
 
-button.secondary:hover div.svg svg,
-.button.secondary:hover div.svg svg {
+button.secondary:hover svg svg,
+.button.secondary:hover svg svg {
   fill:  #fff;
 }
 
@@ -466,8 +466,8 @@ input[type=radio]:after {
     border-radius: 50%;
 }
 
-.input-radio-checkbox div.svg,
-.input-radio-checkbox div.svg {
+.input-radio-checkbox svg,
+.input-radio-checkbox svg {
   margin: 4px 2px;
   width: 14px;
 }
@@ -478,12 +478,12 @@ input[type=radio]:after {
   fill: #fff;
 }
 
-.all-selected .radio-checkbox-dummy div.svg path.tick,
-.input-radio-checkbox input:checked + .radio-checkbox-dummy div.svg path.tick {
+.all-selected .radio-checkbox-dummy svg path.tick,
+.input-radio-checkbox input:checked + .radio-checkbox-dummy svg path.tick {
   display: block;
 }
 
-.some-selected .input-radio-checkbox .radio-checkbox-dummy div.svg path.line {
+.some-selected .input-radio-checkbox .radio-checkbox-dummy svg path.line {
   display: block;
 }
 
@@ -632,42 +632,42 @@ div.form-element-container.radio label {
 .body-content ol ol {
   margin-bottom: 0;
 }
-div.svg,
+svg,
 svg {
   width: 100%;
   height: auto;
   line-height: 0;
 }
 
-button div.svg,
-.button div.svg {
+button svg,
+.button svg {
   margin-right: @button-side-padding - 2px;
   margin-top: -5px;
   display: inline-block;
   vertical-align: middle;
 }
 
-button div.svg,
 button svg,
-.button div.svg,
+button svg,
+.button svg,
 .button svg {
   height: 20px;
   width: auto;
   fill: #fff;
 }
 
-button div.svg .tick {
+button svg .tick {
 width: 22px;
 }
 
-button.large div.svg,
 button.large svg,
-.button.large div.svg,
+button.large svg,
+.button.large svg,
 .button.large svg {
   height: 30px;
 }
 
-div.svg.inline {
+svg.inline {
   width: 20px;
   display: inline-block;
 
@@ -744,7 +744,7 @@ img.border {
 }
 
 div.in-page-alert {
-  button div.svg {
+  button svg {
     float: left;
     width: auto;
   }
@@ -773,7 +773,7 @@ ul.file-download-list li {
   margin-left: 0;
 }
 
-ul.file-download-list li div.svg {
+ul.file-download-list li svg {
   display: inline-block;
   width: 20px;
   margin: 0 10px 0 0;

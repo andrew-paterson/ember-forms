@@ -12,21 +12,21 @@ module('Integration | Component | blocks/validating-form', function(hooks) {
 
     await render(hbs`{{blocks/generic/validating-form formSchema=formSchema}}`);
     assert.ok(this.element.querySelector('form'), 'Form element is rendered.');
-    assert.ok(this.element.querySelector('h3').textContent === 'Sign up form', 'Form header renders.');
+    assert.ok(this.element.querySelector('h3').textContent.trim() === 'Sign up form', 'Form header renders.');
     assert.ok(this.element.querySelector('[data-test-id="evf-submit-form-button"]').type === 'submit', 'Submit form button renders as an input with type="submit".');
-    assert.equal(this.element.querySelector('[data-test-id="evf-submit-form-button"]').textContent, 'Submit', 'Correct default text renders on submit form button.');
+    assert.equal(this.element.querySelector('[data-test-id="evf-submit-form-button"]').textContent.trim(), 'Submit', 'Correct default text renders on submit form button.');
     this.set('formSchema.submitButtonText', 'Request account');
     await render(hbs`{{blocks/generic/validating-form formSchema=formSchema}}`);
-    assert.ok(this.element.querySelector('[data-test-id="evf-submit-form-button"]').textContent === 'Request account', 'Custom text renders on the submit button if specified in form schema.');
+    assert.ok(this.element.querySelector('[data-test-id="evf-submit-form-button"]').textContent.trim() === 'Request account', 'Custom text renders on the submit button if specified in form schema.');
     assert.notOk(this.element.querySelector('[data-test-id="evf-reset-form-button"]'), 'Reset button does not show by default.');
     this.set('formSchema.showResetButton', true);
     await render(hbs`{{blocks/generic/validating-form formSchema=formSchema}}`);
-    assert.ok(this.element.querySelector('[data-test-id="evf-reset-form-button"]').textContent === 'Reset', 'If "showResetButton" is true, show the reset button with the correct default button text.');
+    assert.ok(this.element.querySelector('[data-test-id="evf-reset-form-button"]').textContent.trim() === 'Reset', 'If "showResetButton" is true, show the reset button with the correct default button text.');
 
     this.set('formSchema.resetButtonText', 'Cancel');
     await render(hbs`{{blocks/generic/validating-form formSchema=formSchema}}`);
-    assert.ok(this.element.querySelector('[data-test-id="evf-reset-form-button"]').textContent === 'Cancel', 'Custom text renders on the reset button if specified in form schema.');
-    assert.ok(this.element.querySelector('[data-test-id="validating-field-name"] label').textContent === 'Name', 'Labels show on fields by default.');
+    assert.ok(this.element.querySelector('[data-test-id="evf-reset-form-button"]').textContent.trim() === 'Cancel', 'Custom text renders on the reset button if specified in form schema.');
+    assert.ok(this.element.querySelector('[data-test-id="validating-field-name"] label').textContent.trim() === 'Name', 'Labels show on fields by default.');
   });
 
   test('Form defaults', async function(assert) {

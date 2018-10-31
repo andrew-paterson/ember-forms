@@ -1,10 +1,10 @@
 {{extensible/form-field-label formField=formField}}
 <div class="field-controls">
   {{input
-    class='validation-area'
+    class="validation-area"
     value=(readonly formField.value)
-    focusOut=(action onFocusOut value='target.value')
-    focusIn=(action onFocusIn value='target.value')
+    focusOut=(action onFocusOut value="target.value")
+    focusIn=(action onFocusIn value="target.value")
     placeholder=formField.placeholder
     autofocus=formField.autofocus
     type=formField.inputType
@@ -13,6 +13,6 @@
     name=formField.name
     id=formField.name
   }}
-  {{component inputIcon class='form-field-icon'}}
+  {{component inputIcon class="form-field-icon"}}
 </div>
 {{extensible/form-field-error formField=formField}}
