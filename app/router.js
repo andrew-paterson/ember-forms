@@ -20,6 +20,7 @@ Router.map(function() {
   this.route('signup');
   this.route('users');
   this.route('edit-account');
+  this.route('changeset-test');
 });
 
 Router.reopen({

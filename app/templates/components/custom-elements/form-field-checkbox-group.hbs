@@ -1,0 +1,13 @@
+<div class="checkbox-group-container field-controls validation-area">
+  {{extensible/form-field-legend formField=formField}}
+  {{component inputIcon class="form-field-icon"}}
+  {{#each formField.options as |option|}}
+    {{custom-elements/labelled-checkbox
+      value=(readonly option.value)
+      label=option.label
+      changedAction=(action "checkboxToggled" option.key)
+      name=formField.name
+    }}
+  {{/each}}
+</div>
+{{extensible/form-field-error formField=formField}}
