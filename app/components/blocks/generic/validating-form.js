@@ -1,6 +1,5 @@
 import Component from '@ember/component';
 import { computed } from '@ember/object';
-import Object from '@ember/object';
 import generateEmberValidatingFormFields from 'ember-starter/utils/generate-ember-validating-form-fields';
 import validateField from 'ember-starter/utils/validate-field';
 
@@ -74,7 +73,7 @@ export default Component.extend({
       value = value || '';
       formField.set('value', value);
       if (this.customTransforms) {
-        this.customTransforms(this.get('formFields'), fieldId, this.get('formMetaData'));
+        this.customTransforms(this.get('formFields'), formField.get('fieldId'), this.get('formMetaData'));
       }
     },
 

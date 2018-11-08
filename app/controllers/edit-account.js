@@ -6,7 +6,7 @@ import { inject as service } from '@ember/service';
 import generateEmberValidatingFormFields from 'ember-starter/utils/generate-ember-validating-form-fields';
 
 export default Controller.extend(GeneralControllerActionsMixin, {
-  session: Ember.inject.service(),
+  session: service(),
   systemMessage: alias('systemMessages.routes.editAccount'),
 
   user: computed('model', function() {

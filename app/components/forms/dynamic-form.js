@@ -17,7 +17,7 @@ export default FormContainer.extend({
     });
   },
 
-  formObject: computed('dynamicFormFields', 'dynamicFormFields.@each', 'dynamicFormFields.@each.options', 'dynamicFormFields.@each.fieldType','dynamicFormFields.@each.label', function() {
+  formObject: computed('dynamicFormFields', 'dynamicFormFields.{@each, @each.options, @each.label, @each.fieldType}', function() {
     var dynamicFormSchema = {
       title: 'Preview',
       formName: 'dynamicForm',

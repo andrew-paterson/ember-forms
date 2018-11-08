@@ -1,6 +1,5 @@
 import EmberObject from '@ember/object';
 import generateEmberValidatingFormField from 'ember-starter/utils/generate-ember-validating-form-field';
-import all from 'ember-changeset-validations/validators';
 
 export default function generateEmberValidatingFormFields(formSchema, existing) {
   var generateFormMetaData = function(formSchema) {
@@ -14,11 +13,11 @@ export default function generateEmberValidatingFormFields(formSchema, existing) 
     }
     if (formMetaData.submitSuccessMessage === null || formMetaData.submitSuccessMessage === undefined) {
       formMetaData.submitSuccessMessage = "Success";
-    };
+    }
 
     if (formMetaData.resetAfterSubmit === null || formMetaData.resetAfterSubmit === undefined) {
       formMetaData.resetAfterSubmit = true;
-    };
+    }
     return formMetaData;
   };
 
@@ -31,13 +30,11 @@ export default function generateEmberValidatingFormFields(formSchema, existing) 
       var fieldObject = generateEmberValidatingFormField(field, index, formSchema, existing);
       formFields.pushObject(fieldObject);
     });
-    console.log(generateChangeset(formFields));
     return formFields;
   }
 
   var generateChangeset = function(formFields) {
     formFields.forEach(formField => {
-      console.log(formField.fieldId);
     })
     return formFields;
   }

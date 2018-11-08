@@ -1,10 +1,7 @@
 import { module, test } from 'qunit';
-import { visit, currentURL, fillIn, focus, find, blur, click, triggerKeyEvent, triggerEvent, isSettled} from '@ember/test-helpers';
+import { visit, fillIn, click, isSettled} from '@ember/test-helpers';
 import { setupApplicationTest } from 'ember-qunit';
 import setupMirage from 'ember-cli-mirage/test-support/setup-mirage';
-import { selectChoose, selectSearch, removeMultipleOption, clearSelected } from 'ember-power-select/test-support';
-import { calendarCenter, calendarSelect } from 'ember-power-calendar/test-support';
-import { clickDropdown, tapTrigger } from 'ember-basic-dropdown/test-support/helpers';
 
 module('Acceptance | Validating form', function(hooks) {
   setupApplicationTest(hooks);
@@ -132,17 +129,4 @@ module('Acceptance | Validating form', function(hooks) {
     assert.equal(document.querySelector('[data-test-id="users-table"] tbody tr:first-child [data-test-id="name"]').textContent.trim(), 'Little Sebastian', 'User edits are successfully saved when user clicks "Submit".');
 
   });
-
-  // test('Validating form | Keyboard Accessibility', async function(assert) {
-  //   setupApplicationTest(hooks);
-  //   await visit('/signup');
-  //   // await focus(document.querySelector('[data-test-id="validating-field-name"] input'));
-  //   // await triggerKeyEvent(document.querySelector('[data-test-id="validating-field-name"] input'), "keyup", 9);
-  //   await triggerKeyEvent('[data-test-id="validating-field-personal_details.birth_date"] .ember-power-datepicker-trigger', "keyup", 'ArrowDown');
-  //   // await click('[data-date="2018-09-13"]');
-  //   // await focus(document.querySelector('[data-test-id="validating-field-personal_details.favourite_colours"] input'));
-  //   // await triggerKeyEvent(document.querySelector('[data-test-id="validating-field-personal_details.favourite_colours"] input'), "keypress", 'Space');
-  //   assert.ok(1==1);
-  //   // await this.pauseTest();
-  // });
 });

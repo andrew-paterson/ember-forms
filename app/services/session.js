@@ -1,5 +1,4 @@
 import Service from '@ember/service';
-import { computed } from '@ember/object';
 
 export default Service.extend({
   navCollapsed: false,
@@ -122,12 +121,7 @@ export default Service.extend({
           maxDate: moment("2019-12-05").toDate(),
           allowNavigationOutOfRange: false,
           calendarStartMonth: '09/2018',
-          // defaultDate: moment("2018-08-28").toDate(),
-          // dateFormat:'YYYY/MM/DD',
-          // defaultTime: '12:07',
           timeSelect: true,
-          // dateButtonText: 'Test date',
-          // timeButtonText: 'Test time'
         },
 
         {

@@ -1,10 +1,8 @@
 import { inject as service } from '@ember/service';
 import FormContainer from 'ember-starter/components/extensible/form-container';
 import httpErrorMessageGenerator from 'ember-starter/utils/http-error-message-generator';
-import generateEmberValidatingFormFields from 'ember-starter/utils/generate-ember-validating-form-fields';
 import generateEmberValidatingFormField from 'ember-starter/utils/generate-ember-validating-form-field';
 
-import EmberObject from '@ember/object';
 
 export default FormContainer.extend({
   globalVariables: service(),
@@ -32,7 +30,6 @@ export default FormContainer.extend({
 
   actions: {
     customValidations: function(fieldObject, formFields) {
-      var error;
       if (fieldObject.fieldId === 'password' || fieldObject.fieldId === 'password_confirmation') {
         var passwordFieldObject = formFields.findBy('fieldId', 'password');
         var passwordConfirmationFieldObject = formFields.findBy('fieldId', 'password_confirmation');

@@ -1,6 +1,6 @@
 import EmberObject from '@ember/object';
 
-export default function generateEmberValidatingFormField(field, index, formSchema, existing) {
+export default function generateEmberValidatingFormField(field, index, formSchema) {
   var fieldElementComponents = {
     "input":            "form-field-input",
     "textarea":         "form-field-textarea",
@@ -56,7 +56,6 @@ export default function generateEmberValidatingFormField(field, index, formSchem
 
   var required;
   if (field.validationRules) {
-    console.log(field.validationRules);
     if (field.validationRules.findBy('validationMethod', 'required')) {
       required = true;
     }

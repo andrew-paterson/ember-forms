@@ -22,6 +22,10 @@ module.exports = {
     'ember-cli/ember-cli-eslint/attribute-indentation': 0,
     // 'no-unused-vars': 0
   },
+  "globals": {
+    "moment": true,
+    "validator": true,
+  },
   overrides: [
     // node files
     {

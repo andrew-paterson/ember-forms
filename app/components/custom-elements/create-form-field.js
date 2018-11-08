@@ -71,7 +71,6 @@ export default Component.extend({
       this.set(`currentField.${fieldId}`, value);
       this.send('saveField');
 
-      var stringValue = value.toString();
       if (fieldId === 'label') {
         this.set('label', value);
         if (validator.isEmpty(value)) {
@@ -84,7 +83,7 @@ export default Component.extend({
           this.set('fieldLabelError', false);
           return true;
         }
-      };
+      }
       // fieldValidationRules
     },
 

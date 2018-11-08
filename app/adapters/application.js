@@ -1,4 +1,3 @@
-import { computed } from '@ember/object';
 import { inject as service } from '@ember/service';
 import DS from 'ember-data';
 import ENV from '../config/environment';

@@ -6,7 +6,7 @@ export default Component.extend({
     this._super(...arguments);
     var labelElement = this.$('label[for]');
     var forAttr = labelElement.attr('for');
-    $(labelElement).click(function(e) {
+    $(labelElement).click(function() {
       self.$(`#${forAttr}`).focus();
     });
   },
