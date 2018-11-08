@@ -6,17 +6,17 @@ export default DS.JSONAPISerializer.extend({
 
   // Do not convert underscores and camel case to hyphens
   // when serialising attribute names from the model to Ember Data.
-  keyForAttribute(key) {
-    return key;
-  },
+  // keyForAttribute(key) {
+  //   return key;
+  // },
 
-  serialize: function(snapshot) {
-    var json = this._super.apply(this, arguments);
-    var confirmation = this.get('session.passwordConfirmation');
-    if (confirmation) {
-      //adds the field 'confirmation' at the root of the json object.
-      json.confirmation = confirmation;
-    }
-    return json;
-  }
+  // serialize: function(snapshot) {
+  //   var json = this._super.apply(this, arguments);
+  //   var confirmation = this.get('session.passwordConfirmation');
+  //   if (confirmation) {
+  //     //adds the field 'confirmation' at the root of the json object.
+  //     json.confirmation = confirmation;
+  //   }
+  //   return json;
+  // }
 });

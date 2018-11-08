@@ -1,7 +1,19 @@
-{{#layouts/public/outer-wrapper class='landing'}}
-  {{#layouts/content-wrapper title="Welcome"}}
-    {{#link-to 'dashboard' class='button'}}Get Started{{/link-to}}
+{{#layouts/private/outer-wrapper class="landing"}}
+  {{#layouts/content-wrapper title="Ember forms component"}}
+    <div class='text-content'>
+      <p>This is the development sandbox for an Ember component which aims to abstract all of the functional aspects of webforms into boilerplate code, and allow forms to be created with plain JavaScript objects.</p>
+      <p>The functional code is located primarily in two components</p>
+      <p>The first is <b>components/extensible/validating-form-field</b>, which provides the code for generating the template wrapper for individual fields, as well as handling the field validation.</p>
+      <p>The second is <b>components/blocks/generic/validating-form</b>, which provides the code for generating the template wrapper for form as a whole, and initiates the validation of all fields when the form is submitted.</p>
+      <p>Examples of the JavaScript objects that can be passed into the <b>validating-form</b> component can be found in <b>components/forms/signup-form.js</b> and <b>components/forms/edit-account-form.js</b></p>
+      <h2>Tests</h2>
+      <p>Tests can be run by visiting http://localhost:4200/tests, assuming the app is running on port 4200.</p>
+      <p>The relevant test files can be found at:</p>
+      <ul>
+        <li>/tests/acceptance/web-form-test.js</li>
+        <li>/tests/components/blocks/generic/validating-form-test.js</li>
+        <li>/tests/components/extensible/validating-form-field-test.js</li>
+      </ul>
+    </div>
   {{/layouts/content-wrapper}}
-{{/layouts/public/outer-wrapper}}
-
-
+{{/layouts/private/outer-wrapper}}

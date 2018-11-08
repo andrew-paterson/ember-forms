@@ -16,7 +16,7 @@ body {
 }
 
 div.wrapper  {
-	margin-top: @header-height;
+	padding-top: @header-height;
 	box-sizing: border-box;
 }
 
@@ -44,7 +44,7 @@ div.logo-container {
 	/*box-shadow: @right-box-shadow;*/
 
 }
-div.logo-container div.svg,
+div.logo-container svg,
 div.logo-container svg  {
 	height: @header-height - 2*@header-padding-vertical;
 	width: auto;
@@ -152,4 +152,8 @@ div.centred-logo-vertical {
 	max-width: 240px;
 	margin: 0 auto;
 	margin-top: 30px;
+}
+
+.text-content {
+	max-width: 700px;
 }

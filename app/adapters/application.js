@@ -6,5 +6,5 @@ import ENV from '../config/environment';
 export default DS.JSONAPIAdapter.extend({
   session: service(),
   host: ENV.apiProtocol + ENV.apiHost,
-  namespace: 'v1',
+  namespace: 'api',
 });

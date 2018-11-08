@@ -1,0 +1,53 @@
+@pikaday-day-color: #666;
+@pikaday-day-background-color: transparent;
+@pikaday-day-hover-color: @pikaday-day-color;
+@pikaday-day-hover-background-color: #ddd;
+@pikaday-selected-day-background-color: @success-background-color;
+
+.pika-single {
+  border-radius: 3px;
+}
+
+.pika-lendar {
+  line-height: initial;
+  font-family: @main-font-family;
+
+  table th abbr {
+    text-decoration: none;
+  }
+  table tbody td,
+  table thead th {
+    border: 1px solid #ddd;
+  }
+
+  .pika-title {
+    button {
+      height: 30px;
+    }
+  }
+
+  button {
+    padding: 0;
+    border-radius: 0;
+    background-color: transparent;
+    color: #000;
+
+  }
+
+  .pika-button {
+    height: 25px;
+    font-size: 1.2em;
+    line-height: normal;
+    font-weight: 400;
+    background: @pikaday-day-background-color;
+    color: @pikaday-day-color;
+  }
+  .pika-button:hover {
+    background: @pikaday-day-hover-background-color;
+  }
+
+  .is-selected .pika-button, .has-event .pika-button {
+    background: @pikaday-selected-day-background-color;
+    color: #fff;
+  }
+}

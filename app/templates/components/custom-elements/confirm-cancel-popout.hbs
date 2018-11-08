@@ -1,18 +1,21 @@
 {{#basic-dropdown as |dropdown|}}
   {{#dropdown.trigger}}
-    <button data-test-dropdown-toggle={{data-test-name}} class="{{colorScheme}}-button {{if dropdown.isOpen 'active'}} {{if requestInFlight 'spin'}} {{mainButtonClasses}} {{'spinner-container'}}">{{component mainButtonIcon}}{{mainButtonText}}
-      {{svg/icon-cog class='spinner'}}
+    <button data-test-dropdown-toggle={{data-test-name}} class="tes {{colorScheme}}-button {{if dropdown.isOpen "active"}} {{if requestInFlight "spin"}} {{mainButtonClasses}} {{"spinner-container"}}">
+      {{component mainButtonIcon}}{{mainButtonText}}
+      {{svg/icon-cog class="spinner"}}
     </button>
   {{/dropdown.trigger}}
   {{#dropdown.content}}
-    <div class="{{popoutBoxClasses}} {{'pop-up-box box-arrow body-content confirm-cancel-content'}} {{colorScheme}}">
-      <div data-test-dropdown-close={{data-test-name}} class="close-button" {{action 'closePopoutBox' dropdown}} value="Close">{{svg/icon-cross}}</div>
-      {{#if message}}<p class='alert-text'>{{message}}</p>{{/if}}
+    <div class="{{popoutBoxClasses}} {{"pop-up-box box-arrow body-content confirm-cancel-content"}} {{colorScheme}}">
+      <div data-test-dropdown-close={{data-test-name}} class="close-button" {{action "closePopoutBox" dropdown}} value="Close">{{svg/icon-cross}}</div>
+      {{#if message}}
+        <p class="alert-text">{{message}}</p>
+      {{/if}}
       {{yield}}
       <div class="option-buttons">
-          <button data-test-confirm={{data-test-name}} class="{{'confirm'}} {{colorScheme}}-button" {{action 'confirm' dropdown}}>Confirm</button>
-          <button data-test-dropdown-cancel={{data-test-name}} class="cancel grey-button secondary" onclick={{action "closePopoutBox" dropdown}}>Cancel</button>
-          <div class="clr"></div>
+        <button data-test-confirm={{data-test-name}} class="{{"confirm"}} {{colorScheme}}-button" {{action "confirm" dropdown}}>Confirm</button>
+        <button data-test-dropdown-cancel={{data-test-name}} class="cancel grey-button secondary" onclick={{action "closePopoutBox" dropdown}}>Cancel</button>
+        <div class="clr"></div>
       </div>
     </div>
   {{/dropdown.content}}

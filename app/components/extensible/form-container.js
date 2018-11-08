@@ -1,6 +1,6 @@
 import Component from '@ember/component';
-import httpErrorMessageGenerator from 'frontend-version-two/utils/http-error-message-generator';
-import generateEmberValidatingFormFields from 'frontend-version-two/utils/generate-ember-validating-form-fields';
+import httpErrorMessageGenerator from 'ember-starter/utils/http-error-message-generator';
+import generateEmberValidatingFormFields from 'ember-starter/utils/generate-ember-validating-form-fields';
 
 export default Component.extend({
   classNames: ['form-container'],
@@ -27,7 +27,7 @@ export default Component.extend({
       this.setProperty('systemMessage', errorMessage);
     },
 
-    formValidationFailed: function() {
+    formValidationFailed: function(formFields, formMetaData) {
       var errorMessage = {
         'name': 'errorMessage',
         'type': 'error',
@@ -42,7 +42,9 @@ export default Component.extend({
     },
 
     resetForm: function(formSchema) {
-      this.set("formFields", generateEmberValidatingFormFields(formSchema));
+      //
+      // this.set("formFields", generateEmberValidatingFormFields(formSchema));
+      // this.set('processedFormSchema', generateEmberValidatingFormFields(formSchema));
     }
   }
 });

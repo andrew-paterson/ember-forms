@@ -1,0 +1,61 @@
+.spinner-container {
+  position: relative;
+}
+
+.spin.spinner-container {
+  position: relative;
+  padding-left: @button-side-padding;
+  padding-right: @button-side-padding + 40px;
+  text-align: left;
+}
+
+.spinner-container svg.spinner {
+  position: absolute;
+  top: 50%;
+  margin-top: -15px;
+  right: 0px;
+  height: 30px;
+  width: 30px;
+}
+
+.spinner-container svg.spinner svg {
+  height: 100%;
+  width: 100%;
+}
+
+svg.spinner {
+  display: none;
+}
+
+.spinner-container.spin svg.spinner {
+  display: block;
+  -webkit-animation: spinning-cog 1.3s infinite ease;
+  -moz-animation: spinning-cog 1.3s infinite ease;
+  -ms-animation: spinning-cog 1.3s infinite ease;
+  -o-animation: spinning-cog 1.3s infinite ease;
+  animation: spinning-cog 1.3s infinite ease;
+}
+
+@-webkit-keyframes spinning-cog {
+  0% { -webkit-transform: rotate(0deg) }
+  20% { -webkit-transform: rotate(-45deg) }
+  100% { -webkit-transform: rotate(360deg) }
+}
+
+@-moz-keyframes spinning-cog {
+  0% { -moz-transform: rotate(0deg) }
+  20% { -moz-transform: rotate(-45deg) }
+  100% { -moz-transform: rotate(360deg) }
+}
+
+@-o-keyframes spinning-cog {
+  0% { -o-transform: rotate(0deg) }
+  20% { -o-transform: rotate(-45deg) }
+  100% { -o-transform: rotate(360deg) }
+}
+
+@keyframes spinning-cog {
+  0% { transform: rotate(0deg) }
+  20% { transform: rotate(-45deg) }
+  100% { transform: rotate(360deg) }
+}

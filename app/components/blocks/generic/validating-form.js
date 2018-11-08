@@ -1,12 +1,20 @@
-// TODO arguments sent with submitAction change depending on whether the forms creates a new record or updates an existing one. This is differentiated by whether or not the "recordToUpdate" property is set, in which case it sends the updated model record.
 import Component from '@ember/component';
 import { computed } from '@ember/object';
-import { observer } from '@ember/object';
 import Object from '@ember/object';
-import generateEmberValidatingFormFields from 'frontend-version-two/utils/generate-ember-validating-form-fields';
+import generateEmberValidatingFormFields from 'ember-starter/utils/generate-ember-validating-form-fields';
+import validateField from 'ember-starter/utils/validate-field';
 
 export default Component.extend({
-  classNameBindings: ['class'],
+  classNameBindings: ['class', 'validationFailed:validation-failed'],
+  attributeBindings: ["data-test-id"],
+
+  formObject: computed('formSchema', 'processedFormSchema', function() {
+    if (this.get('processedFormSchema')) {
+      return this.get('processedFormSchema');
+    } else {
+      return generateEmberValidatingFormFields(this.get('formSchema'));
+    }
+  }),
 
   formName: computed('formObject', function() {
     var formName = this.get('formObject.formMetaData.formName');
@@ -41,6 +49,14 @@ export default Component.extend({
     return this.get('formMetaData.submitButtonText') ? this.get('formMetaData.submitButtonText') : "Submit";
   }),
 
+  resetButtonText: computed('formMetaData', function() {
+    return this.get('formMetaData.resetButtonText') ? this.get('formMetaData.resetButtonText') : "Reset";
+  }),
+
+  validationFailed: computed('formMetaData.formStatus', function() {
+    return this.get('formMetaData.formStatus') === 'validationFailed';
+  }),
+
   willDestroyElement: function() {
     var formMetaTitle = this.get('formMetaData.formName');
     var storageService = this.get("storageService");
@@ -50,14 +66,20 @@ export default Component.extend({
   },
 
   actions: {
-    setFormValue: function(fieldId, value) {
-      var fieldObject = this.get('formFields').findBy('fieldId', fieldId);
-      fieldObject.set('value', value);
+    customValidations: function(formField) {
+      this.customValidations(formField, this.get('formFields'));
+    },
+
+    setFormFieldValue: function(formField, value) {
+      value = value || '';
+      formField.set('value', value);
       if (this.customTransforms) {
         this.customTransforms(this.get('formFields'), fieldId, this.get('formMetaData'));
       }
-      if (!fieldObject.validationRules) {return;}
-      this.send('validateField', fieldId);
+    },
+
+    setFormFieldError: function(formField, error) {
+      formField.set('error', error);
     },
 
     submit: function() {
@@ -69,13 +91,14 @@ export default Component.extend({
         var formFields = this.get('formFields');
         var formMetaData = this.get('formMetaData');
         var values = this.generateFormValues(formFields);
-
         this.set("requestInFlight", true);
-        if (this.get('recordToUpdate')) {
-          var record = this.get('recordToUpdate');
+        if (this.get('formMetaData.recordToUpdate')) {
+          var record = this.get('formMetaData.recordToUpdate');
           formFields.forEach(function(formField) {
-            if (formField.propertyName) {
-              record.set(formField.propertyName, formField.value);
+            if (formField.fieldId) {
+              if (record.get(formField.fieldId)) {
+                record.set(formField.fieldId, formField.value);
+              }
             }
           });
           this.submitAction(record).then((response) => {
@@ -91,11 +114,12 @@ export default Component.extend({
             self.saveFail(error, formFields);
           });
         } else {
+
           this.submitAction(values, formMetaData.modelName).then((response) => {
             self.saveSuccess(response, formFields, formMetaData);
             self.set("requestInFlight", false);
             if (formMetaData.resetAfterSubmit === true) {
-              self.resetForm(formSchema);
+              this.send('resetForm');
             }
           }).catch(error => {
             self.set("requestInFlight", false);
@@ -103,60 +127,36 @@ export default Component.extend({
           });
         }
       } else {
-        this.formValidationFailed();
+        this.set('formMetaData.formStatus', 'validationFailed');
+        this.set('formMetaData.submitButtonFeedback', 'Some fields have errors which must be fixed before continuing.');
+        this.formValidationFailed(this.get('formFields'), this.get('formMetaData'));
       }
     },
 
     validateAllFields: function() {
       var self = this;
-      this.get('formFields').forEach(function(fieldObject) {
-        if (fieldObject.validationRules) {
-          if (fieldObject.value === null || fieldObject.value === undefined) {
-            fieldObject.set('value', '');
-          }
-          self.send('validateField', fieldObject.fieldId);
+      var formFields = this.get('formFields');
+      formFields.forEach(function(formField) {
+        if (!formField.get('validationRules')) { return; }
+        formField.set('error', validateField(formField));
+        if (formField.get('error')) {
+          return;
+        }
+        // if (self.customValidations) {
+        //   self.customValidations(formField, self.get('formFields'));
+        // }
+        if (self.customValidations && formField.get('validationRules').findBy('validationMethod', 'custom')) {
+          self.customValidations(formField, self.get('formFields'));
         }
       });
     },
 
-    validateField: function(fieldId) {
-      var self = this;
-      var fieldObject = this.get('formFields').findBy('fieldId', fieldId);
-      if (fieldObject.value === null || fieldObject.value === undefined) {
-        return;
-      }
-      var stringValue = fieldObject.value.toString();
-      var validationRules = fieldObject.validationRules || [];
-      fieldObject.set("error", null);
-      validationRules.forEach(function(validationRule) {
-        var validationMethod = validationRule.validationMethod;
-        var validationArgs = validationRule.arguments;
-        var customErrorMessage = validationRule.errorMessage;
-        validationMethod = validationMethod === "isDate" ? "toDate" : validationMethod;
-        if (fieldObject.get("error")) {return;}
-        // Validate required fields.
-        var errorMessage;
-        if (validationMethod === "required") {
-          if (validator.isEmpty(stringValue)) {
-            errorMessage = customErrorMessage || "This field is required.";
-            fieldObject.set("error", errorMessage);
-          } else {
-            fieldObject.set("error", false);
-          }
-        // Validate all other types of fields
-        } else if (validator[validationMethod]) {
-          if (!validator[validationMethod](stringValue, validationArgs)) {
-            errorMessage = customErrorMessage || `This is not a valid ${self.generateValidationErrorMessage(validationMethod)} value. Please try again.`;
-            fieldObject.set("error", errorMessage);
-          } else {
-            fieldObject.set("error", false);
-          }
-        } else if (validationMethod === "custom") {
-          if (self.customValidation)
-            self.customValidation(fieldObject, self.get('formFields'));
-          }
-      });
+    resetForm() {
+      window.scrollTo(0, 0);
+      this.set('formObject', generateEmberValidatingFormFields(this.get('formSchema')));
     },
+
+
   },
 
   formValidates: function() {
@@ -170,8 +170,8 @@ export default Component.extend({
   generateFormValues: function(formFields) {
     var values = {};
     formFields.forEach(function(field) {
-      if (!field.propertyName) {return;}
-      var levels = field.propertyName.split(".");
+      if (!field.fieldId) {return;}
+      var levels = field.fieldId.split(".");
       var acc = values;
       levels.forEach(function(level, index) {
         if (index === levels.length-1) {
@@ -186,6 +186,7 @@ export default Component.extend({
   },
 
   generateValidationErrorMessage: function(validationRule) {
+    // Todo remove
     var readablevalidationRule = validationRule.substring(2).replace(/([A-Z])/g, function(match) {
        return "" + match;
     });

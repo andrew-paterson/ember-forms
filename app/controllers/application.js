@@ -5,7 +5,6 @@ export default Controller.extend({
   systemMessages: service(),
   actions: {
     setProperty: function(property, value) {
-      console.log('test');
       this.set(property, value);
     },
 

@@ -1,0 +1,16 @@
+<form>
+  {{input value=changeset.name}}
+  {{#if changeset.error.name}}
+    <p>{{changeset.error.name.validation}}</p>
+  {{/if}}
+  {{input value=changeset.email}}
+  {{#if changeset.error.email}}
+    <p>{{changeset.error.email.validation}}</p>
+  {{/if}}
+  {{input value=changeset.personal_details.address.address_line1}}
+  {{#if changeset.error.personal_details.address.address_line1}}
+    <p>{{changeset.error.personal_details.address.address_line1.validation}}</p>
+  {{/if}}
+  <button {{action submit changeset}}>Submit</button>
+  <button {{action rollback changeset}}>Cancel</button>
+</form>

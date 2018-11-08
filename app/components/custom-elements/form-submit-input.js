@@ -3,6 +3,9 @@ import { inject as service } from '@ember/service';
 
 export default Component.extend({
   session: service(),
-  classNames: ['submit-input-container', 'spinner-container', 'button', 'large'],
+  tagName: 'button',
+  classNames: ['submit-input-container', 'spinner-container', 'large'],
   classNameBindings: ['requestInFlight:spin', 'classes'],
+  attributeBindings: ['customType:type'],
+  customType: 'submit'
 });

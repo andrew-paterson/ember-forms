@@ -1,4 +1,8 @@
 module.exports = {
+  globals: {
+    server: true,
+    "moment": true
+  },
   root: true,
   parserOptions: {
     ecmaVersion: 2017,
@@ -15,11 +19,14 @@ module.exports = {
     browser: true
   },
   rules: {
+    'ember-cli/ember-cli-eslint/attribute-indentation': 0,
+    // 'no-unused-vars': 0
   },
   overrides: [
     // node files
     {
       files: [
+        '.template-lintrc.js',
         'ember-cli-build.js',
         'testem.js',
         'blueprints/*/index.js',

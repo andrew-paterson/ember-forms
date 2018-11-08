@@ -1,21 +1,17 @@
-<label class="{{unless showLabel 'placeholder'}}">{{label}}</label>
-<div class="input-container">
+{{extensible/form-field-label formField=formField}}
+<div class="field-controls">
   {{textarea
-    placeholder=label
-    value=value
-    focusOut=(action 'onFocusOut')
-    focusIn=(action 'onFocusIn')
-    keyUp=(action 'onKeyUp')
-    autofocus=autofocus
-    type=type
-    readonly=readonly
-    disabled=disabled
-    usePlaceholder=usePlaceholder
-    hideValidationSuccess=hideValidationSuccess
+    class="validation-area"
+    value=(readonly formField.value)
+    focusOut=(action onFocusOut value="target.value")
+    focusIn=(action onFocusIn value="target.value")
+    keyUp=(action onKeyUp value="target.value")
+    placeholder=formField.placeholder
+    autofocus=formField.autofocus
+    readonly=formField.readonly
+    disabled=formField.disabled
+    id=formField.name
   }}
-{{component inputIcon class='form-field-icon'}}
+  {{component inputIcon class="form-field-icon"}}
 </div>
-{{#if error}}
-  <div class='field-error'>{{svg/icon-curved-arrow-right}}{{error}}</div>
-{{/if}}
-{{yield}}
+{{extensible/form-field-error formField=formField}}

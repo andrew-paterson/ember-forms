@@ -16,6 +16,11 @@ Router.map(function() {
   this.route('privacy-policy');
   this.route('component');
   this.route('error');//
+  this.route('dynamic-forms');
+  this.route('signup');
+  this.route('users');
+  this.route('edit-account');
+  this.route('changeset-test');
 });
 
 Router.reopen({

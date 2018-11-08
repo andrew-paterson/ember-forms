@@ -1,0 +1,23 @@
+html {
+  padding: 0;
+  margin: 0;
+  background: #fff url("/assets/images/white-bg.png");
+}
+
+// Allows the footer to stick to the bottom of the page if the content does not reach that far.
+html,
+.ember-application,
+.ember-application > div.ember-view {
+  height: 100%;
+}
+
+.ember-application {
+  background: @body-background-color @body-background-image @body-background-repeat @body-background-position;
+  background-size: 150px;
+  margin: 0;
+  padding: 0 0 @body-padding-bottom 0;
+  font-size: 62.5%;
+  color: @body-color;
+  line-height: inherit;
+  font-family: @main-font-family;
+}

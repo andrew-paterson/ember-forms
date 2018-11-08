@@ -1,0 +1,37 @@
+{{extensible/form-field-label formField=formField}}
+<div class="field-controls">
+  <div data-test-type="form-field-date-picker">
+    {{bootstrap-datepicker
+      data-test-type="date"
+      value=(readonly formField.value)
+      calendarWeeks=formField.calendarWeeks
+      clearBtn=formField.clearBtn
+      daysOfWeekDisabled=formField.daysOfWeekDisabled
+      forceParse=formField.forceParse
+      keyboardNavigation=formField.keyboardNavigation
+      language=formField.language
+      minViewMode=formField.minViewMode
+      startView=formField.startView
+      todayBtn=formField.todayBtn
+      weekStart=formField.weekStart
+      startDate=formField.startDate
+      endDate=formField.endDate
+      placeholder=formField.placeholder
+      autoclose=formField.autoclose
+      orientation=formField.orientation
+      todayHighlight=true
+      format=dateFormat
+      changeDate=onUserInteraction
+      changeMonth=changeMonth
+      focus-in=focus-in
+      focus-out=focus-out
+      clearDate=clearDate
+      hide=hide
+      show=show
+      name=formField.name
+      id=formField.name
+    }}
+  </div>
+  {{component inputIcon class="form-field-icon"}}
+</div>
+{{extensible/form-field-error formField=formField}}

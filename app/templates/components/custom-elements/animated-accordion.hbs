@@ -1,10 +1,10 @@
-<div class='accordion-item-header' {{action 'toggleAccordion'}}>
+<div class="accordion-item-header" {{action "toggleAccordion"}}>
   <h4>{{title}}</h4>
   {{component expandCollapseIcon}}
 </div>
 {{#if open}}
-  <div class='accordion-item-content'>
-    <div class='accordion-item-content-inner'>
+  <div class="accordion-item-content">
+    <div class="accordion-item-content-inner">
       {{yield}}
     </div>
   </div>

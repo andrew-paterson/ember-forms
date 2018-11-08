@@ -1,0 +1,32 @@
+{{#layouts/private/outer-wrapper systemMessage=systemMessage class="users"}}
+  {{#layouts/content-wrapper title="Users"}}
+    <table data-test-id="users-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Birth Date</th>
+          <th>Address</th>
+          <th>Country</th>
+          <th>Phone Number</th>
+          <th>Bio</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each model as |user| }}
+          <tr>
+            <td>{{user.id}}</td>
+            <td data-test-id="name">{{user.name}}</td>
+            <td>{{user.email}}</td>
+            <td>{{moment-format user.personal_details.birth_date "YYYY-MM-DD"}}</td>
+            <td>{{user.personal_details.address.address_line1}}</td>
+            <td>{{user.personal_details.address.country}}</td>
+            <td>{{user.personal_details.phone_number}}</td>
+            <td>{{user.bio}}</td>
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  {{/layouts/content-wrapper}}
+{{/layouts/private/outer-wrapper}}
