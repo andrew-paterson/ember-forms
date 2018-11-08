@@ -1,13 +1,15 @@
 {{#layouts/private/outer-wrapper class="landing"}}
   {{#layouts/content-wrapper title="Ember forms component"}}
     <div class='text-content'>
+      <h2>General</h2>
       <p>This is the development sandbox for an Ember component which aims to abstract all of the functional aspects of webforms into boilerplate code, and allow forms to be created with plain JavaScript objects.</p>
       <p>The functional code is located primarily in two components</p>
       <p>The first is <b>components/extensible/validating-form-field</b>, which provides the code for generating the template wrapper for individual fields, as well as handling the field validation.</p>
       <p>The second is <b>components/blocks/generic/validating-form</b>, which provides the code for generating the template wrapper for form as a whole, and initiates the validation of all fields when the form is submitted.</p>
-      <p>Examples of a JavaScript object that can be passed into the <b>validating-form</b> component can be found in services/session.js.<b>components/forms/signup-form.js</b> and <b>components/forms/edit-account-form.js</b></p>
+      <p>Examples of a JavaScript object that can be passed into the <b>validating-form</b> component can be found in <b>services/session.js.</b></p>
+      <p>This data is fed into two separate form components: <b>components/forms/signup-form.js</b> and <b>components/forms/edit-account-form.js.</b> In the case of the edit account form, an existing user record is used to populate the JavaScript object's default values, and thus render them in the form to begin with. This is done in <b>controllers/edit-account.js</b>.</p>
       <h2>Tests</h2>
-      <p>Tests can be run by visiting http://localhost:4200/tests, assuming the app is running on port 4200. There are several linting errors which show up in the tests. These are auto-generated. If you would like to run only the tests that I have written, please check disabled linting.</p>
+      <p>Tests can be run by visiting http://localhost:4200/tests, assuming the app is running on port 4200. There are several linting errors which show up in the tests. In order to run only the tests that I have written, please check <b>Disable linting</b> in the testing UI.</p>
       <p>The relevant test files can be found at:</p>
       <ul>
         <li>/tests/acceptance/web-form-test.js</li>
