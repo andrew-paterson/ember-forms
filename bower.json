@@ -1,0 +1,6 @@
+{
+  "name": "ember-starter",
+  "dependencies": {
+    "validator-js": "^7.0.0"
+  }
+}
