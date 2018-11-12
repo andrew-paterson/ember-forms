@@ -16,15 +16,14 @@
     "bower_components",
     "test"
   ],
-  "version": "10.6.0",
-  "_release": "10.6.0",
+  "version": "7.2.0",
+  "_release": "7.2.0",
   "_resolution": {
     "type": "version",
-    "tag": "10.6.0",
-    "commit": "e467d7dcf47071b2e587cb5ded1b85d8ef132dfb"
+    "tag": "7.2.0",
+    "commit": "18acf491812690df4d399a584a0af1ab4f343cb2"
   },
   "_source": "https://github.com/chriso/validator.js.git",
-  "_target": "^10.6.0",
-  "_originalSource": "validator-js",
-  "_direct": true
+  "_target": "^7.0.0",
+  "_originalSource": "validator-js"
 }

@@ -10,7 +10,7 @@ export default Component.extend({
   attributeBindings: ['data-test-id'],
 
   messageIcon: computed('systemMessage.type', function() {
-    return this.get('systemMessage.type') === 'success' ? 'svg/icon-tick' : 'svg/icon-alert';
+    return this.get('systemMessage.type') === 'success' ? 'svg/icons/icon-tick' : 'svg/icons/icon-alert';
   }),
 
   actions: {

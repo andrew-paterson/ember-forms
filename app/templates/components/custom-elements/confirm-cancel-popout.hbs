@@ -2,12 +2,12 @@
   {{#dropdown.trigger}}
     <button data-test-dropdown-toggle={{data-test-name}} class="tes {{colorScheme}}-button {{if dropdown.isOpen "active"}} {{if requestInFlight "spin"}} {{mainButtonClasses}} {{"spinner-container"}}">
       {{component mainButtonIcon}}{{mainButtonText}}
-      {{svg/icon-cog class="spinner"}}
+      {{svg/icons/icon-cog class="spinner"}}
     </button>
   {{/dropdown.trigger}}
   {{#dropdown.content}}
     <div class="{{popoutBoxClasses}} {{"pop-up-box box-arrow body-content confirm-cancel-content"}} {{colorScheme}}">
-      <div data-test-dropdown-close={{data-test-name}} class="close-button" {{action "closePopoutBox" dropdown}} value="Close">{{svg/icon-cross}}</div>
+      <div data-test-dropdown-close={{data-test-name}} class="close-button" {{action "closePopoutBox" dropdown}} value="Close">{{svg/icons/icon-cross}}</div>
       {{#if message}}
         <p class="alert-text">{{message}}</p>
       {{/if}}

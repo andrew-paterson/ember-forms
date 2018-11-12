@@ -2,7 +2,7 @@
   selected=selected onSelect=(action "setDate" value="date") closeOnSelect=false onCenterChange=(action (mut center) value="date") center=center as |dp|}}
   {{#dp.trigger tabindex="-1" onKeyDown=(action "onTriggerKeydown") }}
     <button type="button" class="date-button" data-test-type="power-datepicker-date-trigger" readonly onfocus={{action "onTriggerFocus" dp}}>
-      {{svg/icon-calendar}}
+      {{svg/icons/icon-calendar}}
       {{#if value}}
         {{moment-format value dateDisplayFormat}}
       {{else}}
@@ -29,7 +29,7 @@
 {{/power-datepicker}}
 {{#if timeSelect}}
   <div data-test-type="time-selector" class="time-select {{unless value "disabled"}}">
-    {{svg/icon-clock}}
+    {{svg/icons/icon-clock}}
     {{#if value}}
       {{#power-select
         triggerClass="time-select-trigger hour"

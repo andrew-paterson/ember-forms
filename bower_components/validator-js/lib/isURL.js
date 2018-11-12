@@ -82,17 +82,10 @@ function isURL(url, options) {
     }
   } else if (options.require_protocol) {
     return false;
-  } else if (url.substr(0, 2) === '//') {
-    if (!options.allow_protocol_relative_urls) {
-      return false;
-    }
+  } else if (options.allow_protocol_relative_urls && url.substr(0, 2) === '//') {
     split[0] = url.substr(2);
   }
   url = split.join('://');
-
-  if (url === '') {
-    return false;
-  }
 
   split = url.split('/');
   url = split.shift();
@@ -132,7 +125,7 @@ function isURL(url, options) {
     }
   }
 
-  if (!(0, _isIP2.default)(host) && !(0, _isFQDN2.default)(host, options) && (!ipv6 || !(0, _isIP2.default)(ipv6, 6))) {
+  if (!(0, _isIP2.default)(host) && !(0, _isFQDN2.default)(host, options) && (!ipv6 || !(0, _isIP2.default)(ipv6, 6)) && host !== 'localhost') {
     return false;
   }
 

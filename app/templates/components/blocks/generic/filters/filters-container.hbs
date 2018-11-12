@@ -6,7 +6,7 @@
 <div class="bottom">
   {{#if filtersActive}}
     <div class="filtering-results">
-      <p class="jobs-returned"><span class="filter-button">{{svg/icon-asterisk}}</span>Filters are active ({{filteredItemsLength}} {{custom-inflector filteredItemsLength singular="item"}} returned).</p>
+      <p class="jobs-returned"><span class="filter-button">{{svg/icons/icon-asterisk}}</span>Filters are active ({{filteredItemsLength}} {{custom-inflector filteredItemsLength singular="item"}} returned).</p>
     </div>
   {{/if}}
   <button {{action applyFilters}} class="submit-filters">Submit</button>

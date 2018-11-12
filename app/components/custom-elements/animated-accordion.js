@@ -7,7 +7,7 @@ export default Component.extend({
   classNameBindings: ['classes', 'open:open'],
 
   expandCollapseIcon: computed("open", function() {
-    return this.get("open") ? "svg/icon-arrow-up" : "svg/icon-arrow-down";
+    return this.get("open") ? "svg/icons/icon-arrow-up" : "svg/icons/icon-arrow-down";
   }),
 
   actions: {

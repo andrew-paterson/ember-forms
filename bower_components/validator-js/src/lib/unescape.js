@@ -8,6 +8,5 @@ export default function unescape(str) {
     .replace(/&lt;/g, '<')
     .replace(/&gt;/g, '>')
     .replace(/&#x2F;/g, '/')
-    .replace(/&#x5C;/g, '\\')
     .replace(/&#96;/g, '`'));
 }

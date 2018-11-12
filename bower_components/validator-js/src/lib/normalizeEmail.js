@@ -1,3 +1,4 @@
+import isEmail from './isEmail';
 import merge from './util/merge';
 
 const default_normalize_email_options = {
@@ -28,10 +29,6 @@ const default_normalize_email_options = {
   yahoo_lowercase: true,
   // Removes the subaddress (e.g. "-foo") from the email address
   yahoo_remove_subaddress: true,
-
-  // The following conversions are specific to Yandex
-  // Lowercases the local part of the Yandex address (known to be case-insensitive)
-  yandex_lowercase: true,
 
   // The following conversions are specific to iCloud
   // Lowercases the local part of the iCloud address (known to be case-insensitive)
@@ -149,26 +146,12 @@ const yahoo_domains = [
   'ymail.com',
 ];
 
-// List of domains used by yandex.ru
-const yandex_domains = [
-  'yandex.ru',
-  'yandex.ua',
-  'yandex.kz',
-  'yandex.com',
-  'yandex.by',
-  'ya.ru',
-];
-
-// replace single dots, but not multiple consecutive dots
-function dotsReplacer(match) {
-  if (match.length > 1) {
-    return match;
-  }
-  return '';
-}
-
 export default function normalizeEmail(email, options) {
   options = merge(options, default_normalize_email_options);
+
+  if (!isEmail(email)) {
+    return false;
+  }
 
   const raw_parts = email.split('@');
   const domain = raw_parts.pop();
@@ -184,8 +167,7 @@ export default function normalizeEmail(email, options) {
       parts[0] = parts[0].split('+')[0];
     }
     if (options.gmail_remove_dots) {
-      // this does not replace consecutive dots like example..email@gmail.com
-      parts[0] = parts[0].replace(/\.+/g, dotsReplacer);
+      parts[0] = parts[0].replace(/\./g, '');
     }
     if (!parts[0].length) {
       return false;
@@ -194,7 +176,7 @@ export default function normalizeEmail(email, options) {
       parts[0] = parts[0].toLowerCase();
     }
     parts[1] = options.gmail_convert_googlemaildotcom ? 'gmail.com' : parts[1];
-  } else if (icloud_domains.indexOf(parts[1]) >= 0) {
+  } else if (~icloud_domains.indexOf(parts[1])) {
     // Address is iCloud
     if (options.icloud_remove_subaddress) {
       parts[0] = parts[0].split('+')[0];
@@ -205,7 +187,7 @@ export default function normalizeEmail(email, options) {
     if (options.all_lowercase || options.icloud_lowercase) {
       parts[0] = parts[0].toLowerCase();
     }
-  } else if (outlookdotcom_domains.indexOf(parts[1]) >= 0) {
+  } else if (~outlookdotcom_domains.indexOf(parts[1])) {
     // Address is Outlook.com
     if (options.outlookdotcom_remove_subaddress) {
       parts[0] = parts[0].split('+')[0];
@@ -216,7 +198,7 @@ export default function normalizeEmail(email, options) {
     if (options.all_lowercase || options.outlookdotcom_lowercase) {
       parts[0] = parts[0].toLowerCase();
     }
-  } else if (yahoo_domains.indexOf(parts[1]) >= 0) {
+  } else if (~yahoo_domains.indexOf(parts[1])) {
     // Address is Yahoo
     if (options.yahoo_remove_subaddress) {
       let components = parts[0].split('-');
@@ -228,11 +210,6 @@ export default function normalizeEmail(email, options) {
     if (options.all_lowercase || options.yahoo_lowercase) {
       parts[0] = parts[0].toLowerCase();
     }
-  } else if (yandex_domains.indexOf(parts[1]) >= 0) {
-    if (options.all_lowercase || options.yandex_lowercase) {
-      parts[0] = parts[0].toLowerCase();
-    }
-    parts[1] = 'yandex.ru'; // all yandex domains are equal, 1st preffered
   } else if (options.all_lowercase) {
     // Any other address
     parts[0] = parts[0].toLowerCase();

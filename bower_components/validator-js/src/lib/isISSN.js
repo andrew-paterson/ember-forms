@@ -10,11 +10,13 @@ export default function isISSN(str, options = {}) {
   if (!testIssn.test(str)) {
     return false;
   }
-  const digits = str.replace('-', '').toUpperCase();
+  const issnDigits = str.replace('-', '');
+  let position = 8;
   let checksum = 0;
-  for (let i = 0; i < digits.length; i++) {
-    const digit = digits[i];
-    checksum += (digit === 'X' ? 10 : +digit) * (8 - i);
+  for (const digit of issnDigits) {
+    const digitValue = digit.toUpperCase() === 'X' ? 10 : +digit;
+    checksum += digitValue * position;
+    --position;
   }
   return checksum % 11 === 0;
 }

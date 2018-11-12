@@ -62,7 +62,6 @@
     "ember-truth-helpers": "2.0.0",
     "ember-welcome-page": "^3.2.0",
     "eslint-plugin-ember": "^5.2.0",
-    "hyrax-svg": "git+ssh://git@github.com/hyraxbio/hyrax-svg.git",
     "loader.js": "^4.7.0",
     "qunit-dom": "^0.7.1",
     "svg-repo": "git+ssh://git@github.com/andrew-paterson/svg-repo.git#master"

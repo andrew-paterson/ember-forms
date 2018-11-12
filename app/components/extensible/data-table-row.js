@@ -5,7 +5,7 @@ export default Component.extend({
   tagName: '',
 
   expandCollapseIcon: computed('expanded', function() {
-    var icon = this.get('expanded') ? 'svg/icon-dash' : 'svg/icon-plus';
+    var icon = this.get('expanded') ? 'svg/icons/icon-dash' : 'svg/icons/icon-plus';
     return icon;
   }),
 
